@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <div class="out-border">
-            <div class="layout-title">后台项目</div>
+            <div class="layout-title">Back-end project</div>
             <div class="color-main address-content">
               <a href="https://github.com/macrozheng/mall">mall</a>
             </div>
@@ -12,7 +12,7 @@
         </el-col>
         <el-col :span="6">
           <div class="out-border">
-            <div class="layout-title">前端项目</div>
+            <div class="layout-title">Front-end project</div>
             <div class="color-main address-content">
               <a href="https://github.com/macrozheng/mall-admin-web">mall-admin-web</a>
             </div>
@@ -20,7 +20,7 @@
         </el-col>
         <el-col :span="6">
           <div class="out-border">
-            <div class="layout-title">学习教程</div>
+            <div class="layout-title">Mall Learning</div>
             <div class="color-main address-content">
               <a href="https://github.com/macrozheng/mall-learning">mall-learning</a>
             </div>
@@ -33,21 +33,21 @@
         <el-col :span="6">
           <div class="total-frame">
             <img :src="img_home_order" class="total-icon">
-            <div class="total-title">今日订单总数</div>
+            <div class="total-title">Total orders today</div>
             <div class="total-value">200</div>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="total-frame">
             <img :src="img_home_today_amount" class="total-icon">
-            <div class="total-title">今日销售总额</div>
+            <div class="total-title">Total sales today</div>
             <div class="total-value">￥5000.00</div>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="total-frame">
             <img :src="img_home_yesterday_amount" class="total-icon">
-            <div class="total-title">昨日销售总额</div>
+            <div class="total-title">Total sales yesterday</div>
             <div class="total-value">￥5000.00</div>
           </div>
         </el-col>
@@ -55,7 +55,7 @@
           <!--<div class="total-frame">-->
             <!--<svg-icon icon-class="total-week" class="total-icon">-->
             <!--</svg-icon>-->
-            <!--<div class="total-title">近7天销售总额</div>-->
+            <!--<div class="total-title">Total sales in the last 7 days</div>-->
             <!--<div class="total-value">￥50000.00</div>-->
           <!--</div>-->
         <!--</el-col>-->
@@ -65,48 +65,28 @@
       <div style="text-align: center">
         <img width="150px" height="150px" src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg">
       </div>
-      <div style="text-align: center">mall全套学习教程连载中！</div>
-      <div style="text-align: center;margin-top: 5px"><span class="color-main">关注公号</span>，第一时间获取。</div>
+      <div style="text-align: center">Full set of learning tutorials in mall！</div>
+      <div style="text-align: center;margin-top: 5px"><span class="color-main">关注公号</span>，Get it the first time.</div>
     </el-card>
     <div class="un-handle-layout">
-      <div class="layout-title">待处理事务</div>
+      <div class="layout-title">Pending transaction</div>
       <div class="un-handle-content">
         <el-row :gutter="20">
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">待付款订单</span>
+              <span class="font-medium">Pending order</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">已完成订单</span>
+              <span class="font-medium">Completed order</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">待确认收货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待发货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">新缺货登记</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待处理退款申请</span>
+              <span class="font-medium">Pending receipt confirmation</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
@@ -114,19 +94,39 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">已发货订单</span>
+              <span class="font-medium">Pending order</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">待处理退货订单</span>
+              <span class="font-medium">New Out of Stock Registration</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
-              <span class="font-medium">广告位即将到期</span>
+              <span class="font-medium">Pending refund application</span>
+              <span style="float: right" class="color-danger">(10)</span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <div class="un-handle-item">
+              <span class="font-medium">Shipped order</span>
+              <span style="float: right" class="color-danger">(10)</span>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div class="un-handle-item">
+              <span class="font-medium">Pending return order</span>
+              <span style="float: right" class="color-danger">(10)</span>
+            </div>
+          </el-col>
+          <el-col :span="8">
+            <div class="un-handle-item">
+              <span class="font-medium">Ad slot is about to expire</span>
               <span style="float: right" class="color-danger">(10)</span>
             </div>
           </el-col>
@@ -137,7 +137,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <div class="out-border">
-            <div class="layout-title">商品总览</div>
+            <div class="layout-title">Product Overview</div>
             <div style="padding: 40px">
               <el-row>
                 <el-col :span="6" class="color-danger overview-item-value">100</el-col>
@@ -146,10 +146,10 @@
                 <el-col :span="6" class="color-danger overview-item-value">500</el-col>
               </el-row>
               <el-row class="font-medium">
-                <el-col :span="6" class="overview-item-title">已下架</el-col>
-                <el-col :span="6" class="overview-item-title">已上架</el-col>
+                <el-col :span="6" class="overview-item-title">Withdrawn</el-col>
+                <el-col :span="6" class="overview-item-title">It has been added to</el-col>
                 <el-col :span="6" class="overview-item-title">库存紧张</el-col>
-                <el-col :span="6" class="overview-item-title">全部商品</el-col>
+                <el-col :span="6" class="overview-item-title">all products</el-col>
               </el-row>
             </div>
           </div>
@@ -165,7 +165,7 @@
                 <el-col :span="6" class="color-danger overview-item-value">5000</el-col>
               </el-row>
               <el-row class="font-medium">
-                <el-col :span="6" class="overview-item-title">今日新增</el-col>
+                <el-col :span="6" class="overview-item-title">Added today</el-col>
                 <el-col :span="6" class="overview-item-title">昨日新增</el-col>
                 <el-col :span="6" class="overview-item-title">本月新增</el-col>
                 <el-col :span="6" class="overview-item-title">会员总数</el-col>
