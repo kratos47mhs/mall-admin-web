@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div>
     <el-upload
       :action="useOss?ossUploadUrl:minioUploadUrl"
@@ -10,8 +10,8 @@
       :on-remove="handleRemove"
       :on-success="handleUploadSuccess"
       :on-preview="handlePreview">
-      <el-button size="small" type="primary">点击上传</el-button>
-      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10MB</div>
+      <el-button size="small" type="primary">Click upload</el-button>
+      <div slot="tip" class="el-upload__tip">Only upload jpg / png files, and no more than 10MB</div>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
       <img width="100%" :src="fileList[0].url" alt="">
@@ -45,7 +45,7 @@
       },
       showFileList: {
         get: function () {
-          return this.value !== null && this.value !== ''&& this.value!==undefined;
+          return this.value !== null && this.value !== '' && this.value !== undefined;
         },
         set: function (newValue) {
         }
@@ -63,9 +63,9 @@
           // callback:'',
         },
         dialogVisible: false,
-        useOss:true, //使用oss->true;使用MinIO->false
-        ossUploadUrl:'http://macro-oss.oss-cn-shenzhen.aliyuncs.com',
-        minioUploadUrl:'http://localhost:8080/minio/upload',
+        useOss: true, //Use oss->true;Using MinIO->false
+        ossUploadUrl: 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com',
+        minioUploadUrl: 'http://localhost:8080/minio/upload',
       };
     },
     methods: {
@@ -80,8 +80,8 @@
       },
       beforeUpload(file) {
         let _self = this;
-        if(!this.useOss){
-          //不使用oss不需要获取策略
+        if (!this.useOss) {
+          //No fetch strategy is not needed without oss
           return true;
         }
         return new Promise((resolve, reject) => {
@@ -95,7 +95,7 @@
             // _self.dataObj.callback = response.data.callback;
             resolve(true)
           }).catch(err => {
-            console.log(err)
+            console.log(err);
             reject(false)
           })
         })
@@ -104,8 +104,8 @@
         this.showFileList = true;
         this.fileList.pop();
         let url = this.dataObj.host + '/' + this.dataObj.dir + '/' + file.name;
-        if(!this.useOss){
-          //不使用oss直接获取图片路径
+        if (!this.useOss) {
+          //Get image path directly without using OSS
           url = res.data.url;
         }
         this.fileList.push({name: file.name, url: url});
