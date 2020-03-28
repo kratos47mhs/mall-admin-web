@@ -6,9 +6,9 @@
   <a href="https://gitee.com/macrozheng/mall-admin-web"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E7%A0%81%E4%BA%91-%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80-orange.svg" alt="码云"></a>
 </p>
 
-## 前言
+## Foreword
 
-This project is the front-end part of separation project，后端项目`mall`地址：[传送门](https://github.com/kratos47mhs/mall)。
+This project is the front-end part of separation project，Backend project `mall` address：[Portal](https://github.com/kratos47mhs/mall)。
 
 ## Project Introduction
 
@@ -38,36 +38,36 @@ vue-element-admin | Project scaffolding reference | [https://github.com/PanJiaCh
 
 ``` lua
 src -- Source directory
-├── api -- axios网络请求定义
-├── assets -- 静态图片资源文件
-├── components -- 通用组件封装
-├── icons -- svg矢量图片文件
-├── router -- vue-router路由配置
-├── store -- vuex的状态管理
-├── styles -- 全局css样式
-├── utils -- 工具类
-└── views -- 前端页面
-    ├── home -- 首页
-    ├── layout -- 通用页面加载框架
-    ├── login -- 登录页
-    ├── oms -- 订单模块页面
-    ├── pms -- 商品模块页面
-    └── sms -- 营销模块页面
+├── api -- axios network request definition
+├── assets -- Still picture resource file
+├── components -- Common component package
+├── icons -- svg vector picture file
+├── router -- vue-router routing configuration
+├── store -- vuex state management
+├── styles -- Global css style
+├── utils -- Tools
+└── views -- Front page
+    ├── home -- Home
+    ├── layout -- Common page loading framework
+    ├── login -- Landing page
+    ├── oms -- Order module page
+    ├── pms -- Product module page
+    └── sms -- Marketing module page
 ```
 
-## 搭建步骤
-- 下载node并安装：[https://nodejs.org/dist/v12.14.0/node-v12.14.0-x64.msi](https://nodejs.org/dist/v12.14.0/node-v12.14.0-x64.msi);
-- 该项目为前后端分离项目，访问本地访问接口需搭建后台环境，搭建请参考后端项目[传送门](https://github.com/macrozheng/mall);
-- There is no need to set up a background environment to access the online interface, just change the BASE_API in the config / dev.env.js file to[http://120.27.63.9:8080](http://120.27.63.9:8080)即可;
-- 克隆源代码到本地，使用IDEA打开，并完成编译;
-- 在IDEA命令行中运行命令：npm install,下载相关依赖;
-- 在IDEA命令行中运行命令：npm run dev,运行项目;
-- 访问地址：[http://localhost:8090](http://localhost:8090) 即可打开后台管理系统页面;
-- 具体部署过程请参考：[mall前端项目的安装与部署](http://www.macrozheng.com/#/deploy/mall_deploy_web)
-- `注意`：如果遇到无法运行npm命令，需要配置npm的环境变量，如在path变量中添加：C:\Users\zhenghong\AppData\Roaming\npm;
-- `注意`：如果遇到npm install无法成功下载依赖，请参考[使用Jenkins一键打包部署前端应用，就是这么6！](http://www.macrozheng.com/#/reference/jenkins_vue) 中`遇到的坑`部分。
+## Build steps
+- Download node and install：[https://nodejs.org/dist/v12.16.1/node-v12.16.1-x64.msi](https://nodejs.org/dist/v12.16.1/node-v12.16.1-x64.msi);
+- This project is a front-end and back-end separation project. A back-end environment is required to access the local access interface.[Portal](https://github.com/macrozheng/mall);
+- There is no need to set up a back-end environment to access the online interface, just change the BASE_API in the config / dev.env.js file to[http://120.27.63.9:8080](http://120.27.63.9:8080)only;
+- Clone the source code locally, open it with IDEA, and complete the compilation;
+- Run command in IDEA command line：npm install,Download related dependencies;
+- Run command in IDEA command line：npm run dev,Run the project;
+- address：[http://localhost:8090](http://localhost:8090) You can open the back-end Admin page;
+- Please refer to the specific deployment process：[Installation and deployment of mall front-end projects](http://www.macrozheng.com/#/deploy/mall_deploy_web)
+- `note`：If you can't run npm command，Need to configure npm environment variables，Such as adding in path variable：C:\Users\zhenghong\AppData\Roaming\npm;
+- `note`：If you encounter npm install and cannot successfully download the dependencies，Please refer to[Use Jenkins to deploy and deploy front-end applications in one click. That's it!](http://www.macrozheng.com/#/reference/jenkins_vue) In the `Encountered Pit` section.
 
-## 许可证
+## license
 
 [Apache License 2.0](https://github.com/macrozheng/mall-admin-web/blob/master/LICENSE)
 
