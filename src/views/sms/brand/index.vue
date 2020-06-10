@@ -1,30 +1,30 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
           style="float:right"
           type="primary"
           @click="handleSearchList()"
           size="small">
-          查询搜索
+          Query search
         </el-button>
         <el-button
           style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
           size="small">
-          重置
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="品牌名称：">
-            <el-input v-model="listQuery.brandName" class="input-width" placeholder="品牌名称"></el-input>
+          <el-form-item label="brand name：">
+            <el-input v-model="listQuery.brandName" class="input-width" placeholder="brand name"></el-input>
           </el-form-item>
-          <el-form-item label="推荐状态：">
-            <el-select v-model="listQuery.recommendStatus" placeholder="全部" clearable class="input-width">
+          <el-form-item label="Recommended status：">
+            <el-select v-model="listQuery.recommendStatus" placeholder="All" clearable class="input-width">
               <el-option v-for="item in recommendOptions"
                          :key="item.value"
                          :label="item.label"
@@ -37,8 +37,8 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleSelectBrand()">选择品牌</el-button>
+      <span>Datasheets</span>
+      <el-button size="mini" class="btn-add" @click="handleSelectBrand()">Choose brand</el-button>
     </el-card>
     <div class="table-container">
       <el-table ref="homeBrandTable"
@@ -47,37 +47,37 @@
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading" border>
         <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="120" align="center">
+        <el-table-column label="Numbering" width="120" align="center">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="品牌名称" align="center">
+        <el-table-column label="brand name" align="center">
           <template slot-scope="scope">{{scope.row.brandName}}</template>
         </el-table-column>
-        <el-table-column label="是否推荐" width="200" align="center">
+        <el-table-column label="Whether to recommend" width="200" align="center">
           <template slot-scope="scope">
             <el-switch
-            @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
-            :active-value="1"
-            :inactive-value="0"
-            v-model="scope.row.recommendStatus">
-          </el-switch>
+              @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
+              :active-value="1"
+              :inactive-value="0"
+              v-model="scope.row.recommendStatus">
+            </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" width="160" align="center">
+        <el-table-column label="Sort" width="160" align="center">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column label="状态" width="160" align="center">
+        <el-table-column label="status" width="160" align="center">
           <template slot-scope="scope">{{scope.row.recommendStatus | formatRecommendStatus}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="operating" width="180" align="center">
           <template slot-scope="scope">
             <el-button size="mini"
                        type="text"
-                       @click="handleEditSort(scope.$index, scope.row)">设置排序
+                       @click="handleEditSort(scope.$index, scope.row)">Set sort
             </el-button>
             <el-button size="mini"
                        type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除
+                       @click="handleDelete(scope.$index, scope.row)">delete
             </el-button>
           </template>
         </el-table-column>
@@ -86,7 +86,7 @@
     <div class="batch-operate-container">
       <el-select
         size="small"
-        v-model="operateType" placeholder="批量操作">
+        v-model="operateType" placeholder="Batch operation">
         <el-option
           v-for="item in operates"
           :key="item.value"
@@ -100,7 +100,7 @@
         @click="handleBatchOperate()"
         type="primary"
         size="small">
-        确定
+        determine
       </el-button>
     </div>
     <div class="pagination-container">
@@ -115,23 +115,23 @@
         :total="total">
       </el-pagination>
     </div>
-    <el-dialog title="选择品牌" :visible.sync="selectDialogVisible" width="40%">
+    <el-dialog title="Choose brand" :visible.sync="selectDialogVisible" width="40%">
       <el-input v-model="dialogData.listQuery.keyword"
                 style="width: 250px;margin-bottom: 20px"
                 size="small"
-                placeholder="品牌名称搜索">
+                placeholder="Brand name search">
         <el-button slot="append" icon="el-icon-search" @click="handleSelectSearch()"></el-button>
       </el-input>
       <el-table :data="dialogData.list"
                 @selection-change="handleDialogSelectionChange" border>
         <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="品牌名称"align="center">
+        <el-table-column label="brand name" align="center">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="相关" width="220" align="center">
+        <el-table-column label="Related" width="220" align="center">
           <template slot-scope="scope">
-            商品：<span class="color-main">{{scope.row.productCount}}</span>
-            评价：<span class="color-main">{{scope.row.productCommentCount}}</span>
+            Product：<span class="color-main">{{scope.row.productCount}}</span>
+            Evaluation：<span class="color-main">{{scope.row.productCommentCount}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -149,28 +149,34 @@
       </div>
       <div style="clear: both;"></div>
       <div slot="footer">
-        <el-button  size="small" @click="selectDialogVisible = false">取 消</el-button>
-        <el-button  size="small" type="primary" @click="handleSelectDialogConfirm()">确 定</el-button>
+        <el-button size="small" @click="selectDialogVisible = false">Cancel</el-button>
+        <el-button size="small" type="primary" @click="handleSelectDialogConfirm()">OK</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="设置排序"
+    <el-dialog title="Set sort"
                :visible.sync="sortDialogVisible"
                width="40%">
       <el-form :model="sortDialogData"
                label-width="150px">
-        <el-form-item label="排序：">
+        <el-form-item label="Sort：">
           <el-input v-model="sortDialogData.sort" style="width: 200px"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
-        <el-button @click="sortDialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleUpdateSort" size="small">确 定</el-button>
+        <el-button @click="sortDialogVisible = false" size="small">Cancel</el-button>
+        <el-button type="primary" @click="handleUpdateSort" size="small">OK</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-  import {fetchList,updateRecommendStatus,deleteHomeBrand,createHomeBrand,updateHomeBrandSort} from '@/api/homeBrand';
+  import {
+    fetchList,
+    updateRecommendStatus,
+    deleteHomeBrand,
+    createHomeBrand,
+    updateHomeBrandSort
+  } from '@/api/homeBrand';
   import {fetchList as fetchBrandList} from '@/api/brand';
 
   const defaultListQuery = {
@@ -181,11 +187,11 @@
   };
   const defaultRecommendOptions = [
     {
-      label: '未推荐',
+      label: 'Not recommended',
       value: 0
     },
     {
-      label: '推荐中',
+      label: 'Recommending',
       value: 1
     }
   ];
@@ -201,43 +207,43 @@
         multipleSelection: [],
         operates: [
           {
-            label: "设为推荐",
+            label: "Set as recommended",
             value: 0
           },
           {
-            label: "取消推荐",
+            label: "Cancel recommendation",
             value: 1
           },
           {
-            label: "删除",
+            label: "Delete",
             value: 2
           }
         ],
         operateType: null,
-        selectDialogVisible:false,
-        dialogData:{
+        selectDialogVisible: false,
+        dialogData: {
           list: null,
           total: null,
-          multipleSelection:[],
-          listQuery:{
+          multipleSelection: [],
+          listQuery: {
             keyword: null,
             pageNum: 1,
             pageSize: 5
           }
         },
-        sortDialogVisible:false,
-        sortDialogData:{sort:0,id:null}
+        sortDialogVisible: false,
+        sortDialogData: {sort: 0, id: null}
       }
     },
     created() {
       this.getList();
     },
-    filters:{
-      formatRecommendStatus(status){
-        if(status===1){
-          return '推荐中';
-        }else{
-          return '未推荐';
+    filters: {
+      formatRecommendStatus(status) {
+        if (status === 1) {
+          return 'Recommending';
+        } else {
+          return 'Not recommended';
         }
       }
     },
@@ -249,7 +255,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -261,16 +267,16 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleRecommendStatusStatusChange(index,row){
-        this.updateRecommendStatusStatus(row.id,row.recommendStatus);
+      handleRecommendStatusStatusChange(index, row) {
+        this.updateRecommendStatusStatus(row.id, row.recommendStatus);
       },
-      handleDelete(index,row){
+      handleDelete(index, row) {
         this.deleteBrand(row.id);
       },
-      handleBatchOperate(){
+      handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
-            message: '请选择一条记录',
+            message: 'Please select a record',
             type: 'warning',
             duration: 1000
           });
@@ -281,28 +287,28 @@
           ids.push(this.multipleSelection[i].id);
         }
         if (this.operateType === 0) {
-          //设为推荐
-          this.updateRecommendStatusStatus(ids,1);
+          //Set as recommended
+          this.updateRecommendStatusStatus(ids, 1);
         } else if (this.operateType === 1) {
-          //取消推荐
-          this.updateRecommendStatusStatus(ids,0);
-        } else if(this.operateType===2){
-          //删除
+          //Cancel recommendation
+          this.updateRecommendStatusStatus(ids, 0);
+        } else if (this.operateType === 2) {
+          //Delete
           this.deleteBrand(ids);
-        }else {
+        } else {
           this.$message({
-            message: '请选择批量操作类型',
+            message: 'Please select a batch operation type',
             type: 'warning',
             duration: 1000
           });
-          return;
+
         }
       },
-      handleSelectBrand(){
-        this.selectDialogVisible=true;
+      handleSelectBrand() {
+        this.selectDialogVisible = true;
         this.getDialogList();
       },
-      handleSelectSearch(){
+      handleSelectSearch() {
         this.getDialogList();
       },
       handleDialogSizeChange(val) {
@@ -314,13 +320,13 @@
         this.dialogData.listQuery.pageNum = val;
         this.getDialogList();
       },
-      handleDialogSelectionChange(val){
+      handleDialogSelectionChange(val) {
         this.dialogData.multipleSelection = val;
       },
-      handleSelectDialogConfirm(){
+      handleSelectDialogConfirm() {
         if (this.dialogData.multipleSelection < 1) {
           this.$message({
-            message: '请选择一条记录',
+            message: 'Please select a record',
             type: 'warning',
             duration: 1000
           });
@@ -329,43 +335,43 @@
         let selectBrands = [];
         for (let i = 0; i < this.dialogData.multipleSelection.length; i++) {
           selectBrands.push({
-            brandId:this.dialogData.multipleSelection[i].id,
-            brandName:this.dialogData.multipleSelection[i].name
+            brandId: this.dialogData.multipleSelection[i].id,
+            brandName: this.dialogData.multipleSelection[i].name
           });
         }
-        this.$confirm('使用要进行添加操作?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('Use to add?', 'prompt', {
+          confirmButtonText: 'determine',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          createHomeBrand(selectBrands).then(response=>{
-            this.selectDialogVisible=false;
-            this.dialogData.multipleSelection=[];
+          createHomeBrand(selectBrands).then(response => {
+            this.selectDialogVisible = false;
+            this.dialogData.multipleSelection = [];
             this.getList();
             this.$message({
               type: 'success',
-              message: '添加成功!'
+              message: 'Added successfully!'
             });
           });
         });
       },
-      handleEditSort(index,row){
-        this.sortDialogVisible=true;
-        this.sortDialogData.sort=row.sort;
-        this.sortDialogData.id=row.id;
+      handleEditSort(index, row) {
+        this.sortDialogVisible = true;
+        this.sortDialogData.sort = row.sort;
+        this.sortDialogData.id = row.id;
       },
-      handleUpdateSort(){
-        this.$confirm('是否要修改排序?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+      handleUpdateSort() {
+        this.$confirm('Do you want to modify the sort?', 'prompt', {
+          confirmButtonText: 'determine',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          updateHomeBrandSort(this.sortDialogData).then(response=>{
-            this.sortDialogVisible=false;
+          updateHomeBrandSort(this.sortDialogData).then(response => {
+            this.sortDialogVisible = false;
             this.getList();
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: 'successfully deleted!'
             });
           });
         })
@@ -378,51 +384,51 @@
           this.total = response.data.total;
         })
       },
-      updateRecommendStatusStatus(ids,status){
-        this.$confirm('是否要修改推荐状态?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+      updateRecommendStatusStatus(ids, status) {
+        this.$confirm('Do you want to modify the recommendation status?', 'prompt', {
+          confirmButtonText: 'determine',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          params.append("recommendStatus",status);
-          updateRecommendStatus(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          params.append("recommendStatus", status);
+          updateRecommendStatus(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
-              message: '修改成功!'
+              message: 'Successfully modified!'
             });
           });
         }).catch(() => {
           this.$message({
             type: 'success',
-            message: '已取消操作!'
+            message: 'Operation canceled!'
           });
           this.getList();
         });
       },
-      deleteBrand(ids){
-        this.$confirm('是否要删除该推荐?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+      deleteBrand(ids) {
+        this.$confirm('Do you want to delete this recommendation?', 'prompt', {
+          confirmButtonText: 'determine',
+          cancelButtonText: 'cancel',
           type: 'warning'
         }).then(() => {
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          deleteHomeBrand(params).then(response=>{
+          let params = new URLSearchParams();
+          params.append("ids", ids);
+          deleteHomeBrand(params).then(response => {
             this.getList();
             this.$message({
               type: 'success',
-              message: '删成功!'
+              message: 'Deleted successfully!'
             });
           });
         })
       },
-      getDialogList(){
-        fetchBrandList(this.dialogData.listQuery).then(response=>{
-          this.dialogData.list=response.data.list;
-          this.dialogData.total=response.data.total;
+      getDialogList() {
+        fetchBrandList(this.dialogData.listQuery).then(response => {
+          this.dialogData.list = response.data.list;
+          this.dialogData.total = response.data.total;
         })
       }
     }

@@ -155,7 +155,7 @@
       handleNavStatusChange(index, row) {
         let data = new URLSearchParams();
         let ids=[];
-        ids.push(row.id)
+        ids.push(row.id);
         data.append('ids',ids);
         data.append('navStatus',row.navStatus);
         updateNavStatus(data).then(response=>{
@@ -169,7 +169,7 @@
       handleShowStatusChange(index, row) {
         let data = new URLSearchParams();
         let ids=[];
-        ids.push(row.id)
+        ids.push(row.id);
         data.append('ids',ids);
         data.append('showStatus',row.showStatus);
         updateShowStatus(data).then(response=>{
