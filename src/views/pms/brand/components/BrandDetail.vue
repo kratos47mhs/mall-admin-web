@@ -1,43 +1,43 @@
-<template> 
+<template>
   <el-card class="form-container" shadow="never">
-    <el-form :model="brand" :rules="rules" ref="brandFrom" label-width="150px">
-      <el-form-item label="品牌名称：" prop="name">
+    <el-form :model="brand" :rules="rules" label-width="150px" ref="brandFrom">
+      <el-form-item label="Brand Name：" prop="name">
         <el-input v-model="brand.name"></el-input>
       </el-form-item>
-      <el-form-item label="品牌首字母：">
+      <el-form-item label="Brand Initials：">
         <el-input v-model="brand.firstLetter"></el-input>
       </el-form-item>
-      <el-form-item label="品牌LOGO：" prop="logo">
+      <el-form-item label="Brand LOGO：" prop="logo">
         <single-upload v-model="brand.logo"></single-upload>
       </el-form-item>
-      <el-form-item label="品牌专区大图：">
+      <el-form-item label="Brand zone big picture：">
         <single-upload v-model="brand.bigPic"></single-upload>
       </el-form-item>
-      <el-form-item label="品牌故事：">
+      <el-form-item label="Brand Story：">
         <el-input
-          placeholder="请输入内容"
+          :autosize="true"
+          placeholder="Please Enter"
           type="textarea"
-          v-model="brand.brandStory"
-          :autosize="true"></el-input>
+          v-model="brand.brandStory"></el-input>
       </el-form-item>
-      <el-form-item label="排序：" prop="sort">
+      <el-form-item label="Sort：" prop="sort">
         <el-input v-model.number="brand.sort"></el-input>
       </el-form-item>
-      <el-form-item label="是否显示：">
+      <el-form-item label="Whether to show：">
         <el-radio-group v-model="brand.showStatus">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="0">否</el-radio>
+          <el-radio :label="1">Yes</el-radio>
+          <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="品牌制造商：">
+      <el-form-item label="Brand Manufacturer：">
         <el-radio-group v-model="brand.factoryStatus">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="0">否</el-radio>
+          <el-radio :label="1">Yes</el-radio>
+          <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('brandFrom')">提交</el-button>
-        <el-button v-if="!isEdit" @click="resetForm('brandFrom')">重置</el-button>
+        <el-button @click="onSubmit('brandFrom')" type="primary">Submit</el-button>
+        <el-button @click="resetForm('brandFrom')" v-if="!isEdit">Reset</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -45,7 +45,8 @@
 <script>
   import {createBrand, getBrand, updateBrand} from '@/api/brand'
   import SingleUpload from '@/components/Upload/singleUpload'
-  const defaultBrand={
+
+  const defaultBrand = {
     bigPic: '',
     brandStory: '',
     factoryStatus: 0,
@@ -57,7 +58,7 @@
   };
   export default {
     name: 'BrandDetail',
-    components:{SingleUpload},
+    components: {SingleUpload},
     props: {
       isEdit: {
         type: Boolean,
@@ -66,17 +67,17 @@
     },
     data() {
       return {
-        brand:Object.assign({}, defaultBrand),
+        brand: Object.assign({}, defaultBrand),
         rules: {
           name: [
-            {required: true, message: '请输入品牌名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+            {required: true, message: 'Please enter the brand name', trigger: 'blur'},
+            {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           logo: [
-            {required: true, message: '请输入品牌logo', trigger: 'blur'}
+            {required: true, message: 'Please enter the brand logo', trigger: 'blur'}
           ],
           sort: [
-            {type: 'number', message: '排序必须为数字'}
+            {type: 'number', message: 'Sort must be numeric'}
           ],
         }
       }
@@ -86,37 +87,37 @@
         getBrand(this.$route.query.id).then(response => {
           this.brand = response.data;
         });
-      }else{
-        this.brand = Object.assign({},defaultBrand);
+      } else {
+        this.brand = Object.assign({}, defaultBrand);
       }
     },
     methods: {
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$confirm('是否提交数据', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$confirm('Whether to Submit Data', 'Prompt', {
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
               type: 'warning'
             }).then(() => {
               if (this.isEdit) {
                 updateBrand(this.$route.query.id, this.brand).then(response => {
                   this.$refs[formName].resetFields();
                   this.$message({
-                    message: '修改成功',
+                    message: 'Successfully modified',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
               } else {
                 createBrand(this.brand).then(response => {
                   this.$refs[formName].resetFields();
-                  this.brand = Object.assign({},defaultBrand);
+                  this.brand = Object.assign({}, defaultBrand);
                   this.$message({
-                    message: '提交成功',
+                    message: 'Submitted successfully',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                 });
               }
@@ -124,9 +125,9 @@
 
           } else {
             this.$message({
-              message: '验证失败',
+              message: 'Verification Failed',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }
@@ -134,7 +135,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.brand = Object.assign({},defaultBrand);
+        this.brand = Object.assign({}, defaultBrand);
       }
     }
   }

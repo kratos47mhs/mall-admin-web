@@ -3,80 +3,80 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="活动名称：">
-            <el-input v-model="listQuery.keyword" class="input-width" placeholder="活动名称" clearable></el-input>
+            <el-input class="input-width" clearable placeholder="活动名称" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">添加活动</el-button>
-      <el-button size="mini" class="btn-add" @click="handleShowSessionList()">秒杀时间段列表</el-button>
+      <span>Datasheets</span>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加活动</el-button>
+      <el-button @click="handleShowSessionList()" class="btn-add" size="mini">秒杀时间段列表</el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="flashTable"
-                :data="list"
-                style="width: 100%;"
-                v-loading="listLoading" border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="flashTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="活动标题" align="center">
+        <el-table-column align="center" label="活动标题">
           <template slot-scope="scope">{{scope.row.title}}</template>
         </el-table-column>
-        <el-table-column label="活动状态" width="140" align="center">
+        <el-table-column align="center" label="活动状态" width="140">
           <template slot-scope="scope">{{scope.row |formatActiveStatus}}</template>
         </el-table-column>
-        <el-table-column label="开始时间" width="140" align="center">
+        <el-table-column align="center" label="开始时间" width="140">
           <template slot-scope="scope">{{scope.row.startDate | formatDate}}</template>
         </el-table-column>
-        <el-table-column label="结束时间" width="140" align="center">
+        <el-table-column align="center" label="结束时间" width="140">
           <template slot-scope="scope">{{scope.row.endDate | formatDate}}</template>
         </el-table-column>
-        <el-table-column label="上线/下线" width="200" align="center">
+        <el-table-column align="center" label="上线/下线" width="200">
           <template slot-scope="scope">
             <el-switch
-              @change="handleStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleStatusChange(scope.$index, scope.row)"
               v-model="scope.row.status">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleSelectSession(scope.$index, scope.row)">设置商品
+            <el-button @click="handleSelectSession(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">设置商品
             </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleUpdate(scope.$index, scope.row)">
+            <el-button @click="handleUpdate(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">
               编辑
             </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除
+            <el-button @click="handleDelete(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">Delete
             </el-button>
           </template>
         </el-table-column>
@@ -84,38 +84,38 @@
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
     <el-dialog
-      title="添加活动"
       :visible.sync="dialogVisible"
+      title="添加活动"
       width="40%">
       <el-form :model="flashPromotion"
-               ref="flashPromotionForm"
-               label-width="150px" size="small">
+               label-width="150px"
+               ref="flashPromotionForm" size="small">
         <el-form-item label="活动标题：">
-          <el-input v-model="flashPromotion.title" style="width: 250px"></el-input>
+          <el-input style="width: 250px" v-model="flashPromotion.title"></el-input>
         </el-form-item>
         <el-form-item label="开始时间：">
           <el-date-picker
-            v-model="flashPromotion.startDate"
+            placeholder="Please Select Time"
             type="date"
-            placeholder="请选择时间">
+            v-model="flashPromotion.startDate">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="结束时间：">
           <el-date-picker
-            v-model="flashPromotion.endDate"
+            placeholder="Please Select Time"
             type="date"
-            placeholder="请选择时间">
+            v-model="flashPromotion.endDate">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="上线/下线">
@@ -125,15 +125,15 @@
           </el-radio-group>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="dialogVisible = false" size="small">Cancel</el-button>
+        <el-button @click="handleDialogConfirm()" size="small" type="primary">OK</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-  import {fetchList, updateStatus, deleteFlash, createFlash, updateFlash} from '@/api/flash';
+  import {createFlash, deleteFlash, fetchList, updateFlash, updateStatus} from '@/api/flash';
   import {formatDate} from '@/utils/date';
 
   const defaultListQuery = {
@@ -203,21 +203,21 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.flashPromotion = Object.assign({},defaultFlashPromotion);
+        this.flashPromotion = Object.assign({}, defaultFlashPromotion);
       },
       handleShowSessionList() {
         this.$router.push({path: '/sms/flashSession'})
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要修改该状态?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           updateStatus(row.id, {status: row.status}).then(response => {
             this.$message({
               type: 'success',
-              message: '修改成功!'
+              message: 'Successfully modified!'
             });
           });
         }).catch(() => {
@@ -229,15 +229,15 @@
         });
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该活动?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该活动?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           deleteFlash(row.id).then(response => {
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: 'successfully deleted!'
             });
             this.getList();
           });
@@ -246,37 +246,37 @@
       handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.flashPromotion = Object.assign({},row);
+        this.flashPromotion = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要确认?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateFlash(this.flashPromotion.id,this.flashPromotion).then(response => {
+            updateFlash(this.flashPromotion.id, this.flashPromotion).then(response => {
               this.$message({
-                message: '修改成功！',
+                message: 'Successfully modified！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
             createFlash(this.flashPromotion).then(response => {
               this.$message({
-                message: '添加成功！',
+                message: 'Added successfully！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }
         })
       },
-      handleSelectSession(index,row){
-        this.$router.push({path:'/sms/selectSession',query:{flashPromotionId:row.id}})
+      handleSelectSession(index, row) {
+        this.$router.push({path: '/sms/selectSession', query: {flashPromotionId: row.id}})
       },
       getList() {
         this.listLoading = true;

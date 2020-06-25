@@ -2,32 +2,32 @@
   <el-card class="form-container" shadow="never">
     <el-form :model="homeAdvertise"
              :rules="rules"
-             ref="homeAdvertiseFrom"
              label-width="150px"
+             ref="homeAdvertiseFrom"
              size="small">
       <el-form-item label="广告名称：" prop="name">
-        <el-input v-model="homeAdvertise.name" class="input-width"></el-input>
+        <el-input class="input-width" v-model="homeAdvertise.name"></el-input>
       </el-form-item>
       <el-form-item label="广告位置：">
         <el-select v-model="homeAdvertise.type">
           <el-option
-            v-for="type in typeOptions"
             :key="type.value"
             :label="type.label"
-            :value="type.value">
+            :value="type.value"
+            v-for="type in typeOptions">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="开始时间：" prop="startTime">
         <el-date-picker
-          type="datetime"
           placeholder="选择日期"
+          type="datetime"
           v-model="homeAdvertise.startTime"></el-date-picker>
       </el-form-item>
       <el-form-item label="到期时间：" prop="endTime">
         <el-date-picker
-          type="datetime"
           placeholder="选择日期"
+          type="datetime"
           v-model="homeAdvertise.endTime"></el-date-picker>
       </el-form-item>
       <el-form-item label="上线/下线：">
@@ -39,24 +39,24 @@
       <el-form-item label="广告图片：">
         <single-upload v-model="homeAdvertise.pic"></single-upload>
       </el-form-item>
-      <el-form-item label="排序：">
-        <el-input v-model="homeAdvertise.sort" class="input-width"></el-input>
+      <el-form-item label="Sort：">
+        <el-input class="input-width" v-model="homeAdvertise.sort"></el-input>
       </el-form-item>
       <el-form-item label="广告链接：" prop="url">
-        <el-input v-model="homeAdvertise.url" class="input-width"></el-input>
+        <el-input class="input-width" v-model="homeAdvertise.url"></el-input>
       </el-form-item>
       <el-form-item label="广告备注：">
         <el-input
-          class="input-width"
-          type="textarea"
           :rows="5"
-          placeholder="请输入内容"
+          class="input-width"
+          placeholder="Please Enter"
+          type="textarea"
           v-model="homeAdvertise.note">
         </el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('homeAdvertiseFrom')">提交</el-button>
-        <el-button v-if="!isEdit" @click="resetForm('homeAdvertiseFrom')">重置</el-button>
+        <el-button @click="onSubmit('homeAdvertiseFrom')" type="primary">Submit</el-button>
+        <el-button @click="resetForm('homeAdvertiseFrom')" v-if="!isEdit">Reset</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -64,6 +64,7 @@
 <script>
   import SingleUpload from '@/components/Upload/singleUpload'
   import {createHomeAdvertise, getHomeAdvertise, updateHomeAdvertise} from '@/api/homeAdvertise'
+
   const defaultTypeOptions = [
     {
       label: 'PC首页轮播',
@@ -87,7 +88,7 @@
   };
   export default {
     name: 'HomeAdvertiseDetail',
-    components:{SingleUpload},
+    components: {SingleUpload},
     props: {
       isEdit: {
         type: Boolean,
@@ -100,7 +101,7 @@
         rules: {
           name: [
             {required: true, message: '请输入广告名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+            {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           url: [
             {required: true, message: '请输入广告链接', trigger: 'blur'}
@@ -118,42 +119,42 @@
         typeOptions: Object.assign({}, defaultTypeOptions)
       }
     },
-    created(){
+    created() {
       if (this.isEdit) {
         getHomeAdvertise(this.$route.query.id).then(response => {
           this.homeAdvertise = response.data;
         });
-      }else{
-        this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+      } else {
+        this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
       }
     },
     methods: {
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$confirm('是否提交数据', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$confirm('Whether to Submit Data', 'Prompt', {
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
               type: 'warning'
             }).then(() => {
               if (this.isEdit) {
                 updateHomeAdvertise(this.$route.query.id, this.homeAdvertise).then(response => {
                   this.$refs[formName].resetFields();
                   this.$message({
-                    message: '修改成功',
+                    message: 'Successfully modified',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                   this.$router.back();
                 });
               } else {
                 createHomeAdvertise(this.homeAdvertise).then(response => {
                   this.$refs[formName].resetFields();
-                  this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+                  this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
                   this.$message({
-                    message: '提交成功',
+                    message: 'Submitted successfully',
                     type: 'success',
-                    duration:1000
+                    duration: 1000
                   });
                 });
               }
@@ -161,9 +162,9 @@
 
           } else {
             this.$message({
-              message: '验证失败',
+              message: 'Verification Failed',
               type: 'error',
-              duration:1000
+              duration: 1000
             });
             return false;
           }
@@ -171,7 +172,7 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-        this.homeAdvertise = Object.assign({},defaultHomeAdvertise);
+        this.homeAdvertise = Object.assign({}, defaultHomeAdvertise);
       }
     }
   }

@@ -2,80 +2,80 @@
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
-      <span style="margin-top: 5px">数据列表</span>
+      <span style="margin-top: 5px">Datasheets</span>
       <el-button
-        class="btn-add"
         @click="handleAddProductCate()"
+        class="btn-add"
         size="mini">
         添加
       </el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="productCateTable"
-                style="width: 100%"
-                :data="list"
-                v-loading="listLoading" border>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="productCateTable"
+                style="width: 100%" v-loading="listLoading">
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="分类名称" align="center">
+        <el-table-column align="center" label="分类名称">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="级别" width="100" align="center">
+        <el-table-column align="center" label="级别" width="100">
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
-        <el-table-column label="商品数量" width="100" align="center">
+        <el-table-column align="center" label="商品数量" width="100">
           <template slot-scope="scope">{{scope.row.productCount }}</template>
         </el-table-column>
-        <el-table-column label="数量单位" width="100" align="center">
+        <el-table-column align="center" label="数量单位" width="100">
           <template slot-scope="scope">{{scope.row.productUnit }}</template>
         </el-table-column>
-        <el-table-column label="导航栏" width="100" align="center">
+        <el-table-column align="center" label="导航栏" width="100">
           <template slot-scope="scope">
             <el-switch
-              @change="handleNavStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleNavStatusChange(scope.$index, scope.row)"
               v-model="scope.row.navStatus">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" width="100" align="center">
+        <el-table-column align="center" label="Whether to show" width="100">
           <template slot-scope="scope">
             <el-switch
-              @change="handleShowStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleShowStatusChange(scope.$index, scope.row)"
               v-model="scope.row.showStatus">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" width="100" align="center">
+        <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort }}</template>
         </el-table-column>
-        <el-table-column label="设置" width="200" align="center">
+        <el-table-column align="center" label="设置" width="200">
           <template slot-scope="scope">
             <el-button
-              size="mini"
               :disabled="scope.row.level | disableNextLevel"
-              @click="handleShowNextLevel(scope.$index, scope.row)">查看下级
+              @click="handleShowNextLevel(scope.$index, scope.row)"
+              size="mini">查看下级
             </el-button>
             <el-button
-              size="mini"
-              @click="handleTransferProduct(scope.$index, scope.row)">转移商品
+              @click="handleTransferProduct(scope.$index, scope.row)"
+              size="mini">转移商品
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column align="center" label="Manipulate" width="200">
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              @click="handleUpdate(scope.$index, scope.row)">编辑
+              @click="handleUpdate(scope.$index, scope.row)"
+              size="mini">编辑
             </el-button>
             <el-button
+              @click="handleDelete(scope.$index, scope.row)"
               size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              type="danger">Delete
             </el-button>
           </template>
         </el-table-column>
@@ -83,21 +83,21 @@
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-  import {fetchList,deleteProductCate,updateShowStatus,updateNavStatus} from '@/api/productCate'
+  import {deleteProductCate, fetchList, updateNavStatus, updateShowStatus} from '@/api/productCate'
 
   export default {
     name: "productCateList",
@@ -124,7 +124,7 @@
       }
     },
     methods: {
-      resetParentId(){
+      resetParentId() {
         this.listQuery.pageNum = 1;
         if (this.$route.query.parentId != null) {
           this.parentId = this.$route.query.parentId;
@@ -154,13 +154,13 @@
       },
       handleNavStatusChange(index, row) {
         let data = new URLSearchParams();
-        let ids=[];
+        let ids = [];
         ids.push(row.id);
-        data.append('ids',ids);
-        data.append('navStatus',row.navStatus);
-        updateNavStatus(data).then(response=>{
+        data.append('ids', ids);
+        data.append('navStatus', row.navStatus);
+        updateNavStatus(data).then(response => {
           this.$message({
-            message: '修改成功',
+            message: 'Successfully modified',
             type: 'success',
             duration: 1000
           });
@@ -168,13 +168,13 @@
       },
       handleShowStatusChange(index, row) {
         let data = new URLSearchParams();
-        let ids=[];
+        let ids = [];
         ids.push(row.id);
-        data.append('ids',ids);
-        data.append('showStatus',row.showStatus);
-        updateShowStatus(data).then(response=>{
+        data.append('ids', ids);
+        data.append('showStatus', row.showStatus);
+        updateShowStatus(data).then(response => {
           this.$message({
-            message: '修改成功',
+            message: 'Successfully modified',
             type: 'success',
             duration: 1000
           });
@@ -187,17 +187,17 @@
         console.log('handleAddProductCate');
       },
       handleUpdate(index, row) {
-        this.$router.push({path:'/pms/updateProductCate',query:{id:row.id}});
+        this.$router.push({path: '/pms/updateProductCate', query: {id: row.id}});
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该品牌', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           deleteProductCate(row.id).then(response => {
             this.$message({
-              message: '删除成功',
+              message: 'successfully deleted',
               type: 'success',
               duration: 1000
             });

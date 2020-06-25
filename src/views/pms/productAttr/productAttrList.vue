@@ -3,53 +3,53 @@
     <el-card class="operate-container" shadow="never">
 
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
-      <span style="margin-top: 5px">数据列表</span>
+      <span style="margin-top: 5px">Datasheets</span>
       <el-button
-        class="btn-add"
         @click="addProductAttr()"
+        class="btn-add"
         size="mini">
         添加
       </el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="productAttrTable"
-                :data="list"
-                style="width: 100%"
+      <el-table :data="list"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading"
-                border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="100" align="center">
+                border
+                ref="productAttrTable"
+                style="width: 100%"
+                v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="属性名称" width="140" align="center">
+        <el-table-column align="center" label="属性名称" width="140">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="商品类型" width="140" align="center">
+        <el-table-column align="center" label="商品类型" width="140">
           <template slot-scope="scope">{{$route.query.cname}}</template>
         </el-table-column>
-        <el-table-column label="属性是否可选" width="120" align="center">
+        <el-table-column align="center" label="属性是否可选" width="120">
           <template slot-scope="scope">{{scope.row.selectType|selectTypeFilter}}</template>
         </el-table-column>
-        <el-table-column label="属性值的录入方式" width="150" align="center">
+        <el-table-column align="center" label="属性值的录入方式" width="150">
           <template slot-scope="scope">{{scope.row.inputType|inputTypeFilter}}</template>
         </el-table-column>
-        <el-table-column label="可选值列表" align="center">
+        <el-table-column align="center" label="可选值列表">
           <template slot-scope="scope">{{scope.row.inputList}}</template>
         </el-table-column>
-        <el-table-column label="排序" width="100" align="center">
+        <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column align="center" label="Manipulate" width="200">
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              @click="handleUpdate(scope.$index, scope.row)">编辑
+              @click="handleUpdate(scope.$index, scope.row)"
+              size="mini">编辑
             </el-button>
             <el-button
+              @click="handleDelete(scope.$index, scope.row)"
               size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              type="danger">Delete
             </el-button>
           </template>
         </el-table-column>
@@ -57,40 +57,40 @@
     </div>
     <div class="batch-operate-container">
       <el-select
-        size="small"
-        v-model="operateType" placeholder="批量操作">
+        placeholder="Bulk Operations"
+        size="small" v-model="operateType">
         <el-option
-          v-for="item in operates"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
+          :value="item.value"
+          v-for="item in operates">
         </el-option>
       </el-select>
       <el-button
-        style="margin-left: 20px"
-        class="search-button"
         @click="handleBatchOperate()"
-        type="primary"
-        size="small">
-        确定
+        class="search-button"
+        size="small"
+        style="margin-left: 20px"
+        type="primary">
+        Confirm
       </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
-  import {fetchList, deleteProductAttr} from '@/api/productAttr'
+  import {deleteProductAttr, fetchList} from '@/api/productAttr'
 
   export default {
     name: 'productAttrList',
@@ -108,7 +108,7 @@
         multipleSelection: [],
         operates: [
           {
-            label: "删除",
+            label: "Delete",
             value: "deleteProductAttr"
           }
         ]
@@ -171,16 +171,16 @@
         this.$router.push({path: '/pms/updateProductAttr', query: {id: row.id}});
       },
       handleDeleteProductAttr(ids) {
-        this.$confirm('是否要删除该属性', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该属性', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           let data = new URLSearchParams();
           data.append("ids", ids);
           deleteProductAttr(data).then(response => {
             this.$message({
-              message: '删除成功',
+              message: 'successfully deleted',
               type: 'success',
               duration: 1000
             });
@@ -215,7 +215,7 @@
   }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
 
 </style>
 

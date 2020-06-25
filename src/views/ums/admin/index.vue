@@ -3,81 +3,81 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
-            <el-input v-model="listQuery.keyword" class="input-width" placeholder="帐号/姓名" clearable></el-input>
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
+          <el-form-item label="Enter search：">
+            <el-input class="input-width" clearable placeholder="帐号/姓名" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">添加</el-button>
+      <span>Datasheets</span>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加</el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="adminTable"
-                :data="list"
-                style="width: 100%;"
-                v-loading="listLoading" border>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="adminTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="帐号" align="center">
+        <el-table-column align="center" label="帐号">
           <template slot-scope="scope">{{scope.row.username}}</template>
         </el-table-column>
-        <el-table-column label="姓名" align="center">
+        <el-table-column align="center" label="姓名">
           <template slot-scope="scope">{{scope.row.nickName}}</template>
         </el-table-column>
-        <el-table-column label="邮箱" align="center">
+        <el-table-column align="center" label="邮箱">
           <template slot-scope="scope">{{scope.row.email}}</template>
         </el-table-column>
-        <el-table-column label="添加时间" width="160" align="center">
+        <el-table-column align="center" label="添加时间" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
-        <el-table-column label="最后登录" width="160" align="center">
+        <el-table-column align="center" label="最后登录" width="160">
           <template slot-scope="scope">{{scope.row.loginTime | formatDateTime}}</template>
         </el-table-column>
-        <el-table-column label="是否启用" width="140" align="center">
+        <el-table-column align="center" label="Whether to enable" width="140">
           <template slot-scope="scope">
             <el-switch
-              @change="handleStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleStatusChange(scope.$index, scope.row)"
               v-model="scope.row.status">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleSelectRole(scope.$index, scope.row)">分配角色
+            <el-button @click="handleSelectRole(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">分配角色
             </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleUpdate(scope.$index, scope.row)">
+            <el-button @click="handleUpdate(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">
               编辑
             </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除
+            <el-button @click="handleDelete(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">Delete
             </el-button>
           </template>
         </el-table-column>
@@ -85,14 +85,14 @@
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[10,15,20]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
     <el-dialog
@@ -100,59 +100,59 @@
       :visible.sync="dialogVisible"
       width="40%">
       <el-form :model="admin"
-               ref="adminForm"
-               label-width="150px" size="small">
+               label-width="150px"
+               ref="adminForm" size="small">
         <el-form-item label="帐号：">
-          <el-input v-model="admin.username" style="width: 250px"></el-input>
+          <el-input style="width: 250px" v-model="admin.username"></el-input>
         </el-form-item>
         <el-form-item label="姓名：">
-          <el-input v-model="admin.nickName" style="width: 250px"></el-input>
+          <el-input style="width: 250px" v-model="admin.nickName"></el-input>
         </el-form-item>
         <el-form-item label="邮箱：">
-          <el-input v-model="admin.email" style="width: 250px"></el-input>
+          <el-input style="width: 250px" v-model="admin.email"></el-input>
         </el-form-item>
         <el-form-item label="密码：">
-          <el-input v-model="admin.password"  type="password" style="width: 250px"></el-input>
+          <el-input style="width: 250px" type="password" v-model="admin.password"></el-input>
         </el-form-item>
-        <el-form-item label="备注：">
-          <el-input v-model="admin.note"
+        <el-form-item label="Note：">
+          <el-input :rows="5"
+                    style="width: 250px"
                     type="textarea"
-                    :rows="5"
-                    style="width: 250px"></el-input>
+                    v-model="admin.note"></el-input>
         </el-form-item>
-        <el-form-item label="是否启用：">
+        <el-form-item label="Whether to enable：">
           <el-radio-group v-model="admin.status">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="0">否</el-radio>
+            <el-radio :label="1">Yes</el-radio>
+            <el-radio :label="0">No</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="dialogVisible = false" size="small">Cancel</el-button>
+        <el-button @click="handleDialogConfirm()" size="small" type="primary">OK</el-button>
       </span>
     </el-dialog>
     <el-dialog
-      title="分配角色"
       :visible.sync="allocDialogVisible"
+      title="分配角色"
       width="30%">
-      <el-select v-model="allocRoleIds" multiple placeholder="请选择" size="small" style="width: 80%">
+      <el-select multiple placeholder="请选择" size="small" style="width: 80%" v-model="allocRoleIds">
         <el-option
-          v-for="item in allRoleList"
           :key="item.id"
           :label="item.name"
-          :value="item.id">
+          :value="item.id"
+          v-for="item in allRoleList">
         </el-option>
       </el-select>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="allocDialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleAllocDialogConfirm()" size="small">确 定</el-button>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="allocDialogVisible = false" size="small">Cancel</el-button>
+        <el-button @click="handleAllocDialogConfirm()" size="small" type="primary">OK</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-  import {fetchList,createAdmin,updateAdmin,updateStatus,deleteAdmin,getRoleByAdmin,allocRole} from '@/api/login';
+  import {allocRole, createAdmin, deleteAdmin, fetchList, getRoleByAdmin, updateAdmin, updateStatus} from '@/api/login';
   import {fetchAllRoleList} from '@/api/role';
   import {formatDate} from '@/utils/date';
 
@@ -182,9 +182,9 @@
         admin: Object.assign({}, defaultAdmin),
         isEdit: false,
         allocDialogVisible: false,
-        allocRoleIds:[],
-        allRoleList:[],
-        allocAdminId:null
+        allocRoleIds: [],
+        allRoleList: [],
+        allocAdminId: null
       }
     },
     created() {
@@ -220,18 +220,18 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.admin = Object.assign({},defaultAdmin);
+        this.admin = Object.assign({}, defaultAdmin);
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要修改该状态?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           updateStatus(row.id, {status: row.status}).then(response => {
             this.$message({
               type: 'success',
-              message: '修改成功!'
+              message: 'Successfully modified!'
             });
           });
         }).catch(() => {
@@ -243,15 +243,15 @@
         });
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该用户?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该用户?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           deleteAdmin(row.id).then(response => {
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: 'successfully deleted!'
             });
             this.getList();
           });
@@ -260,39 +260,39 @@
       handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.admin = Object.assign({},row);
+        this.admin = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要确认?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateAdmin(this.admin.id,this.admin).then(response => {
+            updateAdmin(this.admin.id, this.admin).then(response => {
               this.$message({
-                message: '修改成功！',
+                message: 'Successfully modified！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
             createAdmin(this.admin).then(response => {
               this.$message({
-                message: '添加成功！',
+                message: 'Added successfully！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }
         })
       },
-      handleAllocDialogConfirm(){
-        this.$confirm('是否要确认?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+      handleAllocDialogConfirm() {
+        this.$confirm('是否要确认?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           let params = new URLSearchParams();
@@ -307,7 +307,7 @@
           })
         })
       },
-      handleSelectRole(index,row){
+      handleSelectRole(index, row) {
         this.allocAdminId = row.id;
         this.allocDialogVisible = true;
         this.getRoleListByAdmin(row.id);
@@ -328,9 +328,9 @@
       getRoleListByAdmin(adminId) {
         getRoleByAdmin(adminId).then(response => {
           let allocRoleList = response.data;
-          this.allocRoleIds=[];
-          if(allocRoleList!=null&&allocRoleList.length>0){
-            for(let i=0;i<allocRoleList.length;i++){
+          this.allocRoleIds = [];
+          if (allocRoleList != null && allocRoleList.length > 0) {
+            for (let i = 0; i < allocRoleList.length; i++) {
               this.allocRoleIds.push(allocRoleList[i].id);
             }
           }

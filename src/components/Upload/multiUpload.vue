@@ -2,20 +2,20 @@
   <div>
     <el-upload
       :action="useOss?ossUploadUrl:minioUploadUrl"
-      :data="useOss?dataObj:null"
-      list-type="picture-card"
-      :file-list="fileList"
       :before-upload="beforeUpload"
-      :on-remove="handleRemove"
-      :on-success="handleUploadSuccess"
-      :on-preview="handlePreview"
+      :data="useOss?dataObj:null"
+      :file-list="fileList"
       :limit="maxCount"
       :on-exceed="handleExceed"
+      :on-preview="handlePreview"
+      :on-remove="handleRemove"
+      :on-success="handleUploadSuccess"
+      list-type="picture-card"
     >
       <i class="el-icon-plus"></i>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
+      <img :src="dialogImageUrl" alt="" width="100%">
     </el-dialog>
   </div>
 </template>

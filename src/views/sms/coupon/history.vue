@@ -39,76 +39,76 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="使用状态：">
-            <el-select v-model="listQuery.useStatus" placeholder="全部" clearable class="input-width">
-              <el-option v-for="item in useTypeOptions"
-                         :key="item.value"
+            <el-select class="input-width" clearable placeholder="All" v-model="listQuery.useStatus">
+              <el-option :key="item.value"
                          :label="item.label"
-                         :value="item.value">
+                         :value="item.value"
+                         v-for="item in useTypeOptions">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="订单编号：">
-            <el-input v-model="listQuery.orderSn" class="input-width" placeholder="订单编号"></el-input>
+          <el-form-item label="Order SerialNumber：">
+            <el-input class="input-width" placeholder="Order SerialNumber" v-model="listQuery.orderSn"></el-input>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <div class="table-container">
-      <el-table ref="couponHistoryTable"
-                :data="list"
-                style="width: 100%;"
-                v-loading="listLoading" border>
-        <el-table-column label="优惠码" width="160" align="center">
+      <el-table :data="list"
+                border
+                ref="couponHistoryTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" label="优惠码" width="160">
           <template slot-scope="scope">{{scope.row.couponCode}}</template>
         </el-table-column>
-        <el-table-column label="领取会员" width="140" align="center">
+        <el-table-column align="center" label="领取会员" width="140">
           <template slot-scope="scope">{{scope.row.memberNickname}}</template>
         </el-table-column>
-        <el-table-column label="领取方式" width="100" align="center">
+        <el-table-column align="center" label="领取方式" width="100">
           <template slot-scope="scope">{{scope.row.getType | formatGetType}}</template>
         </el-table-column>
-        <el-table-column label="领取时间" width="160" align="center">
+        <el-table-column align="center" label="领取时间" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="当前状态" width="140" align="center">
+        <el-table-column align="center" label="当前状态" width="140">
           <template slot-scope="scope">{{scope.row.useStatus | formatCouponHistoryUseType}}</template>
         </el-table-column>
-        <el-table-column label="使用时间" width="160" align="center">
+        <el-table-column align="center" label="使用时间" width="160">
           <template slot-scope="scope">{{scope.row.useTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="订单编号" align="center">
+        <el-table-column align="center" label="Order SerialNumber">
           <template slot-scope="scope">{{scope.row.orderSn===null?'N/A':scope.row.orderSn}}</template>
         </el-table-column>
       </el-table>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
@@ -143,7 +143,7 @@
     orderSn: null,
     couponId: null
   };
-  const defaultUseTypeOptions= [
+  const defaultUseTypeOptions = [
     {
       label: "未使用",
       value: 0
@@ -163,17 +163,17 @@
       return {
         coupon: {},
         listQuery: Object.assign({}, defaultListQuery),
-        useTypeOptions:Object.assign({},defaultUseTypeOptions),
-        list:null,
-        total:null,
-        listLoading:false
+        useTypeOptions: Object.assign({}, defaultUseTypeOptions),
+        list: null,
+        total: null,
+        listLoading: false
       }
     },
     created() {
       getCoupon(this.$route.query.id).then(response => {
         this.coupon = response.data;
       });
-      this.listQuery.couponId=this.$route.query.id;
+      this.listQuery.couponId = this.$route.query.id;
       this.getList();
     },
     filters: {
@@ -219,9 +219,9 @@
         }
       },
       formatGetType(type) {
-        if(type===1){
+        if (type === 1) {
           return '主动获取';
-        }else{
+        } else {
           return '后台赠送';
         }
       },
@@ -243,17 +243,17 @@
       },
     },
     methods: {
-      getList(){
-        this.listLoading=true;
-        fetchCouponHistoryList(this.listQuery).then(response=>{
-          this.listLoading=false;
-          this.list=response.data.list;
-          this.total=response.data.total;
+      getList() {
+        this.listLoading = true;
+        fetchCouponHistoryList(this.listQuery).then(response => {
+          this.listLoading = false;
+          this.list = response.data.list;
+          this.total = response.data.total;
         });
       },
       handleResetSearch() {
         this.listQuery = Object.assign({}, defaultListQuery);
-        this.listQuery.couponId=this.$route.query.id;
+        this.listQuery.couponId = this.$route.query.id;
       },
       handleSearchList() {
         this.listQuery.pageNum = 1;

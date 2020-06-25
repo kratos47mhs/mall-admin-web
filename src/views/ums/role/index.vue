@@ -3,86 +3,86 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
-            <el-input v-model="listQuery.keyword" class="input-width" placeholder="角色名称" clearable></el-input>
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
+          <el-form-item label="Enter search：">
+            <el-input class="input-width" clearable placeholder="角色名称" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">添加</el-button>
+      <span>Datasheets</span>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加</el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="roleTable"
-                :data="list"
-                style="width: 100%;"
-                v-loading="listLoading" border>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="roleTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="角色名称" align="center">
+        <el-table-column align="center" label="角色名称">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="描述" align="center">
+        <el-table-column align="center" label="描述">
           <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
-        <el-table-column label="用户数"  width="100" align="center">
+        <el-table-column align="center" label="用户数" width="100">
           <template slot-scope="scope">{{scope.row.adminCount}}</template>
         </el-table-column>
-        <el-table-column label="添加时间" width="160" align="center">
+        <el-table-column align="center" label="添加时间" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
-        <el-table-column label="是否启用" width="140" align="center">
+        <el-table-column align="center" label="Whether to enable" width="140">
           <template slot-scope="scope">
             <el-switch
-              @change="handleStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleStatusChange(scope.$index, scope.row)"
               v-model="scope.row.status">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" align="center">
+        <el-table-column align="center" label="Manipulate" width="160">
           <template slot-scope="scope">
             <el-row>
-              <el-button size="mini"
-                         type="text"
-                         @click="handleSelectMenu(scope.$index, scope.row)">分配菜单
+              <el-button @click="handleSelectMenu(scope.$index, scope.row)"
+                         size="mini"
+                         type="text">分配菜单
               </el-button>
-              <el-button size="mini"
-                         type="text"
-                         @click="handleSelectResource(scope.$index, scope.row)">分配资源
+              <el-button @click="handleSelectResource(scope.$index, scope.row)"
+                         size="mini"
+                         type="text">分配资源
               </el-button>
             </el-row>
             <el-row>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleUpdate(scope.$index, scope.row)">
-              编辑
-            </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除
-            </el-button>
+              <el-button @click="handleUpdate(scope.$index, scope.row)"
+                         size="mini"
+                         type="text">
+                编辑
+              </el-button>
+              <el-button @click="handleDelete(scope.$index, scope.row)"
+                         size="mini"
+                         type="text">Delete
+              </el-button>
             </el-row>
           </template>
         </el-table-column>
@@ -90,14 +90,14 @@
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
     <el-dialog
@@ -105,33 +105,33 @@
       :visible.sync="dialogVisible"
       width="40%">
       <el-form :model="role"
-               ref="roleForm"
-               label-width="150px" size="small">
+               label-width="150px"
+               ref="roleForm" size="small">
         <el-form-item label="角色名称：">
-          <el-input v-model="role.name" style="width: 250px"></el-input>
+          <el-input style="width: 250px" v-model="role.name"></el-input>
         </el-form-item>
         <el-form-item label="描述：">
-          <el-input v-model="role.description"
+          <el-input :rows="5"
+                    style="width: 250px"
                     type="textarea"
-                    :rows="5"
-                    style="width: 250px"></el-input>
+                    v-model="role.description"></el-input>
         </el-form-item>
-        <el-form-item label="是否启用：">
+        <el-form-item label="Whether to enable：">
           <el-radio-group v-model="role.status">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="0">否</el-radio>
+            <el-radio :label="1">Yes</el-radio>
+            <el-radio :label="0">No</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
+      <span class="dialog-footer" slot="footer">
+        <el-button @click="dialogVisible = false" size="small">Cancel</el-button>
+        <el-button @click="handleDialogConfirm()" size="small" type="primary">OK</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-  import {fetchList,createRole,updateRole,updateStatus,deleteRole} from '@/api/role';
+  import {createRole, deleteRole, fetchList, updateRole, updateStatus} from '@/api/role';
   import {formatDate} from '@/utils/date';
 
   const defaultListQuery = {
@@ -191,18 +191,18 @@
       handleAdd() {
         this.dialogVisible = true;
         this.isEdit = false;
-        this.role = Object.assign({},defaultRole);
+        this.role = Object.assign({}, defaultRole);
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要修改该状态?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           updateStatus(row.id, {status: row.status}).then(response => {
             this.$message({
               type: 'success',
-              message: '修改成功!'
+              message: 'Successfully modified!'
             });
           });
         }).catch(() => {
@@ -214,19 +214,19 @@
         });
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该角色?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该角色?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           let ids = [];
           ids.push(row.id);
-          let params=new URLSearchParams();
-          params.append("ids",ids);
+          let params = new URLSearchParams();
+          params.append("ids", ids);
           deleteRole(params).then(response => {
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: 'successfully deleted!'
             });
             this.getList();
           });
@@ -235,40 +235,40 @@
       handleUpdate(index, row) {
         this.dialogVisible = true;
         this.isEdit = true;
-        this.role = Object.assign({},row);
+        this.role = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要确认?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           if (this.isEdit) {
-            updateRole(this.role.id,this.role).then(response => {
+            updateRole(this.role.id, this.role).then(response => {
               this.$message({
-                message: '修改成功！',
+                message: 'Successfully modified！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           } else {
             createRole(this.role).then(response => {
               this.$message({
-                message: '添加成功！',
+                message: 'Added successfully！',
                 type: 'success'
               });
-              this.dialogVisible =false;
+              this.dialogVisible = false;
               this.getList();
             })
           }
         })
       },
-      handleSelectMenu(index,row){
-        this.$router.push({path:'/ums/allocMenu',query:{roleId:row.id}})
+      handleSelectMenu(index, row) {
+        this.$router.push({path: '/ums/allocMenu', query: {roleId: row.id}})
       },
-      handleSelectResource(index,row){
-        this.$router.push({path:'/ums/allocResource',query:{roleId:row.id}})
+      handleSelectResource(index, row) {
+        this.$router.push({path: '/ums/allocResource', query: {roleId: row.id}})
       },
       getList() {
         this.listLoading = true;

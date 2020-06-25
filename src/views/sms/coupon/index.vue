@@ -3,32 +3,32 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="优惠券名称：">
-            <el-input v-model="listQuery.name" class="input-width" placeholder="优惠券名称"></el-input>
+            <el-input class="input-width" placeholder="优惠券名称" v-model="listQuery.name"></el-input>
           </el-form-item>
           <el-form-item label="优惠券类型：">
-            <el-select v-model="listQuery.type" placeholder="全部" clearable class="input-width">
-              <el-option v-for="item in typeOptions"
-                         :key="item.value"
+            <el-select class="input-width" clearable placeholder="All" v-model="listQuery.type">
+              <el-option :key="item.value"
                          :label="item.label"
-                         :value="item.value">
+                         :value="item.value"
+                         v-for="item in typeOptions">
               </el-option>
             </el-select>
           </el-form-item>
@@ -37,83 +37,87 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
-      <el-button size="mini" class="btn-add" @click="handleAdd()">添加</el-button>
+      <span>Datasheets</span>
+      <el-button @click="handleAdd()" class="btn-add" size="mini">添加</el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="couponTable"
-                :data="list"
-                style="width: 100%;"
+      <el-table :data="list"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading" border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="100" align="center">
+                border
+                ref="couponTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="优惠劵名称" align="center">
+        <el-table-column align="center" label="优惠劵名称">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="优惠券类型" width="100" align="center">
+        <el-table-column align="center" label="优惠券类型" width="100">
           <template slot-scope="scope">{{scope.row.type | formatType}}</template>
         </el-table-column>
-        <el-table-column label="可使用商品" width="100" align="center">
+        <el-table-column align="center" label="可使用商品" width="100">
           <template slot-scope="scope">{{scope.row.useType | formatUseType}}</template>
         </el-table-column>
-        <el-table-column label="使用门槛" width="140" align="center">
+        <el-table-column align="center" label="使用门槛" width="140">
           <template slot-scope="scope">满{{scope.row.minPoint}}元可用</template>
         </el-table-column>
-        <el-table-column label="面值" width="100" align="center">
+        <el-table-column align="center" label="面值" width="100">
           <template slot-scope="scope">{{scope.row.amount}}元</template>
         </el-table-column>
-        <el-table-column label="适用平台" width="100" align="center">
+        <el-table-column align="center" label="适用平台" width="100">
           <template slot-scope="scope">{{scope.row.platform | formatPlatform}}</template>
         </el-table-column>
-        <el-table-column label="有效期" width="180" align="center">
+        <el-table-column align="center" label="有效期" width="180">
           <template slot-scope="scope">{{scope.row.startTime|formatDate}}至{{scope.row.endTime|formatDate}}</template>
         </el-table-column>
-        <el-table-column label="状态" width="100" align="center">
+        <el-table-column align="center" label="状态" width="100">
           <template slot-scope="scope">{{scope.row.endTime | formatStatus}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleView(scope.$index, scope.row)">查看</el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleUpdate(scope.$index, scope.row)">
-              编辑</el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <el-button @click="handleView(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">查看
+            </el-button>
+            <el-button @click="handleUpdate(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">
+              编辑
+            </el-button>
+            <el-button @click="handleDelete(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">Delete
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
-  import {fetchList,deleteCoupon} from '@/api/coupon';
+  import {deleteCoupon, fetchList} from '@/api/coupon';
   import {formatDate} from '@/utils/date';
+
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
     name: null,
     type: null
   };
-  const defaultTypeOptions=[
+  const defaultTypeOptions = [
     {
       label: '全场赠券',
       value: 0
@@ -132,65 +136,65 @@
     }
   ];
   export default {
-    name:'couponList',
+    name: 'couponList',
     data() {
       return {
-        listQuery:Object.assign({},defaultListQuery),
-        typeOptions:Object.assign({},defaultTypeOptions),
-        list:null,
-        total:null,
-        listLoading:false,
-        multipleSelection:[]
+        listQuery: Object.assign({}, defaultListQuery),
+        typeOptions: Object.assign({}, defaultTypeOptions),
+        list: null,
+        total: null,
+        listLoading: false,
+        multipleSelection: []
       }
     },
-    created(){
+    created() {
       this.getList();
     },
-    filters:{
-      formatType(type){
-        for(let i=0;i<defaultTypeOptions.length;i++){
-          if(type===defaultTypeOptions[i].value){
+    filters: {
+      formatType(type) {
+        for (let i = 0; i < defaultTypeOptions.length; i++) {
+          if (type === defaultTypeOptions[i].value) {
             return defaultTypeOptions[i].label;
           }
         }
         return '';
       },
-      formatUseType(useType){
-        if(useType===0){
+      formatUseType(useType) {
+        if (useType === 0) {
           return '全场通用';
-        }else if(useType===1){
+        } else if (useType === 1) {
           return '指定分类';
-        }else{
+        } else {
           return '指定商品';
         }
       },
-      formatPlatform(platform){
-        if(platform===1){
+      formatPlatform(platform) {
+        if (platform === 1) {
           return '移动平台';
-        }else if(platform===2){
+        } else if (platform === 2) {
           return 'PC平台';
-        }else{
+        } else {
           return '全平台';
         }
       },
-      formatDate(time){
-        if(time==null||time===''){
+      formatDate(time) {
+        if (time == null || time === '') {
           return 'N/A';
         }
         let date = new Date(time);
         return formatDate(date, 'yyyy-MM-dd')
       },
-      formatStatus(endTime){
+      formatStatus(endTime) {
         let now = new Date().getTime();
         let endDate = new Date(endTime);
-        if(endDate>now){
+        if (endDate > now) {
           return '未过期'
-        }else{
+        } else {
           return '已过期';
         }
       }
     },
-    methods:{
+    methods: {
       handleResetSearch() {
         this.listQuery = Object.assign({}, defaultListQuery);
       },
@@ -198,7 +202,7 @@
         this.listQuery.pageNum = 1;
         this.getList();
       },
-      handleSelectionChange(val){
+      handleSelectionChange(val) {
         this.multipleSelection = val;
       },
       handleSizeChange(val) {
@@ -210,7 +214,7 @@
         this.listQuery.pageNum = val;
         this.getList();
       },
-      handleAdd(){
+      handleAdd() {
         this.$router.push({path: '/sms/addCoupon'})
       },
       handleView(index, row) {
@@ -220,23 +224,23 @@
         this.$router.push({path: '/sms/updateCoupon', query: {id: row.id}})
       },
       handleDelete(index, row) {
-        this.$confirm('是否进行删除操作?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否进行删除操作?', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          deleteCoupon(row.id).then(response=>{
+          deleteCoupon(row.id).then(response => {
             this.$message({
               type: 'success',
-              message: '删除成功!'
+              message: 'successfully deleted!'
             });
             this.getList();
           });
         })
       },
-      getList(){
-        this.listLoading=true;
-        fetchList(this.listQuery).then(response=>{
+      getList() {
+        this.listLoading = true;
+        fetchList(this.listQuery).then(response => {
           this.listLoading = false;
           this.list = response.data.list;
           this.total = response.data.total;

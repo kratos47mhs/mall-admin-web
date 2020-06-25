@@ -2,68 +2,70 @@
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
-      <span style="margin-top: 5px">数据列表</span>
+      <span style="margin-top: 5px">Datasheets</span>
       <el-button
-        class="btn-add"
         @click="handleAddMenu()"
+        class="btn-add"
         size="mini">
         添加
       </el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="menuTable"
-                style="width: 100%"
-                :data="list"
-                v-loading="listLoading" border>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="menuTable"
+                style="width: 100%" v-loading="listLoading">
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="菜单名称" align="center">
+        <el-table-column align="center" label="菜单名称">
           <template slot-scope="scope">{{scope.row.title}}</template>
         </el-table-column>
-        <el-table-column label="菜单级数" width="100" align="center">
+        <el-table-column align="center" label="菜单级数" width="100">
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
-        <el-table-column label="前端名称" align="center">
+        <el-table-column align="center" label="前端名称">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="前端图标" width="100" align="center">
-          <template slot-scope="scope"><svg-icon :icon-class="scope.row.icon"></svg-icon></template>
+        <el-table-column align="center" label="前端图标" width="100">
+          <template slot-scope="scope">
+            <svg-icon :icon-class="scope.row.icon"></svg-icon>
+          </template>
         </el-table-column>
-        <el-table-column label="是否显示" width="100" align="center">
+        <el-table-column align="center" label="Whether to show" width="100">
           <template slot-scope="scope">
             <el-switch
-              @change="handleHiddenChange(scope.$index, scope.row)"
               :active-value="0"
               :inactive-value="1"
+              @change="handleHiddenChange(scope.$index, scope.row)"
               v-model="scope.row.hidden">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="排序" width="100" align="center">
+        <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort }}</template>
         </el-table-column>
-        <el-table-column label="设置" width="120" align="center">
+        <el-table-column align="center" label="设置" width="120">
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              type="text"
               :disabled="scope.row.level | disableNextLevel"
-              @click="handleShowNextLevel(scope.$index, scope.row)">查看下级
+              @click="handleShowNextLevel(scope.$index, scope.row)"
+              size="mini"
+              type="text">查看下级
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column align="center" label="Manipulate" width="200">
           <template slot-scope="scope">
             <el-button
+              @click="handleUpdate(scope.$index, scope.row)"
               size="mini"
-              type="text"
-              @click="handleUpdate(scope.$index, scope.row)">编辑
+              type="text">编辑
             </el-button>
             <el-button
+              @click="handleDelete(scope.$index, scope.row)"
               size="mini"
-              type="text"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              type="text">Delete
             </el-button>
           </template>
         </el-table-column>
@@ -71,21 +73,21 @@
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[10,15,20]"
-        :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-  import {fetchList,deleteMenu,updateMenu,updateHidden} from '@/api/menu'
+  import {deleteMenu, fetchList, updateHidden} from '@/api/menu'
 
   export default {
     name: "menuList",
@@ -112,7 +114,7 @@
       }
     },
     methods: {
-      resetParentId(){
+      resetParentId() {
         this.listQuery.pageNum = 1;
         if (this.$route.query.parentId != null) {
           this.parentId = this.$route.query.parentId;
@@ -141,9 +143,9 @@
         this.getList();
       },
       handleHiddenChange(index, row) {
-        updateHidden(row.id,{hidden:row.hidden}).then(response=>{
+        updateHidden(row.id, {hidden: row.hidden}).then(response => {
           this.$message({
-            message: '修改成功',
+            message: 'Successfully modified',
             type: 'success',
             duration: 1000
           });
@@ -153,17 +155,17 @@
         this.$router.push({path: '/ums/menu', query: {parentId: row.id}})
       },
       handleUpdate(index, row) {
-        this.$router.push({path:'/ums/updateMenu',query:{id:row.id}});
+        this.$router.push({path: '/ums/updateMenu', query: {id: row.id}});
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该菜单', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要删除该菜单', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           deleteMenu(row.id).then(response => {
             this.$message({
-              message: '删除成功',
+              message: 'successfully deleted',
               type: 'success',
               duration: 1000
             });

@@ -2,19 +2,19 @@
   <el-card class="form-container" shadow="never">
     <el-form :model="menu"
              :rules="rules"
-             ref="menuFrom"
-             label-width="150px">
+             label-width="150px"
+             ref="menuFrom">
       <el-form-item label="菜单名称：" prop="title">
         <el-input v-model="menu.title"></el-input>
       </el-form-item>
       <el-form-item label="上级菜单：">
-        <el-select v-model="menu.parentId"
-                   placeholder="请选择菜单">
+        <el-select placeholder="请选择菜单"
+                   v-model="menu.parentId">
           <el-option
-            v-for="item in selectMenuList"
             :key="item.id"
             :label="item.title"
-            :value="item.id">
+            :value="item.id"
+            v-for="item in selectMenuList">
           </el-option>
         </el-select>
       </el-form-item>
@@ -22,28 +22,28 @@
         <el-input v-model="menu.name"></el-input>
       </el-form-item>
       <el-form-item label="前端图标：" prop="icon">
-        <el-input v-model="menu.icon" style="width: 80%"></el-input>
-        <svg-icon style="margin-left: 8px" :icon-class="menu.icon"></svg-icon>
+        <el-input style="width: 80%" v-model="menu.icon"></el-input>
+        <svg-icon :icon-class="menu.icon" style="margin-left: 8px"></svg-icon>
       </el-form-item>
-      <el-form-item label="是否显示：">
+      <el-form-item label="Whether to show：">
         <el-radio-group v-model="menu.hidden">
-          <el-radio :label="0">是</el-radio>
-          <el-radio :label="1">否</el-radio>
+          <el-radio :label="0">Yes</el-radio>
+          <el-radio :label="1">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="排序：">
+      <el-form-item label="Sort：">
         <el-input v-model="menu.sort"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
-        <el-button v-if="!isEdit" @click="resetForm('menuFrom')">重置</el-button>
+        <el-button @click="onSubmit('menuFrom')" type="primary">Submit</el-button>
+        <el-button @click="resetForm('menuFrom')" v-if="!isEdit">Reset</el-button>
       </el-form-item>
     </el-form>
   </el-card>
 </template>
 
 <script>
-  import {fetchList, createMenu, updateMenu, getMenu} from '@/api/menu';
+  import {createMenu, fetchList, getMenu, updateMenu} from '@/api/menu';
 
   const defaultMenu = {
     title: '',
@@ -68,15 +68,15 @@
         rules: {
           title: [
             {required: true, message: '请输入菜单名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+            {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           name: [
             {required: true, message: '请输入前端名称', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+            {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           icon: [
             {required: true, message: '请输入前端图标', trigger: 'blur'},
-            {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
+            {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ]
         }
       }
@@ -101,15 +101,15 @@
       onSubmit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$confirm('是否提交数据', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$confirm('Whether to Submit Data', 'Prompt', {
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
               type: 'warning'
             }).then(() => {
               if (this.isEdit) {
                 updateMenu(this.$route.query.id, this.menu).then(response => {
                   this.$message({
-                    message: '修改成功',
+                    message: 'Successfully modified',
                     type: 'success',
                     duration: 1000
                   });
@@ -120,7 +120,7 @@
                   this.$refs[formName].resetFields();
                   this.resetForm(formName);
                   this.$message({
-                    message: '提交成功',
+                    message: 'Submitted successfully',
                     type: 'success',
                     duration: 1000
                   });
@@ -131,7 +131,7 @@
 
           } else {
             this.$message({
-              message: '验证失败',
+              message: 'Verification Failed',
               type: 'error',
               duration: 1000
             });

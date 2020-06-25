@@ -5,30 +5,30 @@
         <i class="el-icon-search"></i>
         <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
+          size="small"
+          style="float:right"
+          type="primary">
           Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
+          size="small"
+          style="float:right;margin-right: 15px">
           Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="brand name：">
-            <el-input v-model="listQuery.brandName" class="input-width" placeholder="brand name"></el-input>
+            <el-input class="input-width" placeholder="brand name" v-model="listQuery.brandName"></el-input>
           </el-form-item>
           <el-form-item label="Recommended status：">
-            <el-select v-model="listQuery.recommendStatus" placeholder="All" clearable class="input-width">
-              <el-option v-for="item in recommendOptions"
-                         :key="item.value"
+            <el-select class="input-width" clearable placeholder="All" v-model="listQuery.recommendStatus">
+              <el-option :key="item.value"
                          :label="item.label"
-                         :value="item.value">
+                         :value="item.value"
+                         v-for="item in recommendOptions">
               </el-option>
             </el-select>
           </el-form-item>
@@ -38,46 +38,46 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button size="mini" class="btn-add" @click="handleSelectBrand()">Choose brand</el-button>
+      <el-button @click="handleSelectBrand()" class="btn-add" size="mini">Choose brand</el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="homeBrandTable"
-                :data="list"
-                style="width: 100%;"
+      <el-table :data="list"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading" border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="Numbering" width="120" align="center">
+                border
+                ref="homeBrandTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="Numbering" width="120">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="brand name" align="center">
+        <el-table-column align="center" label="brand name">
           <template slot-scope="scope">{{scope.row.brandName}}</template>
         </el-table-column>
-        <el-table-column label="Whether to recommend" width="200" align="center">
+        <el-table-column align="center" label="Whether to recommend" width="200">
           <template slot-scope="scope">
             <el-switch
-              @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleRecommendStatusStatusChange(scope.$index, scope.row)"
               v-model="scope.row.recommendStatus">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="Sort" width="160" align="center">
+        <el-table-column align="center" label="Sort" width="160">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column label="status" width="160" align="center">
+        <el-table-column align="center" label="status" width="160">
           <template slot-scope="scope">{{scope.row.recommendStatus | formatRecommendStatus}}</template>
         </el-table-column>
-        <el-table-column label="operating" width="180" align="center">
+        <el-table-column align="center" label="operating" width="180">
           <template slot-scope="scope">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleEditSort(scope.$index, scope.row)">Set sort
+            <el-button @click="handleEditSort(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">Set sort
             </el-button>
-            <el-button size="mini"
-                       type="text"
-                       @click="handleDelete(scope.$index, scope.row)">delete
+            <el-button @click="handleDelete(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">delete
             </el-button>
           </template>
         </el-table-column>
@@ -85,50 +85,50 @@
     </div>
     <div class="batch-operate-container">
       <el-select
-        size="small"
-        v-model="operateType" placeholder="Batch operation">
+        placeholder="Batch operation"
+        size="small" v-model="operateType">
         <el-option
-          v-for="item in operates"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
+          :value="item.value"
+          v-for="item in operates">
         </el-option>
       </el-select>
       <el-button
-        style="margin-left: 20px"
-        class="search-button"
         @click="handleBatchOperate()"
-        type="primary"
-        size="small">
+        class="search-button"
+        size="small"
+        style="margin-left: 20px"
+        type="primary">
         determine
       </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
-    <el-dialog title="Choose brand" :visible.sync="selectDialogVisible" width="40%">
-      <el-input v-model="dialogData.listQuery.keyword"
-                style="width: 250px;margin-bottom: 20px"
+    <el-dialog :visible.sync="selectDialogVisible" title="Choose brand" width="40%">
+      <el-input placeholder="Brand name search"
                 size="small"
-                placeholder="Brand name search">
-        <el-button slot="append" icon="el-icon-search" @click="handleSelectSearch()"></el-button>
+                style="width: 250px;margin-bottom: 20px"
+                v-model="dialogData.listQuery.keyword">
+        <el-button @click="handleSelectSearch()" icon="el-icon-search" slot="append"></el-button>
       </el-input>
       <el-table :data="dialogData.list"
                 @selection-change="handleDialogSelectionChange" border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="brand name" align="center">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="brand name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="Related" width="220" align="center">
+        <el-table-column align="center" label="Related" width="220">
           <template slot-scope="scope">
             Product：<span class="color-main">{{scope.row.productCount}}</span>
             Evaluation：<span class="color-main">{{scope.row.productCommentCount}}</span>
@@ -137,45 +137,45 @@
       </el-table>
       <div class="pagination-container">
         <el-pagination
-          background
-          @size-change="handleDialogSizeChange"
-          @current-change="handleDialogCurrentChange"
-          layout="prev, pager, next"
           :current-page.sync="dialogData.listQuery.pageNum"
           :page-size="dialogData.listQuery.pageSize"
           :page-sizes="[5,10,15]"
-          :total="dialogData.total">
+          :total="dialogData.total"
+          @current-change="handleDialogCurrentChange"
+          @size-change="handleDialogSizeChange"
+          background
+          layout="prev, pager, next">
         </el-pagination>
       </div>
       <div style="clear: both;"></div>
       <div slot="footer">
-        <el-button size="small" @click="selectDialogVisible = false">Cancel</el-button>
-        <el-button size="small" type="primary" @click="handleSelectDialogConfirm()">OK</el-button>
+        <el-button @click="selectDialogVisible = false" size="small">Cancel</el-button>
+        <el-button @click="handleSelectDialogConfirm()" size="small" type="primary">OK</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="Set sort"
-               :visible.sync="sortDialogVisible"
+    <el-dialog :visible.sync="sortDialogVisible"
+               title="Set sort"
                width="40%">
       <el-form :model="sortDialogData"
                label-width="150px">
         <el-form-item label="Sort：">
-          <el-input v-model="sortDialogData.sort" style="width: 200px"></el-input>
+          <el-input style="width: 200px" v-model="sortDialogData.sort"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
         <el-button @click="sortDialogVisible = false" size="small">Cancel</el-button>
-        <el-button type="primary" @click="handleUpdateSort" size="small">OK</el-button>
+        <el-button @click="handleUpdateSort" size="small" type="primary">OK</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
   import {
-    fetchList,
-    updateRecommendStatus,
-    deleteHomeBrand,
     createHomeBrand,
-    updateHomeBrandSort
+    deleteHomeBrand,
+    fetchList,
+    updateHomeBrandSort,
+    updateRecommendStatus
   } from '@/api/homeBrand';
   import {fetchList as fetchBrandList} from '@/api/brand';
 

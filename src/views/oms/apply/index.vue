@@ -3,54 +3,54 @@
     <el-card class="filter-container" shadow="never">
       <div>
         <i class="el-icon-search"></i>
-        <span>筛选搜索</span>
+        <span>Filter search</span>
         <el-button
-          style="float:right"
-          type="primary"
           @click="handleSearchList()"
-          size="small">
-          查询搜索
+          size="small"
+          style="float:right"
+          type="primary">
+          Query search
         </el-button>
         <el-button
-          style="float:right;margin-right: 15px"
           @click="handleResetSearch()"
-          size="small">
-          重置
+          size="small"
+          style="float:right;margin-right: 15px">
+          Reset
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
-          <el-form-item label="输入搜索：">
-            <el-input v-model="listQuery.id" class="input-width" placeholder="服务单号"></el-input>
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
+          <el-form-item label="Enter search：">
+            <el-input class="input-width" placeholder="Service order number" v-model="listQuery.id"></el-input>
           </el-form-item>
-          <el-form-item label="处理状态：">
-            <el-select v-model="listQuery.status" placeholder="全部" clearable class="input-width">
-              <el-option v-for="item in statusOptions"
-                         :key="item.value"
+          <el-form-item label="Processing status：">
+            <el-select class="input-width" clearable placeholder="All" v-model="listQuery.status">
+              <el-option :key="item.value"
                          :label="item.label"
-                         :value="item.value">
+                         :value="item.value"
+                         v-for="item in statusOptions">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="申请时间：">
+          <el-form-item label="application time：">
             <el-date-picker
               class="input-width"
-              v-model="listQuery.createTime"
-              value-format="yyyy-MM-dd"
+              placeholder="Please select time"
               type="date"
-              placeholder="请选择时间">
+              v-model="listQuery.createTime"
+              value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="操作人员：">
-            <el-input v-model="listQuery.handleMan" class="input-width" placeholder="全部"></el-input>
+          <el-form-item label="Operator：">
+            <el-input class="input-width" placeholder="All" v-model="listQuery.handleMan"></el-input>
           </el-form-item>
-          <el-form-item label="处理时间：">
+          <el-form-item label="Processing time：">
             <el-date-picker
               class="input-width"
-              v-model="listQuery.handleTime"
-              value-format="yyyy-MM-dd"
+              placeholder="Please select time"
               type="date"
-              placeholder="请选择时间">
+              v-model="listQuery.handleTime"
+              value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
         </el-form>
@@ -58,38 +58,38 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
+      <span>Datasheets</span>
     </el-card>
     <div class="table-container">
-      <el-table ref="returnApplyTable"
-                :data="list"
-                style="width: 100%;"
+      <el-table :data="list"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading" border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="服务单号" width="180" align="center">
+                border
+                ref="returnApplyTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="Service order number" width="180">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="申请时间" width="180" align="center">
+        <el-table-column align="center" label="application time" width="180">
           <template slot-scope="scope">{{scope.row.createTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="用户账号" align="center">
+        <el-table-column align="center" label="user account">
           <template slot-scope="scope">{{scope.row.memberUsername}}</template>
         </el-table-column>
-        <el-table-column label="退款金额" width="180" align="center">
-          <template slot-scope="scope">￥{{scope.row | formatReturnAmount}}</template>
+        <el-table-column align="center" label="Refund amount" width="180">
+          <template slot-scope="scope">${{scope.row | formatReturnAmount}}</template>
         </el-table-column>
-        <el-table-column label="申请状态" width="180" align="center">
+        <el-table-column align="center" label="application status" width="180">
           <template slot-scope="scope">{{scope.row.status | formatStatus}}</template>
         </el-table-column>
-        <el-table-column label="处理时间" width="180" align="center">
+        <el-table-column align="center" label="Processing time" width="180">
           <template slot-scope="scope">{{scope.row.handleTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              @click="handleViewDetail(scope.$index, scope.row)">查看详情
+              @click="handleViewDetail(scope.$index, scope.row)"
+              size="mini">see details
             </el-button>
           </template>
         </el-table-column>
@@ -97,41 +97,41 @@
     </div>
     <div class="batch-operate-container">
       <el-select
-        size="small"
-        v-model="operateType" placeholder="批量操作">
+        placeholder="Bulk operations"
+        size="small" v-model="operateType">
         <el-option
-          v-for="item in operateOptions"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
+          :value="item.value"
+          v-for="item in operateOptions">
         </el-option>
       </el-select>
       <el-button
-        style="margin-left: 20px"
-        class="search-button"
         @click="handleBatchOperate()"
-        type="primary"
-        size="small">
-        确定
+        class="search-button"
+        size="small"
+        style="margin-left: 20px"
+        type="primary">
+        Confirm
       </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
   import {formatDate} from '@/utils/date';
-  import {fetchList, deleteApply} from '@/api/returnApply';
+  import {deleteApply, fetchList} from '@/api/returnApply';
 
   const defaultListQuery = {
     pageNum: 1,
@@ -145,19 +145,19 @@
   };
   const defaultStatusOptions = [
     {
-      label: '待处理',
+      label: 'Pending',
       value: 0
     },
     {
-      label: '退货中',
+      label: 'Returning',
       value: 1
     },
     {
-      label: '已完成',
+      label: 'Completed',
       value: 2
     },
     {
-      label: '已拒绝',
+      label: 'Rejected',
       value: 3
     }
   ];
@@ -174,7 +174,7 @@
         operateType: 1,
         operateOptions: [
           {
-            label: "批量删除",
+            label: "batch deletion",
             value: 1
           }
         ],
@@ -219,17 +219,17 @@
       handleBatchOperate() {
         if (this.multipleSelection == null || this.multipleSelection.length < 1) {
           this.$message({
-            message: '请选择要操作的申请',
+            message: 'Please select the application to operate',
             type: 'warning',
             duration: 1000
           });
           return;
         }
         if (this.operateType === 1) {
-          //批量删除
-          this.$confirm('是否要进行删除操作?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          //batch deletion
+          this.$confirm('Do you want to delete it?', 'Prompt', {
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
             type: 'warning'
           }).then(() => {
             let params = new URLSearchParams();
@@ -242,7 +242,7 @@
               this.getList();
               this.$message({
                 type: 'success',
-                message: '删除成功!'
+                message: 'Successfully Deleted!'
               });
             });
           })

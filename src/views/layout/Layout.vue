@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper" :class="classObj">
+  <div :class="classObj" class="app-wrapper">
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <navbar></navbar>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import {Navbar, Sidebar, AppMain} from './components'
+  import {AppMain, Navbar, Sidebar} from './components'
   import ResizeMixin from './mixin/ResizeHandler'
 
   export default {
@@ -38,7 +38,7 @@
   }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
   @import "src/styles/mixin.scss";
 
   .app-wrapper {

@@ -1,49 +1,51 @@
-<template> 
+<template>
   <el-card class="form-container" shadow="never">
     <el-form :model="orderSetting"
-             ref="orderSettingForm"
              :rules="rules"
-             label-width="150px">
-      <el-form-item label="秒杀订单超过：" prop="flashOrderOvertime">
-        <el-input v-model="orderSetting.flashOrderOvertime" class="input-width">
+             label-width="150px"
+             ref="orderSettingForm">
+      <el-form-item label="Flash Promotion orders exceeded：" prop="flashOrderOvertime">
+        <el-input class="input-width" v-model="orderSetting.flashOrderOvertime">
           <template slot="append">分</template>
         </el-input>
-        <span class="note-margin">未付款，订单自动关闭</span>
+        <span class="note-margin">Unpaid，Orders are automatically Closed</span>
       </el-form-item>
-      <el-form-item label="正常订单超过：" prop="normalOrderOvertime">
-        <el-input v-model="orderSetting.normalOrderOvertime" class="input-width">
+      <el-form-item label="Normal order exceeds：" prop="normalOrderOvertime">
+        <el-input class="input-width" v-model="orderSetting.normalOrderOvertime">
           <template slot="append">分</template>
         </el-input>
-        <span class="note-margin">未付款，订单自动关闭</span>
+        <span class="note-margin">Unpaid，Orders are automatically Closed</span>
       </el-form-item>
-      <el-form-item label="发货超过：" prop="confirmOvertime">
-        <el-input v-model="orderSetting.confirmOvertime" class="input-width">
-          <template slot="append">天</template>
+      <el-form-item label="Shipped over：" prop="confirmOvertime">
+        <el-input class="input-width" v-model="orderSetting.confirmOvertime">
+          <template slot="append">Day</template>
         </el-input>
-        <span class="note-margin">未收货，订单自动完成</span>
+        <span class="note-margin">Unreceived，Orders are automatically completed</span>
       </el-form-item>
-      <el-form-item label="订单完成超过：" prop="finishOvertime">
-        <el-input v-model="orderSetting.finishOvertime" class="input-width">
-          <template slot="append">天</template>
+      <el-form-item label="Order completion exceeded：" prop="finishOvertime">
+        <el-input class="input-width" v-model="orderSetting.finishOvertime">
+          <template slot="append">Day</template>
         </el-input>
-        <span class="note-margin">自动结束交易，不能申请售后</span>
+        <span class="note-margin">Automatically close the transaction，Cannot apply for after sales</span>
       </el-form-item>
-      <el-form-item label="订单完成超过：" prop="commentOvertime">
-        <el-input v-model="orderSetting.commentOvertime" class="input-width">
-          <template slot="append">天</template>
+      <el-form-item label="Order completion exceeded：" prop="commentOvertime">
+        <el-input class="input-width" v-model="orderSetting.commentOvertime">
+          <template slot="append">Day</template>
         </el-input>
-        <span class="note-margin">自动五星好评</span>
+        <span class="note-margin">Automatic five-star praise</span>
       </el-form-item>
       <el-form-item>
         <el-button
           @click="confirm('orderSettingForm')"
-          type="primary">提交</el-button>
+          type="primary">Submit
+        </el-button>
       </el-form-item>
     </el-form>
   </el-card>
 </template>
 <script>
-  import {getOrderSetting,updateOrderSetting} from '@/api/orderSetting';
+  import {getOrderSetting, updateOrderSetting} from '@/api/orderSetting';
+
   const defaultOrderSetting = {
     id: null,
     flashOrderOvertime: 0,
@@ -54,12 +56,12 @@
   };
   const checkTime = (rule, value, callback) => {
     if (!value) {
-      return callback(new Error('时间不能为空'));
+      return callback(new Error('Time cannot be empty'));
     }
-    console.log("checkTime",value);
+    console.log("checkTime", value);
     let intValue = parseInt(value);
     if (!Number.isInteger(intValue)) {
-      return callback(new Error('请输入数字值'));
+      return callback(new Error('Please enter a numeric value'));
     }
     callback();
   };
@@ -69,46 +71,46 @@
       return {
         orderSetting: Object.assign({}, defaultOrderSetting),
         rules: {
-          flashOrderOvertime:{validator: checkTime, trigger: 'blur' },
-          normalOrderOvertime:{validator: checkTime, trigger: 'blur' },
-          confirmOvertime: {validator: checkTime, trigger: 'blur' },
-          finishOvertime: {validator: checkTime, trigger: 'blur' },
-          commentOvertime:{validator: checkTime, trigger: 'blur' }
+          flashOrderOvertime: {validator: checkTime, trigger: 'blur'},
+          normalOrderOvertime: {validator: checkTime, trigger: 'blur'},
+          confirmOvertime: {validator: checkTime, trigger: 'blur'},
+          finishOvertime: {validator: checkTime, trigger: 'blur'},
+          commentOvertime: {validator: checkTime, trigger: 'blur'}
         }
       }
     },
-    created(){
+    created() {
       this.getDetail();
     },
-    methods:{
-      confirm(formName){
+    methods: {
+      confirm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$confirm('是否要提交修改?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$confirm('Do you want to submit changes?', 'Prompt', {
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
               type: 'warning'
             }).then(() => {
-              updateOrderSetting(1,this.orderSetting).then(response=>{
+              updateOrderSetting(1, this.orderSetting).then(response => {
                 this.$message({
                   type: 'success',
-                  message: '提交成功!',
-                  duration:1000
+                  message: 'Submitted successfully!',
+                  duration: 1000
                 });
               })
             });
           } else {
             this.$message({
-              message: '提交参数不合法',
+              message: 'Submit parameter is invalid',
               type: 'warning'
             });
             return false;
           }
         });
       },
-      getDetail(){
-        getOrderSetting(1).then(response=>{
-          this.orderSetting=response.data;
+      getDetail() {
+        getOrderSetting(1).then(response => {
+          this.orderSetting = response.data;
         })
       }
     }

@@ -1,6 +1,6 @@
 <template>
-  <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
-    <div class="scroll-wrapper" ref="scrollWrapper" :style="{top: top + 'px'}">
+  <div @wheel.prevent="handleScroll" class="scroll-container" ref="scrollContainer">
+    <div :style="{top: top + 'px'}" class="scroll-wrapper" ref="scrollWrapper">
       <slot></slot>
     </div>
   </div>
@@ -41,7 +41,7 @@
   }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
   @import '../../styles/variables.scss';
 
   .scroll-container {

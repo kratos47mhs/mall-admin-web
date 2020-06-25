@@ -2,19 +2,19 @@
   <div>
     <el-upload
       :action="useOss?ossUploadUrl:minioUploadUrl"
-      :data="useOss?dataObj:null"
-      list-type="picture"
-      :multiple="false" :show-file-list="showFileList"
-      :file-list="fileList"
       :before-upload="beforeUpload"
+      :data="useOss?dataObj:null"
+      :file-list="fileList" :multiple="false"
+      :on-preview="handlePreview"
       :on-remove="handleRemove"
       :on-success="handleUploadSuccess"
-      :on-preview="handlePreview">
+      :show-file-list="showFileList"
+      list-type="picture">
       <el-button size="small" type="primary">Click upload</el-button>
-      <div slot="tip" class="el-upload__tip">Only upload jpg / png files, and no more than 10MB</div>
+      <div class="el-upload__tip" slot="tip">Only upload jpg / png files, and no more than 10MB</div>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="fileList[0].url" alt="">
+      <img :src="fileList[0].url" alt="" width="100%">
     </el-dialog>
   </div>
 </template>

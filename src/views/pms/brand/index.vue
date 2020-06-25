@@ -5,17 +5,17 @@
         <i class="el-icon-search"></i>
         <span>Filter search</span>
         <el-button
-          style="float: right"
           @click="searchBrandList()"
-          type="primary"
-          size="small">
+          size="small"
+          style="float: right"
+          type="primary">
           search result
         </el-button>
       </div>
       <div style="margin-top: 15px">
-        <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
+        <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="Enter search：">
-            <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="Brand Name / Keyword"></el-input>
+            <el-input placeholder="Brand Name / Keyword" style="width: 203px" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -24,78 +24,78 @@
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
       <el-button
-        class="btn-add"
         @click="addBrand()"
+        class="btn-add"
         size="mini">
         Add to
       </el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="brandTable"
-                :data="list"
-                style="width: 100%"
+      <el-table :data="list"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading"
-                border>
-        <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="Numbering" width="100" align="center">
+                border
+                ref="brandTable"
+                style="width: 100%"
+                v-loading="listLoading">
+        <el-table-column align="center" type="selection" width="60"></el-table-column>
+        <el-table-column align="center" label="Numbering" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="brand name" align="center">
+        <el-table-column align="center" label="brand name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="Brand initials" width="100" align="center">
+        <el-table-column align="center" label="Brand initials" width="100">
           <template slot-scope="scope">{{scope.row.firstLetter}}</template>
         </el-table-column>
-        <el-table-column label="Sort" width="100" align="center">
+        <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column label="Brand maker" width="100" align="center">
+        <el-table-column align="center" label="Brand maker" width="100">
           <template slot-scope="scope">
             <el-switch
-              @change="handleFactoryStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleFactoryStatusChange(scope.$index, scope.row)"
               v-model="scope.row.factoryStatus">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="Whether to show" width="100" align="center">
+        <el-table-column align="center" label="Whether to show" width="100">
           <template slot-scope="scope">
             <el-switch
-              @change="handleShowStatusChange(scope.$index, scope.row)"
               :active-value="1"
               :inactive-value="0"
+              @change="handleShowStatusChange(scope.$index, scope.row)"
               v-model="scope.row.showStatus">
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="Related" width="220" align="center">
+        <el-table-column align="center" label="Related" width="220">
           <template slot-scope="scope">
             <span>Product：</span>
             <el-button
+              @click="getProductList(scope.$index, scope.row)"
               size="mini"
-              type="text"
-              @click="getProductList(scope.$index, scope.row)">100
+              type="text">100
             </el-button>
             <span>Evaluation：</span>
             <el-button
+              @click="getProductCommentList(scope.$index, scope.row)"
               size="mini"
-              type="text"
-              @click="getProductCommentList(scope.$index, scope.row)">1000
+              type="text">1000
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="operating" width="200" align="center">
+        <el-table-column align="center" label="operating" width="200">
           <template slot-scope="scope">
             <el-button
-              size="mini"
-              @click="handleUpdate(scope.$index, scope.row)">edit
+              @click="handleUpdate(scope.$index, scope.row)"
+              size="mini">edit
             </el-button>
             <el-button
+              @click="handleDelete(scope.$index, scope.row)"
               size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">delete
+              type="danger">delete
             </el-button>
           </template>
         </el-table-column>
@@ -103,40 +103,40 @@
     </div>
     <div class="batch-operate-container">
       <el-select
-        size="small"
-        v-model="operateType" placeholder="Batch operation">
+        placeholder="Batch operation"
+        size="small" v-model="operateType">
         <el-option
-          v-for="item in operates"
           :key="item.value"
           :label="item.label"
-          :value="item.value">
+          :value="item.value"
+          v-for="item in operates">
         </el-option>
       </el-select>
       <el-button
-        style="margin-left: 20px"
-        class="search-button"
         @click="handleBatchOperate()"
-        type="primary"
-        size="small">
+        class="search-button"
+        size="small"
+        style="margin-left: 20px"
+        type="primary">
         determine
       </el-button>
     </div>
     <div class="pagination-container">
       <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
         :page-sizes="[5,10,15]"
-        :current-page.sync="listQuery.pageNum"
-        :total="total">
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
-  import {fetchList, updateShowStatus, updateFactoryStatus, deleteBrand} from '@/api/brand'
+  import {deleteBrand, fetchList, updateFactoryStatus, updateShowStatus} from '@/api/brand'
 
   export default {
     name: 'brandList',
@@ -192,7 +192,7 @@
         }).then(() => {
           deleteBrand(row.id).then(response => {
             this.$message({
-              message: '删除成功',
+              message: 'successfully deleted',
               type: 'success',
               duration: 1000
             });
@@ -301,7 +301,7 @@
     }
   }
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
 
 
 </style>

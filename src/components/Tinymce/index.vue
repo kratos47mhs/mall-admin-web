@@ -1,8 +1,8 @@
 <template>
   <div class="tinymce-container editor-container">
-    <textarea class="tinymce-textarea" :id="tinymceId"></textarea>
+    <textarea :id="tinymceId" class="tinymce-textarea"></textarea>
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"></editorImage>
+      <editorImage @successCBK="imageSuccessCBK" class="editor-upload-btn" color="#1890ff"></editorImage>
     </div>
   </div>
 </template>

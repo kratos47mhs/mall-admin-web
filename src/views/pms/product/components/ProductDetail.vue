@@ -1,37 +1,37 @@
-<template> 
+<template>
   <el-card class="form-container" shadow="never">
-    <el-steps :active="active" finish-status="success" align-center>
+    <el-steps :active="active" align-center finish-status="success">
       <el-step title="填写商品信息"></el-step>
       <el-step title="填写商品促销"></el-step>
       <el-step title="填写商品属性"></el-step>
       <el-step title="选择商品关联"></el-step>
     </el-steps>
     <product-info-detail
-      v-show="showStatus[0]"
-      v-model="productParam"
       :is-edit="isEdit"
-      @nextStep="nextStep">
+      @nextStep="nextStep"
+      v-model="productParam"
+      v-show="showStatus[0]">
     </product-info-detail>
     <product-sale-detail
-      v-show="showStatus[1]"
-      v-model="productParam"
       :is-edit="isEdit"
       @nextStep="nextStep"
-      @prevStep="prevStep">
+      @prevStep="prevStep"
+      v-model="productParam"
+      v-show="showStatus[1]">
     </product-sale-detail>
     <product-attr-detail
-      v-show="showStatus[2]"
-      v-model="productParam"
       :is-edit="isEdit"
       @nextStep="nextStep"
-      @prevStep="prevStep">
+      @prevStep="prevStep"
+      v-model="productParam"
+      v-show="showStatus[2]">
     </product-attr-detail>
     <product-relation-detail
-      v-show="showStatus[3]"
-      v-model="productParam"
       :is-edit="isEdit"
+      @finishCommit="finishCommit"
       @prevStep="prevStep"
-      @finishCommit="finishCommit">
+      v-model="productParam"
+      v-show="showStatus[3]">
     </product-relation-detail>
   </el-card>
 </template>
@@ -40,7 +40,7 @@
   import ProductSaleDetail from './ProductSaleDetail';
   import ProductAttrDetail from './ProductAttrDetail';
   import ProductRelationDetail from './ProductRelationDetail';
-  import {createProduct,getProduct,updateProduct} from '@/api/product';
+  import {createProduct, getProduct, updateProduct} from '@/api/product';
 
   const defaultProductParam = {
     albumPics: '',
@@ -71,7 +71,7 @@
     //商品满减
     productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
     //商品阶梯价格
-    productLadderList: [{count: 0,discount: 0,price: 0}],
+    productLadderList: [{count: 0, discount: 0, price: 0}],
     previewStatus: 0,
     price: 0,
     productAttributeCategoryId: null,
@@ -119,10 +119,10 @@
         showStatus: [true, false, false, false]
       }
     },
-    created(){
-      if(this.isEdit){
-        getProduct(this.$route.query.id).then(response=>{
-          this.productParam=response.data;
+    created() {
+      if (this.isEdit) {
+        getProduct(this.$route.query.id).then(response => {
+          this.productParam = response.data;
         });
       }
     },
@@ -147,26 +147,26 @@
         }
       },
       finishCommit(isEdit) {
-        this.$confirm('是否要提交该产品', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否要提交该产品', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          if(isEdit){
-            updateProduct(this.$route.query.id,this.productParam).then(response=>{
+          if (isEdit) {
+            updateProduct(this.$route.query.id, this.productParam).then(response => {
               this.$message({
                 type: 'success',
-                message: '提交成功',
-                duration:1000
+                message: 'Submitted successfully',
+                duration: 1000
               });
               this.$router.back();
             });
-          }else{
-            createProduct(this.productParam).then(response=>{
+          } else {
+            createProduct(this.productParam).then(response => {
               this.$message({
                 type: 'success',
-                message: '提交成功',
-                duration:1000
+                message: 'Submitted successfully',
+                duration: 1000
               });
               location.reload();
             });

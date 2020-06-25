@@ -63,11 +63,13 @@
     </div>
     <el-card class="mine-layout">
       <div style="text-align: center">
-        <img width="150px" height="150px"
-             src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg">
+        <img height="150px" src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg"
+             width="150px">
       </div>
       <div style="text-align: center">Full set of learning tutorials in mall！</div>
-      <div style="text-align: center;margin-top: 5px"><span class="color-main">关注公号</span>，Get it the first time.</div>
+      <div style="text-align: center;margin-top: 5px"><span class="color-main">Pay attention to the public number</span>，Get
+        it the first time.
+      </div>
     </el-card>
     <div class="un-handle-layout">
       <div class="layout-title">Pending transaction</div>
@@ -76,19 +78,19 @@
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Pending order</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Completed order</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Pending receipt confirmation</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
         </el-row>
@@ -96,19 +98,19 @@
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Pending order</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">New Out of Stock Registration</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Pending refund application</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
         </el-row>
@@ -116,19 +118,19 @@
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Shipped order</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Pending return order</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="un-handle-item">
               <span class="font-medium">Ad slot is about to expire</span>
-              <span style="float: right" class="color-danger">(10)</span>
+              <span class="color-danger" style="float: right">(10)</span>
             </div>
           </el-col>
         </el-row>
@@ -149,7 +151,7 @@
               <el-row class="font-medium">
                 <el-col :span="6" class="overview-item-title">Withdrawn</el-col>
                 <el-col :span="6" class="overview-item-title">It has been added to</el-col>
-                <el-col :span="6" class="overview-item-title">库存紧张</el-col>
+                <el-col :span="6" class="overview-item-title">Tight inventory</el-col>
                 <el-col :span="6" class="overview-item-title">all products</el-col>
               </el-row>
             </div>
@@ -157,7 +159,7 @@
         </el-col>
         <el-col :span="12">
           <div class="out-border">
-            <div class="layout-title">用户总览</div>
+            <div class="layout-title">User Overview</div>
             <div style="padding: 40px">
               <el-row>
                 <el-col :span="6" class="color-danger overview-item-value">100</el-col>
@@ -167,9 +169,9 @@
               </el-row>
               <el-row class="font-medium">
                 <el-col :span="6" class="overview-item-title">Added today</el-col>
-                <el-col :span="6" class="overview-item-title">昨日新增</el-col>
-                <el-col :span="6" class="overview-item-title">本月新增</el-col>
-                <el-col :span="6" class="overview-item-title">会员总数</el-col>
+                <el-col :span="6" class="overview-item-title">Added yesterday</el-col>
+                <el-col :span="6" class="overview-item-title">New this month</el-col>
+                <el-col :span="6" class="overview-item-title">Total members</el-col>
               </el-row>
             </div>
           </div>
@@ -177,40 +179,40 @@
       </el-row>
     </div>
     <div class="statistics-layout">
-      <div class="layout-title">订单统计</div>
+      <div class="layout-title">Order statistics</div>
       <el-row>
         <el-col :span="4">
           <div style="padding: 20px">
             <div>
-              <div style="color: #909399;font-size: 14px">本月订单总数</div>
+              <div style="color: #909399;font-size: 14px">Total orders this month</div>
               <div style="color: #606266;font-size: 24px;padding: 10px 0">10000</div>
               <div>
                 <span class="color-success" style="font-size: 14px">+10%</span>
-                <span style="color: #C0C4CC;font-size: 14px">同比上月</span>
+                <span style="color: #C0C4CC;font-size: 14px">Same as last month</span>
               </div>
             </div>
             <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本周订单总数</div>
+              <div style="color: #909399;font-size: 14px">Total orders this week</div>
               <div style="color: #606266;font-size: 24px;padding: 10px 0">1000</div>
               <div>
                 <span class="color-danger" style="font-size: 14px">-10%</span>
-                <span style="color: #C0C4CC;font-size: 14px">同比上周</span>
+                <span style="color: #C0C4CC;font-size: 14px">Same as last week</span>
               </div>
             </div>
             <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本月销售总额</div>
+              <div style="color: #909399;font-size: 14px">Total sales this month</div>
               <div style="color: #606266;font-size: 24px;padding: 10px 0">100000</div>
               <div>
                 <span class="color-success" style="font-size: 14px">+10%</span>
-                <span style="color: #C0C4CC;font-size: 14px">同比上月</span>
+                <span style="color: #C0C4CC;font-size: 14px">Same as last month</span>
               </div>
             </div>
             <div style="margin-top: 20px;">
-              <div style="color: #909399;font-size: 14px">本周销售总额</div>
+              <div style="color: #909399;font-size: 14px">Total sales this week</div>
               <div style="color: #606266;font-size: 24px;padding: 10px 0">50000</div>
               <div>
                 <span class="color-danger" style="font-size: 14px">-10%</span>
-                <span style="color: #C0C4CC;font-size: 14px">同比上周</span>
+                <span style="color: #C0C4CC;font-size: 14px">Same as last week</span>
               </div>
             </div>
           </div>
@@ -218,24 +220,24 @@
         <el-col :span="20">
           <div style="padding: 10px;border-left:1px solid #DCDFE6">
             <el-date-picker
-              style="float: right;z-index: 1"
-              size="small"
-              v-model="orderCountDate"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              :picker-options="pickerOptions"
               @change="handleDateChange"
-              :picker-options="pickerOptions">
+              align="right"
+              end-placeholder="End date"
+              range-separator="to"
+              size="small"
+              start-placeholder="Start date"
+              style="float: right;z-index: 1"
+              type="daterange"
+              unlink-panels
+              v-model="orderCountDate">
             </el-date-picker>
             <div>
               <ve-line
                 :data="chartData"
+                :data-empty="dataEmpty"
                 :legend-visible="false"
                 :loading="loading"
-                :data-empty="dataEmpty"
                 :settings="chartSettings"></ve-line>
             </div>
           </div>
@@ -277,7 +279,7 @@
       return {
         pickerOptions: {
           shortcuts: [{
-            text: '最近一周',
+            text: 'Last week',
             onClick(picker) {
               const end = new Date();
               let start = new Date();
@@ -288,7 +290,7 @@
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: '最近一月',
+            text: 'Last month',
             onClick(picker) {
               const end = new Date();
               let start = new Date();
@@ -305,7 +307,7 @@
           xAxisType: 'time',
           area: true,
           axisSite: {right: ['orderAmount']},
-          labelMap: {'orderCount': '订单数量', 'orderAmount': '订单金额'}
+          labelMap: {'orderCount': 'Quantity of Order', 'orderAmount': 'Order Amount'}
         },
         chartData: {
           columns: [],

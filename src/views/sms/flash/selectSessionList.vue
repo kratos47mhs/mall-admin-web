@@ -1,34 +1,34 @@
 <template> 
   <div class="app-container">
-    <el-card shadow="never" class="operate-container">
+    <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>数据列表</span>
+      <span>Datasheets</span>
     </el-card>
     <div class="table-container">
-      <el-table ref="selectSessionTable"
-                :data="list"
-                style="width: 100%;"
-                v-loading="listLoading" border>
-        <el-table-column label="编号" width="100" align="center">
+      <el-table :data="list"
+                border
+                ref="selectSessionTable"
+                style="width: 100%;" v-loading="listLoading">
+        <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="秒杀时间段名称" align="center">
+        <el-table-column align="center" label="秒杀时间段名称">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="每日开始时间" align="center">
+        <el-table-column align="center" label="每日开始时间">
           <template slot-scope="scope">{{scope.row.startTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="每日结束时间" align="center">
+        <el-table-column align="center" label="每日结束时间">
           <template slot-scope="scope">{{scope.row.endTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column label="商品数量" align="center">
+        <el-table-column align="center" label="商品数量">
           <template slot-scope="scope">{{scope.row.productCount}}</template>
         </el-table-column>
-        <el-table-column label="操作" align="center">
+        <el-table-column align="center" label="Manipulate">
           <template slot-scope="scope">
-            <el-button size="mini"
-                       type="text"
-                       @click="handleShowRelation(scope.$index, scope.row)">商品列表
+            <el-button @click="handleShowRelation(scope.$index, scope.row)"
+                       size="mini"
+                       type="text">商品列表
             </el-button>
           </template>
         </el-table-column>
@@ -39,6 +39,7 @@
 <script>
   import {fetchSelectList} from '@/api/flashSession';
   import {formatDate} from '@/utils/date';
+
   export default {
     name: 'selectSessionList',
     data() {
@@ -50,7 +51,7 @@
     created() {
       this.getList();
     },
-    filters:{
+    filters: {
       formatTime(time) {
         if (time == null || time === '') {
           return 'N/A';
@@ -60,13 +61,16 @@
       }
     },
     methods: {
-      handleShowRelation(index,row){
-        this.$router.push({path:'/sms/flashProductRelation',query:{
-          flashPromotionId:this.$route.query.flashPromotionId, flashPromotionSessionId:row.id}})
+      handleShowRelation(index, row) {
+        this.$router.push({
+          path: '/sms/flashProductRelation', query: {
+            flashPromotionId: this.$route.query.flashPromotionId, flashPromotionSessionId: row.id
+          }
+        })
       },
       getList() {
         this.listLoading = true;
-        fetchSelectList({flashPromotionId:this.$route.query.flashPromotionId}).then(response => {
+        fetchSelectList({flashPromotionId: this.$route.query.flashPromotionId}).then(response => {
           this.listLoading = false;
           this.list = response.data;
         });

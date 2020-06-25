@@ -11,7 +11,7 @@
           <div style="color:#909399;font-size: 14px">Please check if the URL you entered is correct, please click the
             button below to return to the homepage or send an error report
           </div>
-          <el-button style="margin-top: 20px" type="primary" round @click="handleGoMain">Back to Home</el-button>
+          <el-button @click="handleGoMain" round style="margin-top: 20px" type="primary">Back to Home</el-button>
         </div>
       </el-col>
     </div>

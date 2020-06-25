@@ -1,23 +1,23 @@
 <template>
   <el-card class="form-container" shadow="never">
-    <div v-for="(cate,index) in allResourceCate" :class="index===0?'top-line':null" :key="'cate'+cate.id">
+    <div :class="index===0?'top-line':null" :key="'cate'+cate.id" v-for="(cate,index) in allResourceCate">
       <el-row class="table-layout" style="background: #F2F6FC;">
-        <el-checkbox v-model="cate.checked"
-                     :indeterminate="isIndeterminate(cate.id)"
-                     @change="handleCheckAllChange(cate)">
+        <el-checkbox :indeterminate="isIndeterminate(cate.id)"
+                     @change="handleCheckAllChange(cate)"
+                     v-model="cate.checked">
           {{cate.name}}
         </el-checkbox>
       </el-row>
       <el-row class="table-layout">
-        <el-col :span="8" v-for="resource in getResourceByCate(cate.id)" :key="resource.id" style="padding: 4px 0">
-          <el-checkbox v-model="resource.checked" @change="handleCheckChange(resource)">
+        <el-col :key="resource.id" :span="8" style="padding: 4px 0" v-for="resource in getResourceByCate(cate.id)">
+          <el-checkbox @change="handleCheckChange(resource)" v-model="resource.checked">
             {{resource.name}}
           </el-checkbox>
         </el-col>
       </el-row>
     </div>
-    <div style="margin-top: 20px" align="center">
-      <el-button type="primary" @click="handleSave()">保存</el-button>
+    <div align="center" style="margin-top: 20px">
+      <el-button @click="handleSave()" type="primary">保存</el-button>
       <el-button @click="handleClear()">清空</el-button>
     </div>
 
@@ -27,7 +27,7 @@
 <script>
   import {fetchAllResourceList} from '@/api/resource';
   import {listAllCate} from '@/api/resourceCategory';
-  import {allocResource,listResourceByRole} from '@/api/role';
+  import {allocResource, listResourceByRole} from '@/api/role';
 
   export default {
     name: "allocResource",
@@ -72,22 +72,22 @@
         }
         return cateResource;
       },
-      getResourceByRole(roleId){
-        listResourceByRole(roleId).then(response=>{
+      getResourceByRole(roleId) {
+        listResourceByRole(roleId).then(response => {
           let allocResource = response.data;
-          this.allResource.forEach(item=>{
-            item.checked = this.getResourceChecked(item.id,allocResource);
+          this.allResource.forEach(item => {
+            item.checked = this.getResourceChecked(item.id, allocResource);
           });
-          this.allResourceCate.forEach(item=>{
+          this.allResourceCate.forEach(item => {
             item.checked = this.isAllChecked(item.id);
           });
           this.$forceUpdate();
         });
       },
-      getResourceChecked(resourceId,allocResource){
-        if(allocResource==null||allocResource.length===0) return false;
-        for(let i=0;i<allocResource.length;i++){
-          if(allocResource[i].id===resourceId){
+      getResourceChecked(resourceId, allocResource) {
+        if (allocResource == null || allocResource.length === 0) return false;
+        for (let i = 0; i < allocResource.length; i++) {
+          if (allocResource[i].id === resourceId) {
             return true;
           }
         }
@@ -113,15 +113,15 @@
             checkedCount++;
           }
         }
-        if(checkedCount===0){
+        if (checkedCount === 0) {
           return false;
         }
         return checkedCount === cateResources.length;
       },
       handleSave() {
-        this.$confirm('是否分配资源？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('是否分配资源？', 'Prompt', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           let checkedResourceIds = new Set();
@@ -162,8 +162,8 @@
         this.$forceUpdate();
       },
       handleCheckChange(resource) {
-        this.allResourceCate.forEach(item=>{
-          if(item.id===resource.categoryId){
+        this.allResourceCate.forEach(item => {
+          if (item.id === resource.categoryId) {
             item.checked = this.isAllChecked(resource.categoryId);
           }
         });
