@@ -5,31 +5,31 @@
              ref="productRelationForm"
              size="small"
              style="width: 680px">
-      <el-form-item label="关联专题：">
+      <el-form-item label="Related subjects：">
         <el-transfer
           :data="subjectList"
           :filter-method="filterMethod"
           :titles="subjectTitles"
-          filter-placeholder="请输入专题名称"
+          filter-placeholder="Please enter the subject name"
           filterable
           style="display: inline-block"
           v-model="selectSubject">
         </el-transfer>
       </el-form-item>
-      <el-form-item label="关联优选：">
+      <el-form-item label="Association preference：">
         <el-transfer
           :data="prefrenceAreaList"
           :filter-method="filterMethod"
           :titles="prefrenceAreaTitles"
-          filter-placeholder="请输入优选名称"
+          filter-placeholder="Please enter a preferred name"
           filterable
           style="display: inline-block"
           v-model="selectPrefrenceArea">
         </el-transfer>
       </el-form-item>
       <el-form-item style="text-align: center">
-        <el-button @click="handlePrev" size="medium">上一步，填写商品属性</el-button>
-        <el-button @click="handleFinishCommit" size="medium" type="primary">完成，提交商品</el-button>
+        <el-button @click="handlePrev" size="medium">Previous，Fill in product attributes</el-button>
+        <el-button @click="handleFinishCommit" size="medium" type="primary">Finish，Submit Product</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -50,14 +50,14 @@
     },
     data() {
       return {
-        //所有专题列表
+        //List of all subjects
         subjectList: [],
-        //专题左右标题
-        subjectTitles: ['待选择', '已选择'],
-        //所有专题列表
+        //Subject title
+        subjectTitles: ['To be Selected', 'Chosen'],
+        //List of all subjects
         prefrenceAreaList: [],
-        //专题左右标题
-        prefrenceAreaTitles: ['待选择', '已选择']
+        //Titles of all prefrenced Area
+        prefrenceAreaTitles: ['To be Selected', 'Chosen']
       };
     },
     created() {
@@ -65,7 +65,7 @@
       this.getPrefrenceAreaList();
     },
     computed: {
-      //选中的专题
+      //Selected Subjects
       selectSubject: {
         get: function () {
           let subjects = [];
@@ -84,7 +84,7 @@
           }
         }
       },
-      //选中的优选
+      //Selected preferences
       selectPrefrenceArea: {
         get: function () {
           let prefrenceAreas = [];

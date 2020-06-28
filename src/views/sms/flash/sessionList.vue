@@ -1,9 +1,9 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini">添加</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini">Add</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -13,16 +13,16 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="秒杀时间段名称">
+        <el-table-column align="center" label="Flash Promotion time period name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="每日开始时间">
+        <el-table-column align="center" label="Daily start time">
           <template slot-scope="scope">{{scope.row.startTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column align="center" label="每日结束时间">
+        <el-table-column align="center" label="Daily end time">
           <template slot-scope="scope">{{scope.row.endTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column align="center" label="启用">
+        <el-table-column align="center" label="Enable">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -36,7 +36,7 @@
           <template slot-scope="scope">
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
-                       type="text">编辑
+                       type="text">Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -48,21 +48,21 @@
     </div>
     <el-dialog
       :visible.sync="dialogVisible"
-      title="添加时间段"
+      title="Add time period"
       width="40%">
       <el-form :model="flashSession"
                label-width="150px"
                ref="flashSessionForm" size="small">
-        <el-form-item label="秒杀时间段名称：">
+        <el-form-item label="Flash Promotion time period name：">
           <el-input style="width: 250px" v-model="flashSession.name"></el-input>
         </el-form-item>
-        <el-form-item label="每日开始时间：">
+        <el-form-item label="Daily start time：">
           <el-time-picker
             placeholder="Please Select Time"
             v-model="flashSession.startTime">
           </el-time-picker>
         </el-form-item>
-        <el-form-item label="每日结束时间：">
+        <el-form-item label="Daily end time：">
           <el-time-picker
             placeholder="Please Select Time"
             v-model="flashSession.endTime">
@@ -70,8 +70,8 @@
         </el-form-item>
         <el-form-item label="Whether to enable">
           <el-radio-group v-model="flashSession.status">
-            <el-radio :label="1">启用</el-radio>
-            <el-radio :label="0">不启用</el-radio>
+            <el-radio :label="1">Enable</el-radio>
+            <el-radio :label="0">Not enabled</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -122,7 +122,7 @@
         this.flashSession = Object.assign({}, defaultFlashSession);
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', 'Prompt', {
+        this.$confirm('Do you want to modify the status?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -136,7 +136,7 @@
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '取消修改'
+            message: 'Cancel modification'
           });
           this.getList();
         });
@@ -149,7 +149,7 @@
         this.flashSession.endTime = new Date(row.endTime);
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该时间段?', 'Prompt', {
+        this.$confirm('Do you want to delete this time period?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -164,7 +164,7 @@
         });
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', 'Prompt', {
+        this.$confirm('Do you want to confirm?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -20,10 +20,10 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="专题名称：">
-            <el-input class="input-width" placeholder="专题名称" v-model="listQuery.subjectName"></el-input>
+          <el-form-item label="Subject Name：">
+            <el-input class="input-width" placeholder="Subject Name" v-model="listQuery.subjectName"></el-input>
           </el-form-item>
-          <el-form-item label="推荐状态：">
+          <el-form-item label="Recommended status：">
             <el-select class="input-width" clearable placeholder="All" v-model="listQuery.recommendStatus">
               <el-option :key="item.value"
                          :label="item.label"
@@ -38,7 +38,7 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleSelectSubject()" class="btn-add" size="mini">选择专题</el-button>
+      <el-button @click="handleSelectSubject()" class="btn-add" size="mini">Select Subject</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -50,10 +50,10 @@
         <el-table-column align="center" label="SerialNumber" width="120">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="专题名称">
+        <el-table-column align="center" label="Subject Name">
           <template slot-scope="scope">{{scope.row.subjectName}}</template>
         </el-table-column>
-        <el-table-column align="center" label="是否推荐" width="200">
+        <el-table-column align="center" label="Whether to recommend" width="200">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -66,14 +66,14 @@
         <el-table-column align="center" label="Sort" width="160">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column align="center" label="状态" width="160">
+        <el-table-column align="center" label="Status" width="160">
           <template slot-scope="scope">{{scope.row.recommendStatus | formatRecommendStatus}}</template>
         </el-table-column>
         <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
             <el-button @click="handleEditSort(scope.$index, scope.row)"
                        size="mini"
-                       type="text">设置排序
+                       type="text">Set Sort
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -115,8 +115,8 @@
         layout="total, sizes,prev, pager, next,jumper">
       </el-pagination>
     </div>
-    <el-dialog :visible.sync="selectDialogVisible" title="选择专题" width="50%">
-      <el-input placeholder="专题名称搜索"
+    <el-dialog :visible.sync="selectDialogVisible" title="Select Subject" width="50%">
+      <el-input placeholder="Subject name search"
                 size="small"
                 style="width: 250px;margin-bottom: 20px"
                 v-model="dialogData.listQuery.keyword">
@@ -125,13 +125,13 @@
       <el-table :data="dialogData.list"
                 @selection-change="handleDialogSelectionChange" border>
         <el-table-column align="center" type="selection" width="60"></el-table-column>
-        <el-table-column align="center" label="专题名称">
+        <el-table-column align="center" label="Subject Name">
           <template slot-scope="scope">{{scope.row.title}}</template>
         </el-table-column>
-        <el-table-column align="center" label="所属分类" width="160">
+        <el-table-column align="center" label="Category" width="160">
           <template slot-scope="scope">{{scope.row.categoryName}}</template>
         </el-table-column>
-        <el-table-column align="center" label="添加时间" width="160">
+        <el-table-column align="center" label="Add Time" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatTime}}</template>
         </el-table-column>
       </el-table>
@@ -154,7 +154,7 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="sortDialogVisible"
-               title="设置排序"
+               title="Set Sort"
                width="40%">
       <el-form :model="sortDialogData"
                label-width="150px">
@@ -188,11 +188,11 @@
   };
   const defaultRecommendOptions = [
     {
-      label: '未推荐',
+      label: 'Not recommended',
       value: 0
     },
     {
-      label: '推荐中',
+      label: 'Recommended',
       value: 1
     }
   ];
@@ -208,11 +208,11 @@
         multipleSelection: [],
         operates: [
           {
-            label: "设为推荐",
+            label: "Set as recommendation",
             value: 0
           },
           {
-            label: "取消推荐",
+            label: "Cancel recommendation",
             value: 1
           },
           {
@@ -242,9 +242,9 @@
     filters: {
       formatRecommendStatus(status) {
         if (status === 1) {
-          return '推荐中';
+          return 'Recommended';
         } else {
-          return '未推荐';
+          return 'Not recommended';
         }
       },
       formatTime(time) {
@@ -284,7 +284,7 @@
       handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
-            message: '请选择一条记录',
+            message: 'Please select a record',
             type: 'warning',
             duration: 1000
           });
@@ -295,17 +295,17 @@
           ids.push(this.multipleSelection[i].id);
         }
         if (this.operateType === 0) {
-          //设为推荐
+          //Set as recommendation
           this.updateRecommendStatusStatus(ids, 1);
         } else if (this.operateType === 1) {
-          //取消推荐
+          //Cancel recommendation
           this.updateRecommendStatusStatus(ids, 0);
         } else if (this.operateType === 2) {
           //Delete
           this.deleteSubject(ids);
         } else {
           this.$message({
-            message: '请选择批量操作类型',
+            message: 'Please select bulk operation type',
             type: 'warning',
             duration: 1000
           });
@@ -334,7 +334,7 @@
       handleSelectDialogConfirm() {
         if (this.dialogData.multipleSelection < 1) {
           this.$message({
-            message: '请选择一条记录',
+            message: 'Please select a record',
             type: 'warning',
             duration: 1000
           });
@@ -347,7 +347,7 @@
             subjectName: this.dialogData.multipleSelection[i].title
           });
         }
-        this.$confirm('使用要进行添加操作?', 'Prompt', {
+        this.$confirm('Use to add action?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -369,7 +369,7 @@
         this.sortDialogData.id = row.id;
       },
       handleUpdateSort() {
-        this.$confirm('是否要修改排序?', 'Prompt', {
+        this.$confirm('Do you want to modify the sort?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -393,7 +393,7 @@
         })
       },
       updateRecommendStatusStatus(ids, status) {
-        this.$confirm('是否要修改推荐状态?', 'Prompt', {
+        this.$confirm('Do you want to modify the recommendation status?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -411,13 +411,13 @@
         }).catch(() => {
           this.$message({
             type: 'success',
-            message: '已取消操作!'
+            message: 'Operation cancelled!'
           });
           this.getList();
         });
       },
       deleteSubject(ids) {
-        this.$confirm('是否要删除该推荐?', 'Prompt', {
+        this.$confirm('Do you want to delete the recommendation?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

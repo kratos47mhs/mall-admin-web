@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -21,7 +21,7 @@
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
           <el-form-item label="Enter search：">
-            <el-input class="input-width" clearable placeholder="角色名称" v-model="listQuery.keyword"></el-input>
+            <el-input class="input-width" clearable placeholder="Role Name" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -29,7 +29,7 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">Add</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -39,16 +39,16 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="角色名称">
+        <el-table-column align="center" label="Role Name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="描述">
+        <el-table-column align="center" label="Description">
           <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
-        <el-table-column align="center" label="用户数" width="100">
+        <el-table-column align="center" label="Number of users" width="100">
           <template slot-scope="scope">{{scope.row.adminCount}}</template>
         </el-table-column>
-        <el-table-column align="center" label="添加时间" width="160">
+        <el-table-column align="center" label="Add Time" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
         <el-table-column align="center" label="Whether to enable" width="140">
@@ -66,18 +66,18 @@
             <el-row>
               <el-button @click="handleSelectMenu(scope.$index, scope.row)"
                          size="mini"
-                         type="text">分配菜单
+                         type="text">Assign Menu
               </el-button>
               <el-button @click="handleSelectResource(scope.$index, scope.row)"
                          size="mini"
-                         type="text">分配资源
+                         type="text">Allocating Resources
               </el-button>
             </el-row>
             <el-row>
               <el-button @click="handleUpdate(scope.$index, scope.row)"
                          size="mini"
                          type="text">
-                编辑
+                Update Product
               </el-button>
               <el-button @click="handleDelete(scope.$index, scope.row)"
                          size="mini"
@@ -101,16 +101,16 @@
       </el-pagination>
     </div>
     <el-dialog
-      :title="isEdit?'编辑角色':'添加角色'"
+      :title="isEdit?'Edit role':'Add role'"
       :visible.sync="dialogVisible"
       width="40%">
       <el-form :model="role"
                label-width="150px"
                ref="roleForm" size="small">
-        <el-form-item label="角色名称：">
+        <el-form-item label="Role Name：">
           <el-input style="width: 250px" v-model="role.name"></el-input>
         </el-form-item>
-        <el-form-item label="描述：">
+        <el-form-item label="Description：">
           <el-input :rows="5"
                     style="width: 250px"
                     type="textarea"
@@ -194,7 +194,7 @@
         this.role = Object.assign({}, defaultRole);
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', 'Prompt', {
+        this.$confirm('Do you want to modify the status?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -208,13 +208,13 @@
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '取消修改'
+            message: 'Cancel modification'
           });
           this.getList();
         });
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该角色?', 'Prompt', {
+        this.$confirm('Do you want to delete the role?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -238,7 +238,7 @@
         this.role = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', 'Prompt', {
+        this.$confirm('Do you want to confirm?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

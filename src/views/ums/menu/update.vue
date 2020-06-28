@@ -1,4 +1,4 @@
-<template> 
+<template>
   <menu-detail :is-edit='true'></menu-detail>
 </template>
 <script>

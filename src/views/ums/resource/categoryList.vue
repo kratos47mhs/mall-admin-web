@@ -1,9 +1,9 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini">添加</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini">Add</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -13,10 +13,10 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="名称">
+        <el-table-column align="center" label="Name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="创建时间">
+        <el-table-column align="center" label="Creation time">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
         <el-table-column align="center" label="Sort">
@@ -26,7 +26,7 @@
           <template slot-scope="scope">
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
-                       type="text">编辑
+                       type="text">Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -43,7 +43,7 @@
       <el-form :model="resourceCategory"
                label-width="150px"
                ref="resourceCategoryForm" size="small">
-        <el-form-item label="名称：">
+        <el-form-item label="Name：">
           <el-input style="width: 250px" v-model="resourceCategory.name"></el-input>
         </el-form-item>
         <el-form-item label="Sort：">
@@ -105,7 +105,7 @@
         this.resourceCategory = Object.assign({}, row);
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该分类?', 'Prompt', {
+        this.$confirm('Do you want to delete the category?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -120,7 +120,7 @@
         });
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', 'Prompt', {
+        this.$confirm('Do you want to confirm?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

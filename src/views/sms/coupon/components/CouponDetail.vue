@@ -1,11 +1,11 @@
-<template> 
+<template>
   <el-card class="form-container" shadow="never">
     <el-form :model="coupon"
              :rules="rules"
              label-width="150px"
              ref="couponFrom"
              size="small">
-      <el-form-item label="优惠券类型：">
+      <el-form-item label="Coupon type：">
         <el-select v-model="coupon.type">
           <el-option
             :key="type.value"
@@ -15,10 +15,10 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="优惠券名称：" prop="name">
+      <el-form-item label="Coupon name：" prop="name">
         <el-input class="input-width" v-model="coupon.name"></el-input>
       </el-form-item>
-      <el-form-item label="适用平台：">
+      <el-form-item label="Coupon platform：">
         <el-select v-model="coupon.platform">
           <el-option
             :key="item.value"
@@ -28,50 +28,50 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="总发行量：" prop="publishCount">
-        <el-input class="input-width" placeholder="只能输入正整数" v-model.number="coupon.publishCount"></el-input>
+      <el-form-item label="Total Issue：" prop="publishCount">
+        <el-input class="input-width" placeholder="Only positive integers can be entered" v-model.number="coupon.publishCount"></el-input>
       </el-form-item>
       <el-form-item label="面额：" prop="amount">
-        <el-input class="input-width" placeholder="面值只能是数值，限2位小数" v-model.number="coupon.amount">
-          <template slot="append">元</template>
+        <el-input class="input-width" placeholder="The face value can only be a numeric value, limited to 2 decimal places" v-model.number="coupon.amount">
+          <template slot="append">Dollar</template>
         </el-input>
       </el-form-item>
       <el-form-item label="每人限领：">
-        <el-input class="input-width" placeholder="只能输入正整数" v-model="coupon.perLimit">
+        <el-input class="input-width" placeholder="Only positive integers can be entered" v-model="coupon.perLimit">
           <template slot="append">张</template>
         </el-input>
       </el-form-item>
-      <el-form-item label="使用门槛：" prop="minPoint">
-        <el-input class="input-width" placeholder="只能输入正整数" v-model.number="coupon.minPoint">
-          <template slot="prepend">满</template>
-          <template slot="append">元可用</template>
+      <el-form-item label="Use threshold：" prop="minPoint">
+        <el-input class="input-width" placeholder="Only positive integers can be entered" v-model.number="coupon.minPoint">
+          <template slot="prepend">Full</template>
+          <template slot="append">Yuan available</template>
         </el-input>
       </el-form-item>
-      <el-form-item label="有效期：">
-        <el-date-picker placeholder="选择日期" style="width: 150px" type="date" v-model="coupon.startTime"></el-date-picker>
-        <span style="margin-left: 20px;margin-right: 20px">至</span>
-        <el-date-picker placeholder="选择日期" style="width: 150px" type="date" v-model="coupon.endTime"></el-date-picker>
+      <el-form-item label="Expiry date：">
+        <el-date-picker placeholder="Select Date" style="width: 150px" type="date" v-model="coupon.startTime"></el-date-picker>
+        <span style="margin-left: 20px;margin-right: 20px">To</span>
+        <el-date-picker placeholder="Select Date" style="width: 150px" type="date" v-model="coupon.endTime"></el-date-picker>
       </el-form-item>
-      <el-form-item label="可使用商品：">
+      <el-form-item label="Usable products：">
         <el-radio-group v-model="coupon.useType">
-          <el-radio-button :label="0">全场通用</el-radio-button>
-          <el-radio-button :label="1">指定分类</el-radio-button>
-          <el-radio-button :label="2">指定商品</el-radio-button>
+          <el-radio-button :label="0">Universal</el-radio-button>
+          <el-radio-button :label="1">Designated category</el-radio-button>
+          <el-radio-button :label="2">Designated product</el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item v-show="coupon.useType===1">
         <el-cascader
           :options="productCateOptions"
           clearable
-          placeholder="请选择分类名称"
+          placeholder="Please select a category name"
           v-model="selectProductCate">
         </el-cascader>
-        <el-button @click="handleAddProductCategoryRelation()">添加</el-button>
+        <el-button @click="handleAddProductCategoryRelation()">Add</el-button>
         <el-table :data="coupon.productCategoryRelationList"
                   border
                   ref="productCateRelationTable"
                   style="width: 100%;margin-top: 20px">
-          <el-table-column align="center" label="分类名称">
+          <el-table-column align="center" label="Category Name">
             <template slot-scope="scope">{{scope.row.parentCategoryName}}>{{scope.row.productCategoryName}}</template>
           </el-table-column>
           <el-table-column align="center" label="Manipulate" width="100">
@@ -89,7 +89,7 @@
           :loading="selectProductLoading"
           :remote-method="searchProductMethod"
           filterable
-          placeholder="Product Name/商品货号"
+          placeholder="Product Name/Product SerialNumber"
           remote
           reserve-keyword
           v-model="selectProduct">
@@ -102,7 +102,7 @@
             <span style="float: right; color: #8492a6; font-size: 13px">NO.{{ item.productSn }}</span>
           </el-option>
         </el-select>
-        <el-button @click="handleAddProductRelation()">添加</el-button>
+        <el-button @click="handleAddProductRelation()">Add</el-button>
         <el-table :data="coupon.productRelationList"
                   border
                   ref="productRelationTable"
@@ -161,33 +161,33 @@
   };
   const defaultTypeOptions = [
     {
-      label: '全场赠券',
+      label: 'Coupons',
       value: 0
     },
     {
-      label: '会员赠券',
+      label: 'Member coupons',
       value: 1
     },
     {
-      label: '购物赠券',
+      label: 'Shopping coupons',
       value: 2
     },
     {
-      label: '注册赠券',
+      label: 'Registration coupon',
       value: 3
     }
   ];
   const defaultPlatformOptions = [
     {
-      label: '全平台',
+      label: 'Full platform',
       value: 0
     },
     {
-      label: '移动平台',
+      label: 'Mobile platform',
       value: 1
     },
     {
-      label: 'PC平台',
+      label: 'PC platform',
       value: 2
     }
   ];
@@ -206,17 +206,17 @@
         platformOptions: Object.assign({}, defaultPlatformOptions),
         rules: {
           name: [
-            {required: true, message: '请输入优惠券名称', trigger: 'blur'},
+            {required: true, message: 'Please enter the coupon name', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           publishCount: [
-            {type: 'number', required: true, message: '只能输入正整数', trigger: 'blur'}
+            {type: 'number', required: true, message: 'Only positive integers can be entered', trigger: 'blur'}
           ],
           amount: [
-            {type: 'number', required: true, message: '面值只能是数值，0.01-10000，限2位小数', trigger: 'blur'}
+            {type: 'number', required: true, message: 'The face value can only be a numeric value, 0.01-10000, limited to 2 decimal places', trigger: 'blur'}
           ],
           minPoint: [
-            {type: 'number', required: true, message: '只能输入正整数', trigger: 'blur'}
+            {type: 'number', required: true, message: 'Only positive integers can be entered', trigger: 'blur'}
           ]
         },
         selectProduct: null,
@@ -298,7 +298,7 @@
       handleAddProductRelation() {
         if (this.selectProduct === null) {
           this.$message({
-            message: '请先选择商品',
+            message: 'Please select the product first',
             type: 'warning'
           });
           return
@@ -312,7 +312,7 @@
       handleAddProductCategoryRelation() {
         if (this.selectProductCate === null || this.selectProductCate.length === 0) {
           this.$message({
-            message: '请先选择商品分类',
+            message: 'Please select the product category first',
             type: 'warning'
           });
           return

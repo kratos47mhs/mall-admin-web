@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -9,7 +9,7 @@
           size="small"
           style="float: right"
           type="primary">
-          查询结果
+          Search Result
         </el-button>
         <el-button
           @click="handleResetSearch()"
@@ -23,18 +23,18 @@
           <el-form-item label="Enter search：">
             <el-input placeholder="Product Name" style="width: 203px" v-model="listQuery.keyword"></el-input>
           </el-form-item>
-          <el-form-item label="商品货号：">
-            <el-input placeholder="商品货号" style="width: 203px" v-model="listQuery.productSn"></el-input>
+          <el-form-item label="Product SerialNumber：">
+            <el-input placeholder="Product SerialNumber" style="width: 203px" v-model="listQuery.productSn"></el-input>
           </el-form-item>
-          <el-form-item label="商品分类：">
+          <el-form-item label="Categories：">
             <el-cascader
               :options="productCateOptions"
               clearable
               v-model="selectProductCateValue">
             </el-cascader>
           </el-form-item>
-          <el-form-item label="商品品牌：">
-            <el-select clearable placeholder="请选择品牌" v-model="listQuery.brandId">
+          <el-form-item label="Product Brand：">
+            <el-select clearable placeholder="Please select a brand" v-model="listQuery.brandId">
               <el-option
                 :key="item.value"
                 :label="item.label"
@@ -43,7 +43,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="上架状态：">
+          <el-form-item label="Product on the shelf：">
             <el-select clearable placeholder="All" v-model="listQuery.publishStatus">
               <el-option
                 :key="item.value"
@@ -53,7 +53,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="审核状态：">
+          <el-form-item label="Verify Status：">
             <el-select clearable placeholder="All" v-model="listQuery.verifyStatus">
               <el-option
                 :key="item.value"
@@ -73,7 +73,7 @@
         @click="handleAddProduct()"
         class="btn-add"
         size="mini">
-        添加
+        Add
       </el-button>
     </el-card>
     <div class="table-container">
@@ -93,7 +93,7 @@
         <el-table-column align="center" label="Product Name">
           <template slot-scope="scope">
             <p>{{scope.row.name}}</p>
-            <p>品牌：{{scope.row.brandName}}</p>
+            <p>Brand：{{scope.row.brandName}}</p>
           </template>
         </el-table-column>
         <el-table-column align="center" label="Price/Product SerialNumber" width="120">
@@ -102,9 +102,9 @@
             <p>Product SerialNumber：{{scope.row.productSn}}</p>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="标签" width="140">
+        <el-table-column align="center" label="Label" width="140">
           <template slot-scope="scope">
-            <p>上架：
+            <p>Put on shelf：
               <el-switch
                 :active-value="1"
                 :inactive-value="0"
@@ -112,7 +112,7 @@
                 v-model="scope.row.publishStatus">
               </el-switch>
             </p>
-            <p>新品：
+            <p>New Product：
               <el-switch
                 :active-value="1"
                 :inactive-value="0"
@@ -120,7 +120,7 @@
                 v-model="scope.row.newStatus">
               </el-switch>
             </p>
-            <p>推荐：
+            <p>Recommendation：
               <el-switch
                 :active-value="1"
                 :inactive-value="0"
@@ -133,22 +133,22 @@
         <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort}}</template>
         </el-table-column>
-        <el-table-column align="center" label="SKU库存" width="100">
+        <el-table-column align="center" label="SKU inventory" width="100">
           <template slot-scope="scope">
             <el-button @click="handleShowSkuEditDialog(scope.$index, scope.row)" circle icon="el-icon-edit"
                        type="primary"></el-button>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="销量" width="100">
+        <el-table-column align="center" label="Sales" width="100">
           <template slot-scope="scope">{{scope.row.sale}}</template>
         </el-table-column>
-        <el-table-column align="center" label="审核状态" width="100">
+        <el-table-column align="center" label="Verify Status" width="100">
           <template slot-scope="scope">
             <p>{{scope.row.verifyStatus | verifyStatusFilter}}</p>
             <p>
               <el-button
                 @click="handleShowVerifyDetail(scope.$index, scope.row)"
-                type="text">审核详情
+                type="text">Verify Detail
               </el-button>
             </p>
           </template>
@@ -158,17 +158,17 @@
             <p>
               <el-button
                 @click="handleShowProduct(scope.$index, scope.row)"
-                size="mini">查看
+                size="mini">Show Product
               </el-button>
               <el-button
                 @click="handleUpdateProduct(scope.$index, scope.row)"
-                size="mini">编辑
+                size="mini">Update Product
               </el-button>
             </p>
             <p>
               <el-button
                 @click="handleShowLog(scope.$index, scope.row)"
-                size="mini">日志
+                size="mini">Show Log
               </el-button>
               <el-button
                 @click="handleDelete(scope.$index, scope.row)"
@@ -214,11 +214,11 @@
     </div>
     <el-dialog
       :visible.sync="editSkuInfo.dialogVisible"
-      title="编辑货品信息"
+      title="Edit product information"
       width="40%">
-      <span>商品货号：</span>
+      <span>Product SerialNumber：</span>
       <span>{{editSkuInfo.productSn}}</span>
-      <el-input placeholder="按sku编号搜索" size="small" style="width: 50%;margin-left: 20px" v-model="editSkuInfo.keyword">
+      <el-input placeholder="Search by sku number" size="small" style="width: 50%;margin-left: 20px" v-model="editSkuInfo.keyword">
         <el-button @click="handleSearchEditSku" icon="el-icon-search" slot="append"></el-button>
       </el-input>
       <el-table :data="editSkuInfo.stockList"
@@ -310,35 +310,35 @@
         },
         operates: [
           {
-            label: "商品上架",
+            label: "Product on the shelf",
             value: "publishOn"
           },
           {
-            label: "商品下架",
+            label: "Product off the shelf",
             value: "publishOff"
           },
           {
-            label: "设为推荐",
+            label: "Set as recommendation",
             value: "recommendOn"
           },
           {
-            label: "取消推荐",
+            label: "Cancel recommendation",
             value: "recommendOff"
           },
           {
-            label: "设为新品",
+            label: "Set as new",
             value: "newOn"
           },
           {
-            label: "取消新品",
+            label: "Cancel new",
             value: "newOff"
           },
           {
-            label: "转移到分类",
+            label: "Move to category",
             value: "transferCategory"
           },
           {
-            label: "移入回收站",
+            label: "Move to recycle bin",
             value: "recycle"
           }
         ],
@@ -353,17 +353,17 @@
         brandOptions: [],
         publishStatusOptions: [{
           value: 1,
-          label: '上架'
+          label: 'Put on shelf'
         }, {
           value: 0,
-          label: '下架'
+          label: 'Off shelf'
         }],
         verifyStatusOptions: [{
           value: 1,
-          label: '审核通过'
+          label: 'examination passed'
         }, {
           value: 0,
-          label: '未审核'
+          label: 'Unreviewed'
         }]
       }
     },
@@ -385,9 +385,9 @@
     filters: {
       verifyStatusFilter(value) {
         if (value === 1) {
-          return '审核通过';
+          return 'examination passed';
         } else {
-          return '未审核';
+          return 'Unreviewed';
         }
       }
     },
@@ -455,13 +455,13 @@
       handleEditSkuConfirm() {
         if (this.editSkuInfo.stockList == null || this.editSkuInfo.stockList.length <= 0) {
           this.$message({
-            message: '暂无sku信息',
+            message: 'No sku information',
             type: 'warning',
             duration: 1000
           });
           return
         }
-        this.$confirm('是否要进行修改', 'Prompt', {
+        this.$confirm('Do you want to modify', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -486,7 +486,7 @@
       handleBatchOperate() {
         if (this.operateType == null) {
           this.$message({
-            message: '请选择操作类型',
+            message: 'Please select the type of operation',
             type: 'warning',
             duration: 1000
           });
@@ -494,13 +494,13 @@
         }
         if (this.multipleSelection == null || this.multipleSelection.length < 1) {
           this.$message({
-            message: '请选择要操作的商品',
+            message: 'Please select the product to be operated',
             type: 'warning',
             duration: 1000
           });
           return;
         }
-        this.$confirm('是否要进行该批量操作?', 'Prompt', {
+        this.$confirm('Do you want to do this batch operation?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -571,7 +571,7 @@
         this.listQuery = Object.assign({}, defaultListQuery);
       },
       handleDelete(index, row) {
-        this.$confirm('是否要进行删除操作?', 'Prompt', {
+        this.$confirm('Do you want to delete?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

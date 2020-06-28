@@ -1,4 +1,4 @@
-<template> 
+<template>
   <coupon-detail :isEdit="false"></coupon-detail>
 </template>
 <script>

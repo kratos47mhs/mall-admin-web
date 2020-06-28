@@ -4,11 +4,11 @@
              :rules="rules"
              label-width="150px"
              ref="productCateFrom">
-      <el-form-item label="分类名称：" prop="name">
+      <el-form-item label="Category Name：" prop="name">
         <el-input v-model="productCate.name"></el-input>
       </el-form-item>
       <el-form-item label="上级分类：">
-        <el-select placeholder="请选择分类"
+        <el-select placeholder="please select a type"
                    v-model="productCate.parentId">
           <el-option
             :key="item.id"
@@ -18,7 +18,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="数量单位：">
+      <el-form-item label="Quantity unit：">
         <el-input v-model="productCate.productUnit"></el-input>
       </el-form-item>
       <el-form-item label="Sort：">
@@ -30,13 +30,13 @@
           <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="是否显示在导航栏：">
+      <el-form-item label="Whether to show in the navigation bar：">
         <el-radio-group v-model="productCate.navStatus">
           <el-radio :label="1">Yes</el-radio>
           <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="分类图标：">
+      <el-form-item label="Category icon：">
         <single-upload v-model="productCate.icon"></single-upload>
       </el-form-item>
       <el-form-item :key="filterProductAttr.key"
@@ -51,12 +51,12 @@
         <el-button @click.prevent="removeFilterAttr(filterProductAttr)" style="margin-left: 20px">Delete</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button @click="handleAddFilterAttr()" size="small" type="primary">新增</el-button>
+        <el-button @click="handleAddFilterAttr()" size="small" type="primary">Add</el-button>
       </el-form-item>
-      <el-form-item label="关键词：">
+      <el-form-item label="Keywords：">
         <el-input v-model="productCate.keywords"></el-input>
       </el-form-item>
-      <el-form-item label="分类描述：">
+      <el-form-item label="Category description：">
         <el-input :autosize="true" type="textarea" v-model="productCate.description"></el-input>
       </el-form-item>
       <el-form-item>
@@ -158,7 +158,7 @@
         });
       },
       getProductAttributeIdList() {
-        //获取选中的筛选商品属性
+        //Get the selected filtered product attributes
         let productAttributeIdList = [];
         for (let i = 0; i < this.filterProductAttrList.length; i++) {
           let item = this.filterProductAttrList[i];
@@ -221,7 +221,7 @@
       removeFilterAttr(productAttributeId) {
         if (this.filterProductAttrList.length === 1) {
           this.$message({
-            message: '至少要留一个',
+            message: 'At least one',
             type: 'warning',
             duration: 1000
           });
@@ -235,7 +235,7 @@
       handleAddFilterAttr() {
         if (this.filterProductAttrList.length === 3) {
           this.$message({
-            message: '最多添加三个',
+            message: 'Add up to three',
             type: 'warning',
             duration: 1000
           });
@@ -250,7 +250,7 @@
     filters: {
       filterLabelFilter(index) {
         if (index === 0) {
-          return '筛选属性：';
+          return 'Filter attributes：';
         } else {
           return '';
         }

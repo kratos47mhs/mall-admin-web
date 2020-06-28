@@ -4,11 +4,11 @@
              :rules="rules"
              label-width="150px"
              ref="menuFrom">
-      <el-form-item label="菜单名称：" prop="title">
+      <el-form-item label="Menu Title：" prop="title">
         <el-input v-model="menu.title"></el-input>
       </el-form-item>
-      <el-form-item label="上级菜单：">
-        <el-select placeholder="请选择菜单"
+      <el-form-item label="Parent menu：">
+        <el-select placeholder="Please select the menu"
                    v-model="menu.parentId">
           <el-option
             :key="item.id"
@@ -18,10 +18,10 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="前端名称：" prop="name">
+      <el-form-item label="Menu name：" prop="name">
         <el-input v-model="menu.name"></el-input>
       </el-form-item>
-      <el-form-item label="前端图标：" prop="icon">
+      <el-form-item label="Menu name：" prop="icon">
         <el-input style="width: 80%" v-model="menu.icon"></el-input>
         <svg-icon :icon-class="menu.icon" style="margin-left: 8px"></svg-icon>
       </el-form-item>
@@ -67,15 +67,15 @@
         selectMenuList: [],
         rules: {
           title: [
-            {required: true, message: '请输入菜单名称', trigger: 'blur'},
+            {required: true, message: 'Please enter the menu title', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           name: [
-            {required: true, message: '请输入前端名称', trigger: 'blur'},
+            {required: true, message: 'Please enter the menu name', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           icon: [
-            {required: true, message: '请输入前端图标', trigger: 'blur'},
+            {required: true, message: 'Please enter the menu icon', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ]
         }
@@ -95,7 +95,7 @@
       getSelectMenuList() {
         fetchList(0, {pageSize: 100, pageNum: 1}).then(response => {
           this.selectMenuList = response.data.list;
-          this.selectMenuList.unshift({id: 0, title: '无上级菜单'});
+          this.selectMenuList.unshift({id: 0, title: 'No Parent Menu'});
         });
       },
       onSubmit(formName) {

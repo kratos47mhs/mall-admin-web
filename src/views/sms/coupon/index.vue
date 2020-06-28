@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -20,10 +20,10 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="优惠券名称：">
-            <el-input class="input-width" placeholder="优惠券名称" v-model="listQuery.name"></el-input>
+          <el-form-item label="Coupon name：">
+            <el-input class="input-width" placeholder="Coupon name" v-model="listQuery.name"></el-input>
           </el-form-item>
-          <el-form-item label="优惠券类型：">
+          <el-form-item label="Coupon type：">
             <el-select class="input-width" clearable placeholder="All" v-model="listQuery.type">
               <el-option :key="item.value"
                          :label="item.label"
@@ -38,7 +38,7 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini">添加</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini">Add</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -50,40 +50,40 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="优惠劵名称">
+        <el-table-column align="center" label="Coupon name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="优惠券类型" width="100">
+        <el-table-column align="center" label="Coupon type" width="100">
           <template slot-scope="scope">{{scope.row.type | formatType}}</template>
         </el-table-column>
-        <el-table-column align="center" label="可使用商品" width="100">
+        <el-table-column align="center" label="Usable products" width="100">
           <template slot-scope="scope">{{scope.row.useType | formatUseType}}</template>
         </el-table-column>
-        <el-table-column align="center" label="使用门槛" width="140">
-          <template slot-scope="scope">满{{scope.row.minPoint}}元可用</template>
+        <el-table-column align="center" label="Use threshold" width="140">
+          <template slot-scope="scope">Full{{scope.row.minPoint}}Yuan available</template>
         </el-table-column>
-        <el-table-column align="center" label="面值" width="100">
-          <template slot-scope="scope">{{scope.row.amount}}元</template>
+        <el-table-column align="center" label="face value" width="100">
+          <template slot-scope="scope">{{scope.row.amount}}Dollar</template>
         </el-table-column>
-        <el-table-column align="center" label="适用平台" width="100">
+        <el-table-column align="center" label="Coupon platform" width="100">
           <template slot-scope="scope">{{scope.row.platform | formatPlatform}}</template>
         </el-table-column>
-        <el-table-column align="center" label="有效期" width="180">
-          <template slot-scope="scope">{{scope.row.startTime|formatDate}}至{{scope.row.endTime|formatDate}}</template>
+        <el-table-column align="center" label="Expiry date" width="180">
+          <template slot-scope="scope">{{scope.row.startTime|formatDate}}To{{scope.row.endTime|formatDate}}</template>
         </el-table-column>
-        <el-table-column align="center" label="状态" width="100">
+        <el-table-column align="center" label="Status" width="100">
           <template slot-scope="scope">{{scope.row.endTime | formatStatus}}</template>
         </el-table-column>
         <el-table-column align="center" label="Manipulate" width="180">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.$index, scope.row)"
                        size="mini"
-                       type="text">查看
+                       type="text">Show Product
             </el-button>
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
                        type="text">
-              编辑
+              Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -119,19 +119,19 @@
   };
   const defaultTypeOptions = [
     {
-      label: '全场赠券',
+      label: 'Coupons',
       value: 0
     },
     {
-      label: '会员赠券',
+      label: 'Member coupons',
       value: 1
     },
     {
-      label: '购物赠券',
+      label: 'Shopping coupons',
       value: 2
     },
     {
-      label: '注册赠券',
+      label: 'Registration coupon',
       value: 3
     }
   ];
@@ -161,20 +161,20 @@
       },
       formatUseType(useType) {
         if (useType === 0) {
-          return '全场通用';
+          return 'Universal';
         } else if (useType === 1) {
-          return '指定分类';
+          return 'Designated category';
         } else {
-          return '指定商品';
+          return 'Designated product';
         }
       },
       formatPlatform(platform) {
         if (platform === 1) {
-          return '移动平台';
+          return 'Mobile platform';
         } else if (platform === 2) {
-          return 'PC平台';
+          return 'PC platform';
         } else {
-          return '全平台';
+          return 'Full platform';
         }
       },
       formatDate(time) {
@@ -188,9 +188,9 @@
         let now = new Date().getTime();
         let endDate = new Date(endTime);
         if (endDate > now) {
-          return '未过期'
+          return 'Not Expired'
         } else {
-          return '已过期';
+          return 'Expired';
         }
       }
     },
@@ -224,7 +224,7 @@
         this.$router.push({path: '/sms/updateCoupon', query: {id: row.id}})
       },
       handleDelete(index, row) {
-        this.$confirm('是否进行删除操作?', 'Prompt', {
+        this.$confirm('Whether to delete?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

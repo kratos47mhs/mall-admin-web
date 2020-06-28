@@ -12,16 +12,16 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="秒杀时间段名称">
+        <el-table-column align="center" label="Flash Promotion time period name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="每日开始时间">
+        <el-table-column align="center" label="Daily start time">
           <template slot-scope="scope">{{scope.row.startTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column align="center" label="每日结束时间">
+        <el-table-column align="center" label="Daily end time">
           <template slot-scope="scope">{{scope.row.endTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column align="center" label="商品数量">
+        <el-table-column align="center" label="Amount of Products">
           <template slot-scope="scope">{{scope.row.productCount}}</template>
         </el-table-column>
         <el-table-column align="center" label="Manipulate">

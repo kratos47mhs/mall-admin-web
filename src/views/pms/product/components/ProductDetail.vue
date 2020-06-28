@@ -1,10 +1,10 @@
 <template>
   <el-card class="form-container" shadow="never">
     <el-steps :active="active" align-center finish-status="success">
-      <el-step title="填写商品信息"></el-step>
-      <el-step title="填写商品促销"></el-step>
-      <el-step title="填写商品属性"></el-step>
-      <el-step title="选择商品关联"></el-step>
+      <el-step title="Fill in product information"></el-step>
+      <el-step title="Fill in product promotion"></el-step>
+      <el-step title="Fill in product attributes"></el-step>
+      <el-step title="Select product association"></el-step>
     </el-steps>
     <product-info-detail
       :is-edit="isEdit"
@@ -66,22 +66,22 @@
     note: '',
     originalPrice: 0,
     pic: '',
-    //会员价格{memberLevelId: 0,memberPrice: 0,memberLevelName: null}
+    //member price{memberLevelId: 0,memberPrice: 0,memberLevelName: null}
     memberPriceList: [],
-    //商品满减
+    //Full merchandise reduction
     productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
-    //商品阶梯价格
+    //Product ladder price
     productLadderList: [{count: 0, discount: 0, price: 0}],
     previewStatus: 0,
     price: 0,
     productAttributeCategoryId: null,
-    //商品属性相关{productAttributeId: 0, value: ''}
+    //Product attributes{productAttributeId: 0, value: ''}
     productAttributeValueList: [],
-    //商品sku库存信息{lowStock: 0, pic: '', price: 0, sale: 0, skuCode: '', spData: '', stock: 0}
+    //Product sku inventory information{lowStock: 0, pic: '', price: 0, sale: 0, skuCode: '', spData: '', stock: 0}
     skuStockList: [],
-    //商品相关专题{subjectId: 0}
+    //Product-related topics{subjectId: 0}
     subjectProductRelationList: [],
-    //商品相关优选{prefrenceAreaId: 0}
+    //Product related preferences{prefrenceAreaId: 0}
     prefrenceAreaProductRelationList: [],
     productCategoryId: null,
     productCategoryName: '',
@@ -147,7 +147,7 @@
         }
       },
       finishCommit(isEdit) {
-        this.$confirm('是否要提交该产品', 'Prompt', {
+        this.$confirm('Do you want to Submit this Product', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

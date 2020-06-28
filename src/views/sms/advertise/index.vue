@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -20,10 +20,10 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="广告名称：">
-            <el-input class="input-width" placeholder="广告名称" v-model="listQuery.name"></el-input>
+          <el-form-item label="Ad name：">
+            <el-input class="input-width" placeholder="Ad name" v-model="listQuery.name"></el-input>
           </el-form-item>
-          <el-form-item label="广告位置：">
+          <el-form-item label="Ad placement：">
             <el-select class="input-width" clearable placeholder="All" v-model="listQuery.type">
               <el-option :key="item.value"
                          :label="item.label"
@@ -32,7 +32,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="到期时间：">
+          <el-form-item label="Ending Time：">
             <el-date-picker
               class="input-width"
               placeholder="Please Select Time"
@@ -47,7 +47,7 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini">添加广告</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini">Add ads</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -59,22 +59,22 @@
         <el-table-column align="center" label="SerialNumber" width="120">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="广告名称">
+        <el-table-column align="center" label="Ad name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="广告位置" width="120">
+        <el-table-column align="center" label="Ad placement" width="120">
           <template slot-scope="scope">{{scope.row.type | formatType}}</template>
         </el-table-column>
-        <el-table-column align="center" label="广告图片" width="120">
+        <el-table-column align="center" label="Ad Image" width="120">
           <template slot-scope="scope"><img :src="scope.row.pic" style="height: 80px"></template>
         </el-table-column>
         <el-table-column align="center" label="时间" width="220">
           <template slot-scope="scope">
-            <p>开始时间：{{scope.row.startTime | formatTime}}</p>
-            <p>到期时间：{{scope.row.endTime | formatTime}}</p>
+            <p>Starting time：{{scope.row.startTime | formatTime}}</p>
+            <p>Ending Time：{{scope.row.endTime | formatTime}}</p>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="上线/下线" width="120">
+        <el-table-column align="center" label="Online/Offline" width="120">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -84,17 +84,17 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="点击次数" width="120">
+        <el-table-column align="center" label="Number of clicks" width="120">
           <template slot-scope="scope">{{scope.row.clickCount}}</template>
         </el-table-column>
-        <el-table-column align="center" label="生成订单" width="120">
+        <el-table-column align="center" label="Number of orders" width="120">
           <template slot-scope="scope">{{scope.row.orderCount}}</template>
         </el-table-column>
         <el-table-column align="center" label="Manipulate" width="120">
           <template slot-scope="scope">
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
-                       type="text">编辑
+                       type="text">Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -151,11 +151,11 @@
   };
   const defaultTypeOptions = [
     {
-      label: 'PC首页轮播',
+      label: 'PC Home Carousel',
       value: 0
     },
     {
-      label: 'APP首页轮播',
+      label: 'APP Home Carousel',
       value: 1
     }
   ];
@@ -184,9 +184,9 @@
     filters: {
       formatType(type) {
         if (type === 1) {
-          return 'APP首页轮播';
+          return 'APP Home Carousel';
         } else {
-          return 'PC首页轮播';
+          return 'PC Home Carousel';
         }
       },
       formatTime(time) {
@@ -218,7 +218,7 @@
         this.getList();
       },
       handleUpdateStatus(index, row) {
-        this.$confirm('是否要修改上线/下线状态?', 'Prompt', {
+        this.$confirm('Do you want to modify the online/offline status?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -233,7 +233,7 @@
         }).catch(() => {
           this.$message({
             type: 'success',
-            message: '已取消操作!'
+            message: 'Operation cancelled!'
           });
           this.getList();
         });
@@ -244,7 +244,7 @@
       handleBatchOperate() {
         if (this.multipleSelection < 1) {
           this.$message({
-            message: '请选择一条记录',
+            message: 'Please select a record',
             type: 'warning',
             duration: 1000
           });
@@ -259,7 +259,7 @@
           this.deleteHomeAdvertise(ids);
         } else {
           this.$message({
-            message: '请选择批量操作类型',
+            message: 'Please select bulk operation type',
             type: 'warning',
             duration: 1000
           });
@@ -280,7 +280,7 @@
         })
       },
       deleteHomeAdvertise(ids) {
-        this.$confirm('是否要删除该广告?', 'Prompt', {
+        this.$confirm('Do you want to delete the ad?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

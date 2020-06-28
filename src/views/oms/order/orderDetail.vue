@@ -118,7 +118,7 @@
         <el-table-column align="center" label="Product Name">
           <template slot-scope="scope">
             <p>{{scope.row.productName}}</p>
-            <p>品牌：{{scope.row.productBrand}}</p>
+            <p>Brand：{{scope.row.productBrand}}</p>
           </template>
         </el-table-column>
         <el-table-column align="center" label="Price/Product SerialNumber" width="120">

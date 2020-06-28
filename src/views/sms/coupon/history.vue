@@ -1,33 +1,33 @@
-<template> 
+<template>
   <div class="app-container">
     <div class="table-layout">
       <el-row>
-        <el-col :span="4" class="table-cell-title">名称</el-col>
-        <el-col :span="4" class="table-cell-title">优惠券类型</el-col>
-        <el-col :span="4" class="table-cell-title">可使用商品</el-col>
-        <el-col :span="4" class="table-cell-title">使用门槛</el-col>
-        <el-col :span="4" class="table-cell-title">面值</el-col>
-        <el-col :span="4" class="table-cell-title">状态</el-col>
+        <el-col :span="4" class="table-cell-title">Name</el-col>
+        <el-col :span="4" class="table-cell-title">Coupon type</el-col>
+        <el-col :span="4" class="table-cell-title">Usable products</el-col>
+        <el-col :span="4" class="table-cell-title">Use threshold</el-col>
+        <el-col :span="4" class="table-cell-title">face value</el-col>
+        <el-col :span="4" class="table-cell-title">Status</el-col>
       </el-row>
       <el-row>
         <el-col :span="4" class="table-cell">{{coupon.name}}</el-col>
         <el-col :span="4" class="table-cell">{{coupon.type | formatType}}</el-col>
         <el-col :span="4" class="table-cell">{{coupon.useType | formatUseType}}</el-col>
-        <el-col :span="4" class="table-cell">满{{coupon.minPoint}}元可用</el-col>
-        <el-col :span="4" class="table-cell">{{coupon.amount}}元</el-col>
+        <el-col :span="4" class="table-cell">Full{{coupon.minPoint}}Yuan available</el-col>
+        <el-col :span="4" class="table-cell">{{coupon.amount}}Dollar</el-col>
         <el-col :span="4" class="table-cell">{{coupon.endTime | formatStatus}}</el-col>
       </el-row>
       <el-row>
-        <el-col :span="4" class="table-cell-title">有效期</el-col>
-        <el-col :span="4" class="table-cell-title">总发行量</el-col>
-        <el-col :span="4" class="table-cell-title">已领取</el-col>
-        <el-col :span="4" class="table-cell-title">待领取</el-col>
-        <el-col :span="4" class="table-cell-title">已使用</el-col>
-        <el-col :span="4" class="table-cell-title">未使用</el-col>
+        <el-col :span="4" class="table-cell-title">Expiry date</el-col>
+        <el-col :span="4" class="table-cell-title">Total Issue</el-col>
+        <el-col :span="4" class="table-cell-title">Received</el-col>
+        <el-col :span="4" class="table-cell-title">Pending</el-col>
+        <el-col :span="4" class="table-cell-title">Used</el-col>
+        <el-col :span="4" class="table-cell-title">Unused</el-col>
       </el-row>
       <el-row>
         <el-col :span="4" class="table-cell" style="font-size: 13px">
-          {{coupon.startTime|formatDate}}至{{coupon.endTime|formatDate}}
+          {{coupon.startTime|formatDate}}To{{coupon.endTime|formatDate}}
         </el-col>
         <el-col :span="4" class="table-cell">{{coupon.publishCount}}</el-col>
         <el-col :span="4" class="table-cell">{{coupon.receiveCount}}</el-col>
@@ -56,7 +56,7 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="使用状态：">
+          <el-form-item label="status of use：">
             <el-select class="input-width" clearable placeholder="All" v-model="listQuery.useStatus">
               <el-option :key="item.value"
                          :label="item.label"
@@ -76,22 +76,22 @@
                 border
                 ref="couponHistoryTable"
                 style="width: 100%;" v-loading="listLoading">
-        <el-table-column align="center" label="优惠码" width="160">
+        <el-table-column align="center" label="Coupon Code" width="160">
           <template slot-scope="scope">{{scope.row.couponCode}}</template>
         </el-table-column>
-        <el-table-column align="center" label="领取会员" width="140">
+        <el-table-column align="center" label="Member Nickname" width="140">
           <template slot-scope="scope">{{scope.row.memberNickname}}</template>
         </el-table-column>
-        <el-table-column align="center" label="领取方式" width="100">
+        <el-table-column align="center" label="Method of receipt" width="100">
           <template slot-scope="scope">{{scope.row.getType | formatGetType}}</template>
         </el-table-column>
-        <el-table-column align="center" label="领取时间" width="160">
+        <el-table-column align="center" label="Pick Time" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatTime}}</template>
         </el-table-column>
-        <el-table-column align="center" label="当前状态" width="140">
+        <el-table-column align="center" label="Current status" width="140">
           <template slot-scope="scope">{{scope.row.useStatus | formatCouponHistoryUseType}}</template>
         </el-table-column>
-        <el-table-column align="center" label="使用时间" width="160">
+        <el-table-column align="center" label="Usage time" width="160">
           <template slot-scope="scope">{{scope.row.useTime | formatTime}}</template>
         </el-table-column>
         <el-table-column align="center" label="Order SerialNumber">
@@ -120,19 +120,19 @@
 
   const defaultTypeOptions = [
     {
-      label: '全场赠券',
+      label: 'Coupons',
       value: 0
     },
     {
-      label: '会员赠券',
+      label: 'Member coupons',
       value: 1
     },
     {
-      label: '购物赠券',
+      label: 'Shopping coupons',
       value: 2
     },
     {
-      label: '注册赠券',
+      label: 'Registration coupon',
       value: 3
     }
   ];
@@ -145,15 +145,15 @@
   };
   const defaultUseTypeOptions = [
     {
-      label: "未使用",
+      label: "Unused",
       value: 0
     },
     {
-      label: "已使用",
+      label: "Used",
       value: 1
     },
     {
-      label: "已过期",
+      label: "Expired",
       value: 2
     }
   ];
@@ -187,20 +187,20 @@
       },
       formatUseType(useType) {
         if (useType === 0) {
-          return '全场通用';
+          return 'Universal';
         } else if (useType === 1) {
-          return '指定分类';
+          return 'Designated category';
         } else {
-          return '指定商品';
+          return 'Designated product';
         }
       },
       formatPlatform(platform) {
         if (platform === 1) {
-          return '移动平台';
+          return 'Mobile platform';
         } else if (platform === 2) {
-          return 'PC平台';
+          return 'PC platform';
         } else {
-          return '全平台';
+          return 'Full platform';
         }
       },
       formatDate(time) {
@@ -213,25 +213,25 @@
       formatStatus(endTime) {
         let now = new Date().getTime();
         if (endTime > now) {
-          return '未过期'
+          return 'Not Expired'
         } else {
-          return '已过期';
+          return 'Expired';
         }
       },
       formatGetType(type) {
         if (type === 1) {
-          return '主动获取';
+          return 'Active acquisition';
         } else {
-          return '后台赠送';
+          return 'Background gift';
         }
       },
       formatCouponHistoryUseType(useType) {
         if (useType === 0) {
-          return '未使用';
+          return 'Unused';
         } else if (useType === 1) {
-          return '已使用';
+          return 'Used';
         } else {
-          return '已过期';
+          return 'Expired';
         }
       },
       formatTime(time) {

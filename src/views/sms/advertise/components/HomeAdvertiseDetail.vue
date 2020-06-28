@@ -1,14 +1,14 @@
-<template> 
+<template>
   <el-card class="form-container" shadow="never">
     <el-form :model="homeAdvertise"
              :rules="rules"
              label-width="150px"
              ref="homeAdvertiseFrom"
              size="small">
-      <el-form-item label="广告名称：" prop="name">
+      <el-form-item label="Ad name：" prop="name">
         <el-input class="input-width" v-model="homeAdvertise.name"></el-input>
       </el-form-item>
-      <el-form-item label="广告位置：">
+      <el-form-item label="Ad placement：">
         <el-select v-model="homeAdvertise.type">
           <el-option
             :key="type.value"
@@ -18,34 +18,34 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="开始时间：" prop="startTime">
+      <el-form-item label="Starting time：" prop="startTime">
         <el-date-picker
-          placeholder="选择日期"
+          placeholder="Select Date"
           type="datetime"
           v-model="homeAdvertise.startTime"></el-date-picker>
       </el-form-item>
-      <el-form-item label="到期时间：" prop="endTime">
+      <el-form-item label="Ending Time：" prop="endTime">
         <el-date-picker
-          placeholder="选择日期"
+          placeholder="Select Date"
           type="datetime"
           v-model="homeAdvertise.endTime"></el-date-picker>
       </el-form-item>
-      <el-form-item label="上线/下线：">
+      <el-form-item label="Online/Offline：">
         <el-radio-group v-model="homeAdvertise.status">
-          <el-radio :label="0">下线</el-radio>
-          <el-radio :label="1">上线</el-radio>
+          <el-radio :label="0">Offline</el-radio>
+          <el-radio :label="1">Online</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="广告图片：">
+      <el-form-item label="Ad Image：">
         <single-upload v-model="homeAdvertise.pic"></single-upload>
       </el-form-item>
       <el-form-item label="Sort：">
         <el-input class="input-width" v-model="homeAdvertise.sort"></el-input>
       </el-form-item>
-      <el-form-item label="广告链接：" prop="url">
+      <el-form-item label="Advertising link：" prop="url">
         <el-input class="input-width" v-model="homeAdvertise.url"></el-input>
       </el-form-item>
-      <el-form-item label="广告备注：">
+      <el-form-item label="Advertising notes：">
         <el-input
           :rows="5"
           class="input-width"
@@ -67,11 +67,11 @@
 
   const defaultTypeOptions = [
     {
-      label: 'PC首页轮播',
+      label: 'PC Home Carousel',
       value: 0
     },
     {
-      label: 'APP首页轮播',
+      label: 'APP Home Carousel',
       value: 1
     }
   ];
@@ -100,20 +100,20 @@
         homeAdvertise: null,
         rules: {
           name: [
-            {required: true, message: '请输入广告名称', trigger: 'blur'},
+            {required: true, message: 'Please enter an ad name', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
           url: [
-            {required: true, message: '请输入广告链接', trigger: 'blur'}
+            {required: true, message: 'Please enter the advertising link', trigger: 'blur'}
           ],
           startTime: [
-            {required: true, message: '请选择开始时间', trigger: 'blur'}
+            {required: true, message: 'Please select a start time', trigger: 'blur'}
           ],
           endTime: [
-            {required: true, message: '请选择到期时间', trigger: 'blur'}
+            {required: true, message: 'Please select an expiration time', trigger: 'blur'}
           ],
           pic: [
-            {required: true, message: '请选择广告图片', trigger: 'blur'}
+            {required: true, message: 'Please select an advertising image', trigger: 'blur'}
           ]
         },
         typeOptions: Object.assign({}, defaultTypeOptions)

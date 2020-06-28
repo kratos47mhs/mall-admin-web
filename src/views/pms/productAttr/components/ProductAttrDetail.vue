@@ -1,11 +1,11 @@
 <template>
   <el-card class="form-container" shadow="never">
     <el-form :model="productAttr" :rules="rules" label-width="150px" ref="productAttrFrom">
-      <el-form-item label="属性名称：" prop="name">
+      <el-form-item label="Attribute name：" prop="name">
         <el-input v-model="productAttr.name"></el-input>
       </el-form-item>
-      <el-form-item label="商品类型：">
-        <el-select placeholder="请选择" v-model="productAttr.productAttributeCategoryId">
+      <el-form-item label="Product Types：">
+        <el-select placeholder="Please choose" v-model="productAttr.productAttributeCategoryId">
           <el-option
             :key="item.id"
             :label="item.name"
@@ -14,48 +14,48 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="分类筛选样式:">
+      <el-form-item label="Category filtering style:">
         <el-radio-group v-model="productAttr.filterType">
           <el-radio :label="0">普通</el-radio>
           <el-radio :label="1">颜色</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="能否进行检索:">
+      <el-form-item label="Is it possible to search:">
         <el-radio-group v-model="productAttr.searchType">
-          <el-radio :label="0">不需要检索</el-radio>
-          <el-radio :label="1">关键字检索</el-radio>
-          <el-radio :label="2">范围检索</el-radio>
+          <el-radio :label="0">No need to search</el-radio>
+          <el-radio :label="1">Keyword search</el-radio>
+          <el-radio :label="2">Range search</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="商品属性关联:">
+      <el-form-item label="Product attribute association:">
         <el-radio-group v-model="productAttr.relatedStatus">
           <el-radio :label="1">Yes</el-radio>
           <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="属性是否可选:">
+      <el-form-item label="Whether the attribute is optional:">
         <el-radio-group v-model="productAttr.selectType">
           <el-radio :label="0">唯一</el-radio>
-          <el-radio :label="1">单选</el-radio>
+          <el-radio :label="1">Radio button</el-radio>
           <el-radio :label="2">复选</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="属性值的录入方式:">
+      <el-form-item label="How to enter attribute values:">
         <el-radio-group v-model="productAttr.inputType">
-          <el-radio :label="0">手工录入</el-radio>
-          <el-radio :label="1">从下面列表中选择</el-radio>
+          <el-radio :label="0">Manual input</el-radio>
+          <el-radio :label="1">Choose from the list below</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="属性值可选值列表:">
+      <el-form-item label="Optional list of attribute values:">
         <el-input :autosize="true" type="textarea" v-model="inputListFormat"></el-input>
       </el-form-item>
-      <el-form-item label="是否支持手动新增:">
+      <el-form-item label="Whether to support manual addition:">
         <el-radio-group v-model="productAttr.handAddStatus">
           <el-radio :label="1">Yes</el-radio>
           <el-radio :label="0">No</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="排序属性：">
+      <el-form-item label="Sorting attribute：">
         <el-input v-model="productAttr.sort"></el-input>
       </el-form-item>
       <el-form-item>
@@ -96,7 +96,7 @@
         productAttr: Object.assign({}, defaultProductAttr),
         rules: {
           name: [
-            {required: true, message: '请输入属性名称', trigger: 'blur'},
+            {required: true, message: 'Please enter an attribute name', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ]
         },

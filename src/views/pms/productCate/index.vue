@@ -7,7 +7,7 @@
         @click="handleAddProductCate()"
         class="btn-add"
         size="mini">
-        添加
+        Add
       </el-button>
     </el-card>
     <div class="table-container">
@@ -18,19 +18,19 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="分类名称">
+        <el-table-column align="center" label="Category Name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="级别" width="100">
+        <el-table-column align="center" label="Level" width="100">
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
-        <el-table-column align="center" label="商品数量" width="100">
+        <el-table-column align="center" label="Amount of Products" width="100">
           <template slot-scope="scope">{{scope.row.productCount }}</template>
         </el-table-column>
-        <el-table-column align="center" label="数量单位" width="100">
+        <el-table-column align="center" label="Quantity unit" width="100">
           <template slot-scope="scope">{{scope.row.productUnit }}</template>
         </el-table-column>
-        <el-table-column align="center" label="导航栏" width="100">
+        <el-table-column align="center" label="Navigation Bar" width="100">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -53,16 +53,16 @@
         <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort }}</template>
         </el-table-column>
-        <el-table-column align="center" label="设置" width="200">
+        <el-table-column align="center" label="Setting+" width="200">
           <template slot-scope="scope">
             <el-button
               :disabled="scope.row.level | disableNextLevel"
               @click="handleShowNextLevel(scope.$index, scope.row)"
-              size="mini">查看下级
+              size="mini">View sub-Level
             </el-button>
             <el-button
               @click="handleTransferProduct(scope.$index, scope.row)"
-              size="mini">转移商品
+              size="mini">Transfer Product
             </el-button>
           </template>
         </el-table-column>
@@ -70,7 +70,7 @@
           <template slot-scope="scope">
             <el-button
               @click="handleUpdate(scope.$index, scope.row)"
-              size="mini">编辑
+              size="mini">Update Product
             </el-button>
             <el-button
               @click="handleDelete(scope.$index, scope.row)"
@@ -190,7 +190,7 @@
         this.$router.push({path: '/pms/updateProductCate', query: {id: row.id}});
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', 'Prompt', {
+        this.$confirm('Do you want to delete the brand', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -209,9 +209,9 @@
     filters: {
       levelFilter(value) {
         if (value === 0) {
-          return '一级';
+          return 'First Level';
         } else if (value === 1) {
-          return '二级';
+          return 'Second Level';
         }
       },
       disableNextLevel(value) {

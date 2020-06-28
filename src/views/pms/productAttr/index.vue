@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
@@ -7,7 +7,7 @@
         @click="addProductAttrCate()"
         class="btn-add"
         size="mini">
-        添加
+        Add
       </el-button>
     </el-card>
     <div class="table-container">
@@ -28,15 +28,15 @@
         <el-table-column align="center" label="参数数量" width="200">
           <template slot-scope="scope">{{scope.row.paramCount==null?0:scope.row.paramCount}}</template>
         </el-table-column>
-        <el-table-column align="center" label="设置" width="200">
+        <el-table-column align="center" label="Setting" width="200">
           <template slot-scope="scope">
             <el-button
               @click="getAttrList(scope.$index, scope.row)"
-              size="mini">属性列表
+              size="mini">Attribute List
             </el-button>
             <el-button
               @click="getParamList(scope.$index, scope.row)"
-              size="mini">参数列表
+              size="mini">Parameter List
             </el-button>
           </template>
         </el-table-column>
@@ -44,7 +44,7 @@
           <template slot-scope="scope">
             <el-button
               @click="handleUpdate(scope.$index, scope.row)"
-              size="mini">编辑
+              size="mini">Update Product
             </el-button>
             <el-button
               @click="handleDelete(scope.$index, scope.row)"
@@ -105,7 +105,7 @@
         },
         rules: {
           name: [
-            {required: true, message: '请输入类型名称', trigger: 'blur'}
+            {required: true, message: 'Please enter the type name', trigger: 'blur'}
           ]
         }
       }
@@ -124,7 +124,7 @@
       },
       addProductAttrCate() {
         this.dialogVisible = true;
-        this.dialogTitle = "添加类型";
+        this.dialogTitle = "Add Type";
       },
       handleSizeChange(val) {
         this.listQuery.pageNum = 1;
@@ -136,7 +136,7 @@
         this.getList();
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', 'Prompt', {
+        this.$confirm('Do you want to delete the brand', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -153,7 +153,7 @@
       },
       handleUpdate(index, row) {
         this.dialogVisible = true;
-        this.dialogTitle = "编辑类型";
+        this.dialogTitle = "Edit type";
         this.productAttrCate.name = row.name;
         this.productAttrCate.id = row.id;
       },
@@ -168,7 +168,7 @@
           if (valid) {
             let data = new URLSearchParams();
             data.append("name", this.productAttrCate.name);
-            if (this.dialogTitle === "添加类型") {
+            if (this.dialogTitle === "Add Type") {
               createProductAttrCate(data).then(response => {
                 this.$message({
                   message: 'Added successfully',

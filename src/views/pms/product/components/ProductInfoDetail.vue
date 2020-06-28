@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 50px">
     <el-form :model="value" :rules="rules" label-width="120px" ref="productInfoForm" size="small" style="width: 600px">
-      <el-form-item label="商品分类：" prop="productCategoryId">
+      <el-form-item label="Categories：" prop="productCategoryId">
         <el-cascader
           :options="productCateOptions"
           v-model="selectProductCateValue">
@@ -10,13 +10,13 @@
       <el-form-item label="Product Name：" prop="name">
         <el-input v-model="value.name"></el-input>
       </el-form-item>
-      <el-form-item label="副标题：" prop="subTitle">
+      <el-form-item label="Subtitle：" prop="subTitle">
         <el-input v-model="value.subTitle"></el-input>
       </el-form-item>
-      <el-form-item label="商品品牌：" prop="brandId">
+      <el-form-item label="Product Brand：" prop="brandId">
         <el-select
           @change="handleBrandChange"
-          placeholder="请选择品牌"
+          placeholder="Please select a brand"
           v-model="value.brandId">
           <el-option
             :key="item.value"
@@ -26,37 +26,37 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="商品介绍：">
+      <el-form-item label="Product Desciption：">
         <el-input
           :autoSize="true"
           placeholder="Please Enter"
           type="textarea"
           v-model="value.description"></el-input>
       </el-form-item>
-      <el-form-item label="商品货号：">
+      <el-form-item label="Product SerialNumber：">
         <el-input v-model="value.productSn"></el-input>
       </el-form-item>
-      <el-form-item label="商品售价：">
+      <el-form-item label="Product price：">
         <el-input v-model="value.price"></el-input>
       </el-form-item>
-      <el-form-item label="市场价：">
+      <el-form-item label="Original Price：">
         <el-input v-model="value.originalPrice"></el-input>
       </el-form-item>
       <el-form-item label="Product stocks：">
         <el-input v-model="value.stock"></el-input>
       </el-form-item>
-      <el-form-item label="计量单位：">
+      <el-form-item label="Unit of Measurement：">
         <el-input v-model="value.unit"></el-input>
       </el-form-item>
-      <el-form-item label="商品重量：">
+      <el-form-item label="Product Weight：">
         <el-input style="width: 300px" v-model="value.weight"></el-input>
-        <span style="margin-left: 20px">克</span>
+        <span style="margin-left: 20px">Weight</span>
       </el-form-item>
       <el-form-item label="Sort">
         <el-input v-model="value.sort"></el-input>
       </el-form-item>
       <el-form-item style="text-align: center">
-        <el-button @click="handleNext('productInfoForm')" size="medium" type="primary">下一步，填写商品促销</el-button>
+        <el-button @click="handleNext('productInfoForm')" size="medium" type="primary">Next step，Fill in product promotion</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -78,20 +78,20 @@
     data() {
       return {
         hasEditCreated: false,
-        //选中商品分类的值
+        //The value of the selected product category
         selectProductCateValue: [],
         productCateOptions: [],
         brandOptions: [],
         rules: {
           name: [
-            {required: true, message: '请输入商品名称', trigger: 'blur'},
+            {required: true, message: 'Please enter the product name', trigger: 'blur'},
             {min: 2, max: 140, message: '2 to 140 characters in length', trigger: 'blur'}
           ],
-          subTitle: [{required: true, message: '请输入商品副标题', trigger: 'blur'}],
-          productCategoryId: [{required: true, message: '请选择商品分类', trigger: 'blur'}],
-          brandId: [{required: true, message: '请选择商品品牌', trigger: 'blur'}],
-          description: [{required: true, message: '请输入商品介绍', trigger: 'blur'}],
-          requiredProp: [{required: true, message: '该项为必填项', trigger: 'blur'}]
+          subTitle: [{required: true, message: 'Please enter the Product Subtitle', trigger: 'blur'}],
+          productCategoryId: [{required: true, message: 'Please select Product Category', trigger: 'blur'}],
+          brandId: [{required: true, message: 'Please select Product Brand', trigger: 'blur'}],
+          description: [{required: true, message: 'Please enter the Product Description', trigger: 'blur'}],
+          requiredProp: [{required: true, message: 'This item is Required', trigger: 'blur'}]
         }
       };
     },
@@ -100,7 +100,7 @@
       this.getBrandList();
     },
     computed: {
-      //商品的编号
+      //Product ID
       productId() {
         return this.value.id;
       }
@@ -123,7 +123,7 @@
       }
     },
     methods: {
-      //处理编辑逻辑
+      //Processing editing logic
       handleEditCreated() {
         if (this.value.productCategoryId != null) {
           this.selectProductCateValue.push(this.value.cateParentId);

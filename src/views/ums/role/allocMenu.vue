@@ -10,8 +10,8 @@
       show-checkbox>
     </el-tree>
     <div align="center" style="margin-top: 20px">
-      <el-button @click="handleSave()" type="primary">保存</el-button>
-      <el-button @click="handleClear()">清空</el-button>
+      <el-button @click="handleSave()" type="primary">Save</el-button>
+      <el-button @click="handleClear()">Clear</el-button>
     </div>
 
   </el-card>
@@ -71,7 +71,7 @@
             }
           }
         }
-        this.$confirm('是否分配菜单？', 'Prompt', {
+        this.$confirm('Whether to assign the menu？', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -81,7 +81,7 @@
           params.append("menuIds", Array.from(checkedMenuIds));
           allocMenu(params).then(response => {
             this.$message({
-              message: '分配成功',
+              message: 'Assigned successfully',
               type: 'success',
               duration: 1000
             });

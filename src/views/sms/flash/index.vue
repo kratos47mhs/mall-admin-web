@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -20,8 +20,8 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="活动名称：">
-            <el-input class="input-width" clearable placeholder="活动名称" v-model="listQuery.keyword"></el-input>
+          <el-form-item label="Event name：">
+            <el-input class="input-width" clearable placeholder="Event name" v-model="listQuery.keyword"></el-input>
           </el-form-item>
         </el-form>
       </div>
@@ -29,8 +29,8 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加活动</el-button>
-      <el-button @click="handleShowSessionList()" class="btn-add" size="mini">秒杀时间段列表</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">Add event</el-button>
+      <el-button @click="handleShowSessionList()" class="btn-add" size="mini">Flash Promotion time period list</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -41,19 +41,19 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="活动标题">
+        <el-table-column align="center" label="Event title">
           <template slot-scope="scope">{{scope.row.title}}</template>
         </el-table-column>
-        <el-table-column align="center" label="活动状态" width="140">
+        <el-table-column align="center" label="Active status" width="140">
           <template slot-scope="scope">{{scope.row |formatActiveStatus}}</template>
         </el-table-column>
-        <el-table-column align="center" label="开始时间" width="140">
+        <el-table-column align="center" label="Starting time" width="140">
           <template slot-scope="scope">{{scope.row.startDate | formatDate}}</template>
         </el-table-column>
-        <el-table-column align="center" label="结束时间" width="140">
+        <el-table-column align="center" label="End Time" width="140">
           <template slot-scope="scope">{{scope.row.endDate | formatDate}}</template>
         </el-table-column>
-        <el-table-column align="center" label="上线/下线" width="200">
+        <el-table-column align="center" label="Online/Offline" width="200">
           <template slot-scope="scope">
             <el-switch
               :active-value="1"
@@ -67,12 +67,12 @@
           <template slot-scope="scope">
             <el-button @click="handleSelectSession(scope.$index, scope.row)"
                        size="mini"
-                       type="text">设置商品
+                       type="text">Set up products
             </el-button>
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
                        type="text">
-              编辑
+              Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -96,32 +96,32 @@
     </div>
     <el-dialog
       :visible.sync="dialogVisible"
-      title="添加活动"
+      title="Add event"
       width="40%">
       <el-form :model="flashPromotion"
                label-width="150px"
                ref="flashPromotionForm" size="small">
-        <el-form-item label="活动标题：">
+        <el-form-item label="Event title：">
           <el-input style="width: 250px" v-model="flashPromotion.title"></el-input>
         </el-form-item>
-        <el-form-item label="开始时间：">
+        <el-form-item label="Starting time：">
           <el-date-picker
             placeholder="Please Select Time"
             type="date"
             v-model="flashPromotion.startDate">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="结束时间：">
+        <el-form-item label="End Time：">
           <el-date-picker
             placeholder="Please Select Time"
             type="date"
             v-model="flashPromotion.endDate">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="上线/下线">
+        <el-form-item label="Online/Offline">
           <el-radio-group v-model="flashPromotion.status">
-            <el-radio :label="1">上线</el-radio>
-            <el-radio :label="0">下线</el-radio>
+            <el-radio :label="1">Online</el-radio>
+            <el-radio :label="0">Offline</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -168,11 +168,11 @@
       formatActiveStatus(row) {
         let nowTime = new Date().getTime();
         if (nowTime >= row.startDate && nowTime <= row.endDate) {
-          return '活动进行中';
+          return 'Event in progress';
         } else if (nowTime > row.endDate) {
-          return '活动已结束';
+          return 'Event is over';
         } else {
-          return '活动未开始';
+          return 'Event has not started';
         }
       },
       formatDate(time) {
@@ -209,7 +209,7 @@
         this.$router.push({path: '/sms/flashSession'})
       },
       handleStatusChange(index, row) {
-        this.$confirm('是否要修改该状态?', 'Prompt', {
+        this.$confirm('Do you want to modify the status?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -223,13 +223,13 @@
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '取消修改'
+            message: 'Cancel modification'
           });
           this.getList();
         });
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该活动?', 'Prompt', {
+        this.$confirm('Do you want to delete the event?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -249,7 +249,7 @@
         this.flashPromotion = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', 'Prompt', {
+        this.$confirm('Do you want to confirm?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

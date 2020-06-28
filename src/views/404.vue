@@ -7,7 +7,7 @@
       <el-col :span="12">
         <div style="margin-left: 100px;margin-top: 60px">
           <h1 class="color-main">OOPS!</h1>
-          <h2 style="color: #606266">很抱歉，页面它不小心迷路了！</h2>
+          <h2 style="color: #606266">Sorry, the page got lost accidentally！</h2>
           <div style="color:#909399;font-size: 14px">Please check if the URL you entered is correct, please click the
             button below to return to the homepage or send an error report
           </div>

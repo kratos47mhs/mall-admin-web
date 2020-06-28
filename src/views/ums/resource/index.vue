@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="app-container">
     <el-card class="filter-container" shadow="never">
       <div>
@@ -20,13 +20,13 @@
       </div>
       <div style="margin-top: 15px">
         <el-form :inline="true" :model="listQuery" label-width="140px" size="small">
-          <el-form-item label="资源名称：">
-            <el-input class="input-width" clearable placeholder="资源名称" v-model="listQuery.nameKeyword"></el-input>
+          <el-form-item label="Resource Name：">
+            <el-input class="input-width" clearable placeholder="Resource Name" v-model="listQuery.nameKeyword"></el-input>
           </el-form-item>
-          <el-form-item label="资源路径：">
-            <el-input class="input-width" clearable placeholder="资源路径" v-model="listQuery.urlKeyword"></el-input>
+          <el-form-item label="Resource path：">
+            <el-input class="input-width" clearable placeholder="Resource path" v-model="listQuery.urlKeyword"></el-input>
           </el-form-item>
-          <el-form-item label="资源分类：">
+          <el-form-item label="Resource category：">
             <el-select class="input-width" clearable placeholder="All" v-model="listQuery.categoryId">
               <el-option :key="item.value"
                          :label="item.label"
@@ -41,8 +41,8 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>Datasheets</span>
-      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">添加</el-button>
-      <el-button @click="handleShowCategory()" class="btn-add" size="mini">资源分类</el-button>
+      <el-button @click="handleAdd()" class="btn-add" size="mini" style="margin-left: 20px">Add</el-button>
+      <el-button @click="handleShowCategory()" class="btn-add" size="mini">Resource category</el-button>
     </el-card>
     <div class="table-container">
       <el-table :data="list"
@@ -52,16 +52,16 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="资源名称">
+        <el-table-column align="center" label="Resource Name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="资源路径">
+        <el-table-column align="center" label="Resource path">
           <template slot-scope="scope">{{scope.row.url}}</template>
         </el-table-column>
-        <el-table-column align="center" label="描述">
+        <el-table-column align="center" label="Description">
           <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
-        <el-table-column align="center" label="添加时间" width="160">
+        <el-table-column align="center" label="Add Time" width="160">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
         <el-table-column align="center" label="Manipulate" width="140">
@@ -69,7 +69,7 @@
             <el-button @click="handleUpdate(scope.$index, scope.row)"
                        size="mini"
                        type="text">
-              编辑
+              Update Product
             </el-button>
             <el-button @click="handleDelete(scope.$index, scope.row)"
                        size="mini"
@@ -92,19 +92,19 @@
       </el-pagination>
     </div>
     <el-dialog
-      :title="isEdit?'编辑资源':'添加资源'"
+      :title="isEdit?'Edit resources':'Add resources'"
       :visible.sync="dialogVisible"
       width="40%">
       <el-form :model="resource"
                label-width="150px"
                ref="resourceForm" size="small">
-        <el-form-item label="资源名称：">
+        <el-form-item label="Resource Name：">
           <el-input style="width: 250px" v-model="resource.name"></el-input>
         </el-form-item>
-        <el-form-item label="资源路径：">
+        <el-form-item label="Resource path：">
           <el-input style="width: 250px" v-model="resource.url"></el-input>
         </el-form-item>
-        <el-form-item label="资源分类：">
+        <el-form-item label="Resource category：">
           <el-select clearable placeholder="All" style="width: 250px" v-model="resource.categoryId">
             <el-option :key="item.value"
                        :label="item.label"
@@ -113,7 +113,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="描述：">
+        <el-form-item label="Description：">
           <el-input :rows="5"
                     style="width: 250px"
                     type="textarea"
@@ -198,7 +198,7 @@
         this.resource.categoryId = this.defaultCategoryId;
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该资源?', 'Prompt', {
+        this.$confirm('Do you want to delete the resource?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -218,7 +218,7 @@
         this.resource = Object.assign({}, row);
       },
       handleDialogConfirm() {
-        this.$confirm('是否要确认?', 'Prompt', {
+        this.$confirm('Do you want to confirm?', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'

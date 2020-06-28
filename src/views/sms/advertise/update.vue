@@ -1,4 +1,4 @@
-<template> 
+<template>
   <home-advertise-detail :isEdit="true"></home-advertise-detail>
 </template>
 <script>

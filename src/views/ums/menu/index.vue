@@ -7,7 +7,7 @@
         @click="handleAddMenu()"
         class="btn-add"
         size="mini">
-        添加
+        Add
       </el-button>
     </el-card>
     <div class="table-container">
@@ -18,16 +18,16 @@
         <el-table-column align="center" label="SerialNumber" width="100">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column align="center" label="菜单名称">
+        <el-table-column align="center" label="Menu Title">
           <template slot-scope="scope">{{scope.row.title}}</template>
         </el-table-column>
-        <el-table-column align="center" label="菜单级数" width="100">
+        <el-table-column align="center" label="Menu level" width="100">
           <template slot-scope="scope">{{scope.row.level | levelFilter}}</template>
         </el-table-column>
-        <el-table-column align="center" label="前端名称">
+        <el-table-column align="center" label="Menu name">
           <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column align="center" label="前端图标" width="100">
+        <el-table-column align="center" label="Menu name" width="100">
           <template slot-scope="scope">
             <svg-icon :icon-class="scope.row.icon"></svg-icon>
           </template>
@@ -45,13 +45,13 @@
         <el-table-column align="center" label="Sort" width="100">
           <template slot-scope="scope">{{scope.row.sort }}</template>
         </el-table-column>
-        <el-table-column align="center" label="设置" width="120">
+        <el-table-column align="center" label="Setting" width="120">
           <template slot-scope="scope">
             <el-button
               :disabled="scope.row.level | disableNextLevel"
               @click="handleShowNextLevel(scope.$index, scope.row)"
               size="mini"
-              type="text">查看下级
+              type="text">View sub-Level
             </el-button>
           </template>
         </el-table-column>
@@ -60,7 +60,7 @@
             <el-button
               @click="handleUpdate(scope.$index, scope.row)"
               size="mini"
-              type="text">编辑
+              type="text">Update Product
             </el-button>
             <el-button
               @click="handleDelete(scope.$index, scope.row)"
@@ -158,7 +158,7 @@
         this.$router.push({path: '/ums/updateMenu', query: {id: row.id}});
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该菜单', 'Prompt', {
+        this.$confirm('Do you want to delete this menu', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -177,9 +177,9 @@
     filters: {
       levelFilter(value) {
         if (value === 0) {
-          return '一级';
+          return 'First Level';
         } else if (value === 1) {
-          return '二级';
+          return 'Second Level';
         }
       },
       disableNextLevel(value) {

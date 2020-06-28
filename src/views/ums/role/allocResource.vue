@@ -17,8 +17,8 @@
       </el-row>
     </div>
     <div align="center" style="margin-top: 20px">
-      <el-button @click="handleSave()" type="primary">保存</el-button>
-      <el-button @click="handleClear()">清空</el-button>
+      <el-button @click="handleSave()" type="primary">Save</el-button>
+      <el-button @click="handleClear()">Clear</el-button>
     </div>
 
   </el-card>
@@ -119,7 +119,7 @@
         return checkedCount === cateResources.length;
       },
       handleSave() {
-        this.$confirm('是否分配资源？', 'Prompt', {
+        this.$confirm('Whether to allocate resources？', 'Prompt', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -137,7 +137,7 @@
           params.append("resourceIds", Array.from(checkedResourceIds));
           allocResource(params).then(response => {
             this.$message({
-              message: '分配成功',
+              message: 'Assigned successfully',
               type: 'success',
               duration: 1000
             });
