@@ -6,7 +6,7 @@
           <div class="out-border">
             <div class="layout-title">Back-end project</div>
             <div class="color-main address-content">
-              <a href="https://github.com/macrozheng/mall">mall</a>
+              <a href="https://github.com/kratos47mhs/mall">mall</a>
             </div>
           </div>
         </el-col>
@@ -14,7 +14,7 @@
           <div class="out-border">
             <div class="layout-title">Front-end project</div>
             <div class="color-main address-content">
-              <a href="https://github.com/macrozheng/mall-admin-web">mall-admin-web</a>
+              <a href="https://github.com/kratos47mhs/mall-admin-web">mall-admin-web</a>
             </div>
           </div>
         </el-col>
@@ -22,7 +22,7 @@
           <div class="out-border">
             <div class="layout-title">Mall Learning</div>
             <div class="color-main address-content">
-              <a href="https://github.com/macrozheng/mall-learning">mall-learning</a>
+              <a href="https://github.com/kratos47mhs/mall-learning">mall-learning</a>
             </div>
           </div>
         </el-col>
@@ -41,14 +41,14 @@
           <div class="total-frame">
             <img :src="img_home_today_amount" class="total-icon">
             <div class="total-title">Total sales today</div>
-            <div class="total-value">￥5000.00</div>
+            <div class="total-value">$5000.00</div>
           </div>
         </el-col>
         <el-col :span="6">
           <div class="total-frame">
             <img :src="img_home_yesterday_amount" class="total-icon">
             <div class="total-title">Total sales yesterday</div>
-            <div class="total-value">￥5000.00</div>
+            <div class="total-value">$5000.00</div>
           </div>
         </el-col>
         <!--<el-col :span="6">-->
@@ -56,20 +56,17 @@
         <!--<svg-icon icon-class="total-week" class="total-icon">-->
         <!--</svg-icon>-->
         <!--<div class="total-title">Total sales in the last 7 days</div>-->
-        <!--<div class="total-value">￥50000.00</div>-->
+        <!--<div class="total-value">$50000.00</div>-->
         <!--</div>-->
         <!--</el-col>-->
       </el-row>
     </div>
     <el-card class="mine-layout">
       <div style="text-align: center">
-        <img height="150px" src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/banner/qrcode_for_macrozheng_258.jpg"
+        <img height="150px" src="https://kratos47mhs.github.io/images/logo.png"
              width="150px">
       </div>
       <div style="text-align: center">Full set of learning tutorials in mall！</div>
-      <div style="text-align: center;margin-top: 5px"><span class="color-main">Pay attention to the public number</span>，Get
-        it the first time.
-      </div>
     </el-card>
     <div class="un-handle-layout">
       <div class="layout-title">Pending transaction</div>
